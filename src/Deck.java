@@ -1,8 +1,18 @@
+import java.util.ArrayList;
+
 public class Deck {
-    Card[] cards = new Card[52];
-    public Card[] cardsArray;
+    ArrayList<Card> cards = new ArrayList<Card>();
+    public ArrayList<Card> cardsArray;
 
     Deck() {
         this.cardsArray = cards;
+    }
+    public void createDeck(){
+        for(int suit = 0; suit < Suit.values().length; suit++) {
+            for(int rank = 0; rank < Rank.values().length; rank++) {
+                Card card = new Card(Rank.values()[rank], Suit.values()[suit]);
+                this.cardsArray.add(card);
+            }
+        }
     }
 }
