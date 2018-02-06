@@ -8,4 +8,8 @@ public class Bot {
         this.hand = handArray;
     }
 
+    public int weighHand() {
+        return 10;
+    }
+
 }
