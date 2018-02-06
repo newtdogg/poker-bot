@@ -4,30 +4,46 @@ public class Bot {
      ArrayList<Card> handArray = new ArrayList<Card>();
      public ArrayList<Card> hand;
      public int handWeight;
+     public Card card1;
+     public Card card2;
 
 
     Bot() {
         this.hand = handArray;
         this.handWeight = 0;
+        this.card1 = null;
+        this.card2 = null;
     }
 
-    public int weighHand(ArrayList<Card> hand) {
-        combineCardValue(hand);
-        highCardBonus(hand);
+    public void assignCards(ArrayList<Card> hand) {
+        this.card1 = hand.get(0);
+        this.card2 = hand.get(1);
+    }
+
+    public int weighHand() {
+        combineCardValue();
+        highCardBonus();
+        cardPositions();
         return this.handWeight;
     }
 
-    private void highCardBonus(ArrayList<Card> hand) {
-        if (hand.get(0).rank.ordinal() >= 8 && hand.get(1).rank.ordinal() >= 8) {
+    private void highCardBonus() {
+        if (this.card1.rank.ordinal() >= 8 && this.card2.rank.ordinal() >= 8) {
             handWeight += 10;
-        } else if (hand.get(0).rank.ordinal() >= 8 || hand.get(1).rank.ordinal() >= 8) {
+        } else if (this.card1.rank.ordinal() >= 8 || this.card2.rank.ordinal() >= 8) {
             handWeight += 2;
         }
     }
 
-    private void combineCardValue(ArrayList<Card> hand) {
-        int cardOneValue = hand.get(0).rank.ordinal() + 2;
-        int cardTwoValue = hand.get(1).rank.ordinal() + 2;
-        this.handWeight += (cardOneValue + cardTwoValue);
+    private void combineCardValue() {
+        int cardOneValue = this.card1.rank.ordinal() + 2;
+        int cardTwoValue = this.card2.rank.ordinal() + 2;
+        handWeight += (cardOneValue + cardTwoValue);
+    }
+
+    private void cardPositions() {
+        if (this.card1.rank.ordinal() == this.card2.rank.ordinal() + 1 || this.card1.rank.ordinal() == this.card2.rank.ordinal() - 1){
+            handWeight += 5;
+        }
     }
 }
