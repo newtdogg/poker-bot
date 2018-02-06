@@ -12,9 +12,8 @@ public class BotTest {
     public void botCanHoldTwoCards() {
 
         Bot bot = new Bot();
-
-        deck.createDeck();
-        deck.dealCards();
+        Dealer dealer = new Dealer();
+        dealer.dealCards(bot);
 
         Assert.assertEquals(2, bot.hand.size());
     }
