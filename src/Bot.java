@@ -31,6 +31,7 @@ public class Bot {
         combineCardValue();
         cardPositions();
         highCardBonus();
+        cardsAreSuited();
         return this.handWeight;
     }
 
@@ -69,6 +70,12 @@ public class Bot {
 
     private boolean pocketPairs() {
         return this.card1rank == this.card2rank;
+    }
+
+    private void cardsAreSuited(){
+        if (card1.suit == card2.suit) {
+            handWeight += 8;
+        }
     }
 
 

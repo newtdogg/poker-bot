@@ -73,5 +73,14 @@ public class BotTest {
         bot.hand.add(card2);
         Assert.assertEquals(8, bot.weighHand());
     }
+    @Test
+    public void comparingSuitedCards() {
+        Bot bot = new Bot();
+        Card card1 = new Card(Rank.TWO, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.SPADE);
+        bot.hand.add(card1);
+        bot.hand.add(card2);
+        Assert.assertEquals(16, bot.weighHand());
+    }
 
 }
