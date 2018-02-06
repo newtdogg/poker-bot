@@ -8,5 +8,4 @@ public class Bot {
         this.hand = handArray;
     }
 
-
 }

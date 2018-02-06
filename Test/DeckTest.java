@@ -14,6 +14,11 @@ public class DeckTest {
         deck.createDeck();
         Assert.assertEquals(52, deck.cards.size());
     }
+    @Test public void testDeckDeal() {
+
+        deck.createDeck();
+        Assert.assertEquals(50, deck.cards.size());
+    }
     @Test public void testDeckUnique() {
         deck = new Deck();
         deck.createDeck();

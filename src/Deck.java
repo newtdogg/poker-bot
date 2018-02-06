@@ -7,12 +7,14 @@ public class Deck {
     Deck() {
         this.cardsArray = cards;
     }
-    public void createDeck(){
+    public ArrayList<Card> createDeck(){
         for(int suit = 0; suit < Suit.values().length; suit++) {
             for(int rank = 0; rank < Rank.values().length; rank++) {
                 Card card = new Card(Rank.values()[rank], Suit.values()[suit]);
                 this.cardsArray.add(card);
             }
         }
+        return this.cardsArray;
     }
+
 }
