@@ -22,14 +22,14 @@ public class Bot {
 
     public int weighHand() {
         combineCardValue();
-        highCardBonus();
         cardPositions();
+        highCardBonus();
         return this.handWeight;
     }
 
     private void highCardBonus() {
         if (this.card1.rank.ordinal() >= 8 && this.card2.rank.ordinal() >= 8) {
-            handWeight += 10;
+            handWeight += 14;
         } else if (this.card1.rank.ordinal() >= 8 || this.card2.rank.ordinal() >= 8) {
             handWeight += 2;
         }
@@ -44,6 +44,8 @@ public class Bot {
     private void cardPositions() {
         if (this.card1.rank.ordinal() == this.card2.rank.ordinal() + 1 || this.card1.rank.ordinal() == this.card2.rank.ordinal() - 1){
             handWeight += 5;
+        } else if (this.card1.rank.ordinal() == this.card2.rank.ordinal()) {
+            handWeight *= 2;
         }
     }
 }

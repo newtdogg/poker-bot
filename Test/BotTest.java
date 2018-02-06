@@ -32,11 +32,11 @@ public class BotTest {
     public void weighingTwoHighCards() {
         Bot bot = new Bot();
         Card card1 = new Card(Rank.ACE, Suit.SPADE);
-        Card card2 = new Card(Rank.JACK, Suit.CLUB);
+        Card card2 = new Card(Rank.TEN, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
         bot.assignCards(bot.hand);
-        Assert.assertEquals(35, bot.weighHand());
+        Assert.assertEquals(38, bot.weighHand());
     }
     @Test
     public void comparingTwoConsecutiveCards() {
@@ -47,5 +47,25 @@ public class BotTest {
         bot.hand.add(card2);
         bot.assignCards(bot.hand);
         Assert.assertEquals(22, bot.weighHand());
+    }
+    @Test
+    public void comparingLowPocketPair() {
+        Bot bot = new Bot();
+        Card card1 = new Card(Rank.NINE, Suit.SPADE);
+        Card card2 = new Card(Rank.NINE, Suit.CLUB);
+        bot.hand.add(card1);
+        bot.hand.add(card2);
+        bot.assignCards(bot.hand);
+        Assert.assertEquals(36, bot.weighHand());
+    }
+    @Test
+    public void comparingHighPocketPair() {
+        Bot bot = new Bot();
+        Card card1 = new Card(Rank.ACE, Suit.SPADE);
+        Card card2 = new Card(Rank.ACE, Suit.CLUB);
+        bot.hand.add(card1);
+        bot.hand.add(card2);
+        bot.assignCards(bot.hand);
+        Assert.assertEquals(70, bot.weighHand());
     }
 }
