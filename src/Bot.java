@@ -42,10 +42,27 @@ public class Bot {
     }
 
     private void cardPositions() {
-        if (this.card1.rank.ordinal() == this.card2.rank.ordinal() + 1 || this.card1.rank.ordinal() == this.card2.rank.ordinal() - 1){
+        if (cardsAreConnected()){
             handWeight += 5;
-        } else if (this.card1.rank.ordinal() == this.card2.rank.ordinal()) {
+        } else if (cardsAreSemiConnected()){
+            handWeight += 2;
+        } else if (pocketPairs()) {
             handWeight *= 2;
         }
     }
+
+    private boolean cardsAreConnected() {
+        return (this.card1.rank.ordinal() == this.card2.rank.ordinal() + 1 || this.card1.rank.ordinal() == this.card2.rank.ordinal() - 1);
+    }
+
+    private boolean cardsAreSemiConnected() {
+        int difference = Math.abs(this.card1.rank.ordinal() - this.card2.rank.ordinal());
+        return (difference > 1 && difference < 5 );
+    }
+
+    private boolean pocketPairs() {
+        return this.card1.rank.ordinal() == this.card2.rank.ordinal();
+    }
+
+
 }
