@@ -25,7 +25,6 @@ public class BotTest {
         Card card2 = new Card(Rank.THREE, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
-        bot.assignCards(bot.hand);
         Assert.assertEquals(10, bot.weighHand());
     }
     @Test
@@ -35,7 +34,6 @@ public class BotTest {
         Card card2 = new Card(Rank.TEN, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
-        bot.assignCards(bot.hand);
         Assert.assertEquals(40, bot.weighHand());
     }
     @Test
@@ -45,7 +43,6 @@ public class BotTest {
         Card card2 = new Card(Rank.NINE, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
-        bot.assignCards(bot.hand);
         Assert.assertEquals(22, bot.weighHand());
     }
     @Test
@@ -55,7 +52,6 @@ public class BotTest {
         Card card2 = new Card(Rank.NINE, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
-        bot.assignCards(bot.hand);
         Assert.assertEquals(36, bot.weighHand());
     }
     @Test
@@ -65,7 +61,6 @@ public class BotTest {
         Card card2 = new Card(Rank.ACE, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
-        bot.assignCards(bot.hand);
         Assert.assertEquals(70, bot.weighHand());
     }
 
@@ -76,7 +71,6 @@ public class BotTest {
         Card card2 = new Card(Rank.FOUR, Suit.CLUB);
         bot.hand.add(card1);
         bot.hand.add(card2);
-        bot.assignCards(bot.hand);
         Assert.assertEquals(8, bot.weighHand());
     }
 
