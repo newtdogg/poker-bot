@@ -35,12 +35,12 @@ public class Evaluator {
 
     public boolean highestPair(){
 
-        // descending sort
-        for (int i = 0; i < hand.size()) {
-            if(Rank.valueOf(hand.get(i).rank.name()).ordinal() < Rank.valueOf(hand.get(i + 1).rank.name()).ordinal()) {
-                temp = Rank.valueOf(hand.get(i).rank.name());
-            }
-        }
+//        // descending sort
+//        for (int i = 0; i < hand.size(); i++) {
+//            if(Rank.valueOf(hand.get(i).rank.name()).ordinal() < Rank.valueOf(hand.get(i + 1).rank.name()).ordinal()) {
+//                temp = Rank.valueOf(hand.get(i).rank.name());
+//            }
+//        }
 
         int comp = 0;
         for (int i = 0; i < hand.size(); i++) {
