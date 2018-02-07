@@ -76,9 +76,9 @@ public class EvaluatorTest {
     }
 
     @Test public void groupHandBySuit() {
-        Card card1 = new Card(Rank.JACK, Suit.HEART);
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
         Card card3 = new Card(Rank.SIX, Suit.SPADE);
-        Card card4 = new Card(Rank.SIX, Suit.HEART);
+        Card card4 = new Card(Rank.JACK, Suit.HEART);
 
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
@@ -89,10 +89,12 @@ public class EvaluatorTest {
 
         evaluator.hand = cards;
 
-        Hashtable<String, ArrayList<Card>> groupBySuitTest = evaluator.handByRank(evaluator.hand);
+        Hashtable<String, ArrayList<Card>> groupBySuitTest = evaluator.handBySuit(evaluator.hand);
 
-        Assert.assertEquals(card1, groupBySuitTest.get(Suit.HEART.name()).get(0));
-        Assert.assertEquals(card4, groupBySuitTest.get(Suit.HEART.name()).get(1));
+        System.out.println(groupBySuitTest);
+
+        Assert.assertEquals(card4, groupBySuitTest.get(Suit.HEART.name()).get(0));
+        Assert.assertEquals(card1, groupBySuitTest.get(Suit.HEART.name()).get(1));
         Assert.assertEquals(card3, groupBySuitTest.get(Suit.SPADE.name()).get(0));
         Assert.assertEquals(2, groupBySuitTest.get(Suit.HEART.name()).size());
         Assert.assertEquals(1, groupBySuitTest.get(Suit.SPADE.name()).size());

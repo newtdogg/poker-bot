@@ -6,6 +6,7 @@ public class Evaluator {
 
     public ArrayList<Card> hand;
     public Hashtable<String, ArrayList<Card>> groupByRank;
+    public Hashtable<String, ArrayList<Card>> groupBySuit;
 
     public Hashtable<String, ArrayList<Card>> handByRank(ArrayList<Card> inputHand) {
         groupByRank = new Hashtable<String, ArrayList<Card>>();
@@ -46,8 +47,30 @@ public class Evaluator {
 //            groupByRank.get(rank).add(inputHand.get(i));
 //        }
 
-
         return groupByRank;
+    }
+
+    public Hashtable<String, ArrayList<Card>> handBySuit(ArrayList<Card> inputHand) {
+        groupBySuit = new Hashtable<String, ArrayList<Card>>();
+
+//        for (int i = 0; i < Rank.values().length; i++) {
+//            String key = Rank.name();
+//            groupByRank.put(key, new ArrayList<Card>());
+//        }
+
+        groupBySuit.put("HEART", new ArrayList<Card>());
+        groupBySuit.put("DIAMOND", new ArrayList<Card>());
+        groupBySuit.put("SPADE", new ArrayList<Card>());
+        groupBySuit.put("CLUB", new ArrayList<Card>());
+
+        Collections.sort(inputHand, Card.CardRankComparator);
+
+        for (int i = 0; i < inputHand.size(); i++) {
+            String suit = inputHand.get(i).suit.name();
+            groupBySuit.get(suit).add(inputHand.get(i));
+        }
+
+        return groupBySuit;
     }
 
 
