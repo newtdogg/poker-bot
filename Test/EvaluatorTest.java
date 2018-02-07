@@ -89,6 +89,11 @@ public class EvaluatorTest {
 
         evaluator.hand = cards;
 
+        for (int i = 0; i < Suit.values().length; i++) {
+            String key = Suit.values()[i].name();
+            System.out.println(key);
+        }
+
         Hashtable<String, ArrayList<Card>> groupBySuitTest = evaluator.handBySuit(evaluator.hand);
 
         System.out.println(groupBySuitTest);
