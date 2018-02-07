@@ -5,12 +5,50 @@ import java.util.Hashtable;
 public class Evaluator {
 
     public ArrayList<Card> hand;
+    public Hashtable<String, ArrayList<Card>> groupByRank;
 
-//    public Hashtable<String, ArrayList<Card>> groupByRank(ArrayList<Card> hand) {
-//        public Hashtable<String, ArrayList<Card>> cardsByRank = new Hashtable<String, ArrayList<Card>>();
+    public Hashtable<String, ArrayList<Card>> handByRank(ArrayList<Card> inputHand) {
+        groupByRank = new Hashtable<String, ArrayList<Card>>();
+
+//        for (int i = 0; i < Rank.values().length; i++) {
+//            String key = Rank.name();
+//            groupByRank.put(key, new ArrayList<Card>());
+//        }
+
+        groupByRank.put("ACE", new ArrayList<Card>());
+        groupByRank.put("KING", new ArrayList<Card>());
+        groupByRank.put("QUEEN", new ArrayList<Card>());
+        groupByRank.put("JACK", new ArrayList<Card>());
+        groupByRank.put("TEN", new ArrayList<Card>());
+        groupByRank.put("NINE", new ArrayList<Card>());
+        groupByRank.put("EIGHT", new ArrayList<Card>());
+        groupByRank.put("SEVEN", new ArrayList<Card>());
+        groupByRank.put("SIX", new ArrayList<Card>());
+        groupByRank.put("FIVE", new ArrayList<Card>());
+        groupByRank.put("FOUR", new ArrayList<Card>());
+        groupByRank.put("THREE", new ArrayList<Card>());
+        groupByRank.put("TWO", new ArrayList<Card>());
+
+
+
+        Collections.sort(inputHand, Card.CardRankComparator);
+
+        for (int i = 0; i < inputHand.size(); i++) {
+            String rank = inputHand.get(i).rank.name();
+            groupByRank.get(rank).add(inputHand.get(i));
+        }
+
+
+//        THIS BIT WOULD SORT BY SUIT, LEAVING UNSORTED FOR NOW
 //
-//        return cardsByRank;
-//    }
+//        for (int i = 0; i < groupByRank.size(); i++) {
+//            String rank = inputHand.get(i).rank.name();
+//            groupByRank.get(rank).add(inputHand.get(i));
+//        }
+
+
+        return groupByRank;
+    }
 
 
     public Card highCard(){
