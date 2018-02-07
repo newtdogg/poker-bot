@@ -16,19 +16,16 @@ public class Evaluator {
             groupByRank.put(key, new ArrayList<Card>());
         }
 
-        Collections.sort(inputHand, Card.CardRankComparator);
-
         for (int i = 0; i < inputHand.size(); i++) {
-            String rank = inputHand.get(i).rank.name();
-            groupByRank.get(rank).add(inputHand.get(i));
+            Card card = inputHand.get(i);
+            String rank = card.rank.name();
+            groupByRank.get(rank).add(card);
         }
-        
-//        THIS BIT WOULD SORT BY SUIT, LEAVING UNSORTED FOR NOW
-//
-//        for (int i = 0; i < groupByRank.size(); i++) {
-//            String rank = inputHand.get(i).rank.name();
-//            groupByRank.get(rank).add(inputHand.get(i));
-//        }
+
+        for (int i = 0; i < groupByRank.size(); i++) {
+            String rank = Rank.values()[i].name();
+            Collections.sort(groupByRank.get(rank), Card.CardSuitComparator);
+        }
 
         return groupByRank;
     }
@@ -41,11 +38,15 @@ public class Evaluator {
             groupBySuit.put(key, new ArrayList<Card>());
         }
 
-//        Collections.sort(inputHand, Card.CardRankComparator);
-
         for (int i = 0; i < inputHand.size(); i++) {
-            String suit = inputHand.get(i).suit.name();
-            groupBySuit.get(suit).add(inputHand.get(i));
+            Card card = inputHand.get(i);
+            String suit = card.suit.name();
+            groupBySuit.get(suit).add(card);
+        }
+
+        for (int i = 0; i < groupBySuit.size(); i++) {
+            String suit = Suit.values()[i].name();
+            Collections.sort(groupBySuit.get(suit), Card.CardRankComparator);
         }
 
         return groupBySuit;

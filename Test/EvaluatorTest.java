@@ -68,8 +68,8 @@ public class EvaluatorTest {
         Hashtable<String, ArrayList<Card>> groupByRankTest = evaluator.handByRank(evaluator.hand);
 
         Assert.assertEquals(card1, groupByRankTest.get(Rank.JACK.name()).get(0));
-        Assert.assertEquals(card3, groupByRankTest.get(Rank.SIX.name()).get(0));
-        Assert.assertEquals(card4, groupByRankTest.get(Rank.SIX.name()).get(1));
+        Assert.assertEquals(card4, groupByRankTest.get(Rank.SIX.name()).get(0));
+        Assert.assertEquals(card3, groupByRankTest.get(Rank.SIX.name()).get(1));
         Assert.assertEquals(1, groupByRankTest.get(Rank.JACK.name()).size());
         Assert.assertEquals(2, groupByRankTest.get(Rank.SIX.name()).size());
 
