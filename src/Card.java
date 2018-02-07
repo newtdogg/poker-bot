@@ -19,4 +19,14 @@ public class Card {
             return rank2-rank1;
         }
     };
+
+    public static Comparator<Card> CardSuitComparator = new Comparator<Card>() {
+        @Override
+        public int compare(Card c1, Card c2) {
+            int suit1 = Suit.valueOf(c1.suit.name()).ordinal();
+            int suit2 = Suit.valueOf(c2.suit.name()).ordinal();
+
+            return suit1-suit2;
+        }
+    };
 }
