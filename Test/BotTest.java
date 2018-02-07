@@ -100,5 +100,12 @@ public class BotTest {
         dealer.dealRiver(bot);
         Assert.assertEquals(1, bot.playableHand.size());
     }
+    @Test
+    public void originalDeltCardsAreAddedToPlayableHand() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+        dealer.dealCards(bot);
+        Assert.assertEquals(2, bot.playableHand.size());
+    }
 
 }

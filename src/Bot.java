@@ -22,10 +22,6 @@ public class Bot {
         this.card2rank = 0;
     }
 
-    public void dealFlop() {
-
-    }
-
     private void assignCards(ArrayList<Card> hand) {
         this.card1 = hand.get(0);
         this.card2 = hand.get(1);

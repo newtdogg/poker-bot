@@ -23,6 +23,9 @@ public class Dealer {
         Card card2 = this.deck.get(index2);
         this.deck.remove(card2);
         bot.hand.add(card2);
+        bot.playableHand.add(card1);
+        bot.playableHand.add(card2);
+
     }
 
     public void dealFlop(Bot bot) {
