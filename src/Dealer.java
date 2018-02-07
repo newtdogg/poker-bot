@@ -43,18 +43,20 @@ public class Dealer {
         bot.playableHand.add(card3);
     }
 
-    public void dealTurn(){
+    public void dealTurn(Bot bot){
         int index1 = r.nextInt(this.deck.size() - 6);
         Card card1 = this.deck.get(index1);
         this.deck.remove(card1);
         this.board.add(card1);
+        bot.playableHand.add(card1);
     }
 
-    public void dealRiver(){
+    public void dealRiver(Bot bot){
         int index1 = r.nextInt(this.deck.size() - 7);
         Card card1 = this.deck.get(index1);
         this.deck.remove(card1);
         this.board.add(card1);
+        bot.playableHand.add(card1);
     }
 
 }
