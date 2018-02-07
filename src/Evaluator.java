@@ -1,22 +1,21 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 
 public class Evaluator {
 
     public ArrayList<Card> hand;
 
+//    public Hashtable<String, ArrayList<Card>> groupByRank(ArrayList<Card> hand) {
+//        public Hashtable<String, ArrayList<Card>> cardsByRank = new Hashtable<String, ArrayList<Card>>();
+//
+//        return cardsByRank;
+//    }
+
+
     public Card highCard(){
-
-        int max = Rank.valueOf(hand.get(0).rank.name()).ordinal();
-        int maxIndex = 0;
-
-        for (int i = 0; i < hand.size(); i++) {
-            if(Rank.valueOf(hand.get(i).rank.name()).ordinal() > max) {
-                max = Rank.valueOf(hand.get(i).rank.name()).ordinal();
-                maxIndex = i;
-            }
-        }
-        return hand.get(maxIndex);
+        Collections.sort(hand, Card.CardRankComparator);
+        return hand.get(0);
     }
 
     public boolean pair(){
