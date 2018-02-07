@@ -2,7 +2,9 @@ import java.util.ArrayList;
 
 public class Bot {
      ArrayList<Card> handArray = new ArrayList<Card>();
+     ArrayList<Card> playableHandArray = new ArrayList<Card>();
      public ArrayList<Card> hand;
+     public ArrayList<Card> playableHand;
      public int handWeight;
      public Card card1;
      public Card card2;
@@ -12,11 +14,16 @@ public class Bot {
 
     Bot() {
         this.hand = handArray;
+        this.playableHand = playableHandArray;
         this.handWeight = 0;
         this.card1 = null;
         this.card2 = null;
         this.card1rank = 0;
         this.card2rank = 0;
+    }
+
+    public void dealFlop() {
+
     }
 
     private void assignCards(ArrayList<Card> hand) {

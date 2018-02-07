@@ -83,4 +83,15 @@ public class BotTest {
         Assert.assertEquals(16, bot.weighHand());
     }
 
+    @Test
+    public void addFlopToHand() {
+        Bot bot = new Bot();
+
+        Dealer dealer = new Dealer();
+
+        dealer.dealFlop(bot);
+
+        Assert.assertEquals(3, bot.playableHand.size());
+    }
+
 }

@@ -23,7 +23,9 @@ public class DealerTest {
 
         Dealer dealer = new Dealer();
 
-        dealer.dealFlop();
+        Bot bot = new Bot();
+
+        dealer.dealFlop(bot);
 
         Assert.assertEquals(3, dealer.board.size());
     }
@@ -33,7 +35,9 @@ public class DealerTest {
 
         Dealer dealer = new Dealer();
 
-        dealer.dealFlop();
+        Bot bot = new Bot();
+
+        dealer.dealFlop(bot);
 
         dealer.dealTurn();
 
@@ -45,7 +49,9 @@ public class DealerTest {
 
         Dealer dealer = new Dealer();
 
-        dealer.dealFlop();
+        Bot bot = new Bot();
+
+        dealer.dealFlop(bot);
 
         dealer.dealTurn();
 
