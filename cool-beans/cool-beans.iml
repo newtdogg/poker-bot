@@ -8,6 +8,14 @@
     </content>
     <orderEntry type="jdk" jdkName="9.0" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="library" exported="" name="junit:junit:4.12" level="project" />
+=======
+<<<<<<< HEAD
+    <orderEntry type="library" name="junit:junit:4.12" level="project" />
+=======
+    <orderEntry type="library" exported="" name="junit:junit:4.12" level="project" />
+>>>>>>> gamelogic
+>>>>>>> a5a6acad0855a8de87a58a99adcb5e5eb85d6590
   </component>
 </module>
