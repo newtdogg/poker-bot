@@ -83,4 +83,29 @@ public class BotTest {
         Assert.assertEquals(16, bot.weighHand());
     }
 
+    @Test
+    public void addFlopToHand() {
+        Bot bot = new Bot();
+
+        Dealer dealer = new Dealer();
+
+        dealer.dealFlop(bot);
+
+        Assert.assertEquals(3, bot.playableHand.size());
+    }
+    @Test
+    public void addRiverToHand() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+        dealer.dealRiver(bot);
+        Assert.assertEquals(1, bot.playableHand.size());
+    }
+    @Test
+    public void originalDeltCardsAreAddedToPlayableHand() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+        dealer.dealCards(bot);
+        Assert.assertEquals(2, bot.playableHand.size());
+    }
+
 }

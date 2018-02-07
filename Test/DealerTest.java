@@ -18,4 +18,46 @@ public class DealerTest {
         Assert.assertEquals(2, bot.hand.size());
     }
 
+    @Test
+    public void dealFlop(){
+
+        Dealer dealer = new Dealer();
+
+        Bot bot = new Bot();
+
+        dealer.dealFlop(bot);
+
+        Assert.assertEquals(3, dealer.board.size());
+    }
+
+    @Test
+    public void dealTurn(){
+
+        Dealer dealer = new Dealer();
+
+        Bot bot = new Bot();
+
+        dealer.dealFlop(bot);
+
+        dealer.dealTurn(bot);
+
+        Assert.assertEquals(4, dealer.board.size());
+    }
+
+    @Test
+    public void dealRiver(){
+
+        Dealer dealer = new Dealer();
+
+        Bot bot = new Bot();
+
+        dealer.dealFlop(bot);
+
+        dealer.dealTurn(bot);
+
+        dealer.dealRiver(bot);
+
+        Assert.assertEquals(5, dealer.board.size());
+    }
+
 }
