@@ -76,7 +76,6 @@ public class Evaluator {
         }
     }
 
-
     public Card highCard(){
         Collections.sort(hand, Card.CardRankComparator);
         return hand.get(0);
@@ -127,6 +126,21 @@ public class Evaluator {
                  }
             }
         }
+        return counter == 4;
+    }
+
+    public boolean mediumStraight() {
+        sortHand();
+        int secondHighestCardOrdinal = sortedHand.get(1).rank.ordinal();
+        int counter = 0;
+        for (int j = 1; j < 5; j++) {
+            for (int i = 1; i < sortedHand.size(); i++) {
+                if(secondHighestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+                    counter += 1;
+                }
+            }
+        }
+        System.out.println(counter);
         return counter == 4;
     }
 
