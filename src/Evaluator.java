@@ -107,6 +107,14 @@ public class Evaluator {
         return false;
     }
 
+    public boolean fullHouse() {
+        handByRank(hand);
+        if (threeOfAKind() && pair()) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean highestPair(){
 
 //        // descending sort
