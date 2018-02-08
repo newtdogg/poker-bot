@@ -1,12 +1,20 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
 
 public class Evaluator {
 
     public ArrayList<Card> hand;
+    public ArrayList<Card> sortedHand;
     public Hashtable<String, ArrayList<Card>> groupByRank;
     public Hashtable<String, ArrayList<Card>> groupBySuit;
+
+    private ArrayList<Card> sortHand() {
+        sortedHand = hand;
+        Collections.sort(sortedHand, Card.CardRankComparator);
+        return sortedHand;
+    }
 
     public Hashtable<String, ArrayList<Card>> handByRank(ArrayList<Card> inputHand) {
         createHandByRankHashTable();
@@ -74,18 +82,6 @@ public class Evaluator {
         return hand.get(0);
     }
 
-    public boolean flush(){
-        handBySuit(hand);
-
-        for (int i = 0; i < groupBySuit.size(); i++){
-            String key = Suit.values()[i].name();
-            if (groupBySuit.get(key).size() >= 4){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean pair(){
         handByRank(hand);
         for (int i = groupByRank.size()-1; i >= 0; --i) {
@@ -95,6 +91,18 @@ public class Evaluator {
             }
         }
         return false;
+    }
+
+    public boolean twoPair() {
+        handByRank(hand);
+        int pairCount = 0;
+        for (int i = groupByRank.size()-1; i >= 0; --i) {
+            String key = Rank.values()[i].name();
+            if (groupByRank.get(key).size() == 2) {
+                pairCount += 1;
+            }
+        }
+        return pairCount == 2;
     }
 
     public boolean threeOfAKind(){
@@ -108,11 +116,26 @@ public class Evaluator {
         return false;
     }
 
-    public boolean fourOfAKind(){
-        handByRank(hand);
-        for (int i = groupByRank.size()-1; i >= 0; --i) {
-            String key = Rank.values()[i].name();
-            if (groupByRank.get(key).size() == 4) {
+    public boolean highStraight(){
+        sortHand();
+        int highestCardOrdinal = sortedHand.get(0).rank.ordinal();
+        int counter = 0;
+        for (int j = 1; j < 5; j++) {
+            for (int i = 1; i < sortedHand.size(); i++) {
+                 if(highestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+                     counter += 1;
+                 }
+            }
+        }
+        return counter == 4;
+    }
+
+    public boolean flush(){
+        handBySuit(hand);
+
+        for (int i = 0; i < groupBySuit.size(); i++){
+            String key = Suit.values()[i].name();
+            if (groupBySuit.get(key).size() >= 4){
                 return true;
             }
         }
@@ -127,20 +150,15 @@ public class Evaluator {
         return false;
     }
 
-    public boolean twoPair() {
+    public boolean fourOfAKind(){
         handByRank(hand);
-        int pairCount = 0;
         for (int i = groupByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
-            if (groupByRank.get(key).size() == 2) {
-                pairCount += 1;
+            if (groupByRank.get(key).size() == 4) {
+                return true;
             }
         }
-        if (pairCount == 2) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public boolean highestPair(){
