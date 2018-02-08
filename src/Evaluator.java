@@ -21,9 +21,9 @@ public class Evaluator {
 
     public boolean pair(){
         hand.groupByRank(hand.playableCards);
-        for (int i = groupByRank.size()-1; i >= 0; --i) {
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
-            if (groupByRank.get(key).size() == 2) {
+            if (hand.groupedByRank.get(key).size() == 2) {
                 return true;
             }
         }
@@ -33,9 +33,9 @@ public class Evaluator {
     public boolean twoPair() {
         hand.groupByRank(hand.playableCards);
         int pairCount = 0;
-        for (int i = groupByRank.size()-1; i >= 0; --i) {
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
-            if (groupByRank.get(key).size() == 2) {
+            if (hand.groupedByRank.get(key).size() == 2) {
                 pairCount += 1;
             }
         }
@@ -44,9 +44,9 @@ public class Evaluator {
 
     public boolean threeOfAKind(){
         hand.groupByRank(hand.playableCards);
-        for (int i = groupByRank.size()-1; i >= 0; --i) {
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
-            if (groupByRank.get(key).size() == 3) {
+            if (hand.groupedByRank.get(key).size() == 3) {
                 return true;
             }
         }
@@ -55,25 +55,26 @@ public class Evaluator {
 
     public boolean highStraight(){
         hand.sortHand();
-        int highestCardOrdinal = sortedHand.get(0).rank.ordinal();
+        int highestCardOrdinal = hand.sortedHighToLow.get(0).rank.ordinal();
         int counter = 0;
         for (int j = 1; j < 5; j++) {
-            for (int i = 1; i < sortedHand.size(); i++) {
-                 if(highestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
+                 if(highestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
                      counter += 1;
                  }
             }
         }
+        System.out.println(counter);
         return counter == 4;
     }
 
     public boolean mediumStraight() {
         hand.sortHand();
-        int secondHighestCardOrdinal = sortedHand.get(1).rank.ordinal();
+        int secondHighestCardOrdinal = hand.sortedHighToLow.get(1).rank.ordinal();
         int counter = 0;
         for (int j = 1; j < 5; j++) {
-            for (int i = 1; i < sortedHand.size(); i++) {
-                if(secondHighestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
+                if(secondHighestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
             }
@@ -84,11 +85,11 @@ public class Evaluator {
 
     public boolean lowStraight() {
         hand.sortHand();
-        int thirdHighestCardOrdinal = sortedHand.get(2).rank.ordinal();
+        int thirdHighestCardOrdinal = hand.sortedHighToLow.get(2).rank.ordinal();
         int counter = 0;
         for (int j = 1; j < 5; j++) {
-            for (int i = 1; i < sortedHand.size(); i++) {
-                if(thirdHighestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
+                if(thirdHighestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
             }
@@ -99,25 +100,25 @@ public class Evaluator {
 
     public boolean aceLowStraight() {
         hand.sortHand();
-        int thirdHighestCardOrdinal = sortedHand.get(3).rank.ordinal();
+        int thirdHighestCardOrdinal = hand.sortedHighToLow.get(3).rank.ordinal();
         int counter = 0;
         for (int j = 1; j < 4; j++) {
-            for (int i = 1; i < sortedHand.size(); i++) {
-                if(thirdHighestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
+                if(thirdHighestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
             }
         }
         System.out.println(counter);
-        return counter == 3 && sortedHand.get(0).rank == Rank.ACE;
+        return counter == 3 && hand.sortedHighToLow.get(0).rank == Rank.ACE;
     }
 
     public boolean flush(){
         hand.groupBySuit(hand.playableCards);
 
-        for (int i = 0; i < groupBySuit.size(); i++){
+        for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
-            if (groupBySuit.get(key).size() >= 4){
+            if (hand.groupedBySuit.get(key).size() >= 4){
                 return true;
             }
         }
@@ -134,9 +135,9 @@ public class Evaluator {
 
     public boolean fourOfAKind(){
         hand.groupByRank(hand.playableCards);
-        for (int i = groupByRank.size()-1; i >= 0; --i) {
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
-            if (groupByRank.get(key).size() == 4) {
+            if (hand.groupedByRank.get(key).size() == 4) {
                 return true;
             }
         }
