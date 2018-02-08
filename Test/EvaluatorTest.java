@@ -322,4 +322,87 @@ public class EvaluatorTest {
 
         Assert.assertEquals(true, evaluator.lowStraight());
     }
+
+    @Test public void checkingStraightTypeWithAllStraightMethods(){
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.ACE, Suit.HEART);
+        Card card2 = new Card(Rank.ACE, Suit.SPADE);
+        Card card3 = new Card(Rank.KING, Suit.HEART);
+        Card card4 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card5 = new Card(Rank.JACK, Suit.HEART);
+        Card card6 = new Card(Rank.TEN, Suit.HEART);
+        Card card7 = new Card(Rank.EIGHT, Suit.DIAMOND);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        Evaluator evaluator = new Evaluator();
+
+        evaluator.hand = cards;
+        Assert.assertEquals(true, evaluator.highStraight());
+        Assert.assertEquals(true, evaluator.mediumStraight());
+        Assert.assertEquals(false, evaluator.lowStraight());
+    }
+
+    @Test public void testNotAStraight() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.ACE, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.KING, Suit.HEART);
+        Card card4 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card5 = new Card(Rank.FOUR, Suit.HEART);
+        Card card6 = new Card(Rank.THREE, Suit.HEART);
+        Card card7 = new Card(Rank.TWO, Suit.DIAMOND);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        Evaluator evaluator = new Evaluator();
+
+        evaluator.hand = cards;
+        Assert.assertEquals(false, evaluator.highStraight());
+        Assert.assertEquals(false, evaluator.mediumStraight());
+        Assert.assertEquals(false, evaluator.lowStraight());
+    }
+    @Test public void testLowestStraightAce() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.ACE, Suit.HEART);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.KING, Suit.HEART);
+        Card card4 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card5 = new Card(Rank.FOUR, Suit.HEART);
+        Card card6 = new Card(Rank.THREE, Suit.HEART);
+        Card card7 = new Card(Rank.TWO, Suit.DIAMOND);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        Evaluator evaluator = new Evaluator();
+
+        evaluator.hand = cards;
+        Assert.assertEquals(false, evaluator.highStraight());
+        Assert.assertEquals(false, evaluator.mediumStraight());
+        Assert.assertEquals(false, evaluator.lowStraight());
+        Assert.assertEquals(true, evaluator.aceLowStraight());
+    }
+
+
 }

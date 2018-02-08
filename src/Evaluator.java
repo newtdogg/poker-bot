@@ -159,6 +159,21 @@ public class Evaluator {
         return counter == 4;
     }
 
+    public boolean aceLowStraight() {
+        sortHand();
+        int thirdHighestCardOrdinal = sortedHand.get(3).rank.ordinal();
+        int counter = 0;
+        for (int j = 1; j < 4; j++) {
+            for (int i = 1; i < sortedHand.size(); i++) {
+                if(thirdHighestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+                    counter += 1;
+                }
+            }
+        }
+        System.out.println(counter);
+        return counter == 3 && sortedHand.get(0).rank == Rank.ACE;
+    }
+
     public boolean flush(){
         handBySuit(hand);
 
