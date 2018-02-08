@@ -2,6 +2,9 @@ import java.util.ArrayList;
 public class Bot {
     ArrayList<Card> handArray = new ArrayList<Card>();
     ArrayList<Card> playableHandArray = new ArrayList<Card>();
+    ArrayList<Card> evaluatorHandArray = new ArrayList<Card>();
+    Evaluator aEvaluator = new Evaluator();
+    Evaluator evaluator;
     public Hand hand;
     public ArrayList<Card> playableHand;
     public int handWeight;
@@ -16,7 +19,17 @@ public class Bot {
         this.card2 = null;
         this.card1rank = 0;
         this.card2rank = 0;
+        this.evaluator = aEvaluator;
     }
+
+    public void passHandToEvaluator() {
+        for (int i = 0; i < this.hand.playableCards.size(); i++){
+            evaluatorHandArray.add(this.hand.playableCards.get(i));
+        }
+        
+        this.evaluator.hand = this.hand.playableCards;
+    }
+
     private void assignCards() {
         this.card1 = this.hand.holdEm.get(0);
         this.card2 = this.hand.holdEm.get(1);
@@ -31,6 +44,15 @@ public class Bot {
         cardsAreSuited();
         return this.handWeight;
     }
+
+    public String evaluateHand() {
+        passHandToEvaluator();
+        if(this.evaluator.pair()) {
+            return "Pair";
+        }
+        return "Not pair";
+    }
+
     private void highCardBonus() {
         if (this.card1rank >= 8 && this.card2rank >= 8) {
             handWeight += 14;
