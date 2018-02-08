@@ -144,6 +144,21 @@ public class Evaluator {
         return counter == 4;
     }
 
+    public boolean lowStraight() {
+        sortHand();
+        int thirdHighestCardOrdinal = sortedHand.get(2).rank.ordinal();
+        int counter = 0;
+        for (int j = 1; j < 5; j++) {
+            for (int i = 1; i < sortedHand.size(); i++) {
+                if(thirdHighestCardOrdinal - j == sortedHand.get(i).rank.ordinal()) {
+                    counter += 1;
+                }
+            }
+        }
+        System.out.println(counter);
+        return counter == 4;
+    }
+
     public boolean flush(){
         handBySuit(hand);
 
