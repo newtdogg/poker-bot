@@ -27,61 +27,10 @@ public class EvaluatorTest {
         cards.add(card6);
 
         Evaluator evaluator = new Evaluator();
-
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
 
         Assert.assertEquals(card5, evaluator.highCard());
 
-    }
-
-
-    @Test public void groupHandByRank() {
-        Card card1 = new Card(Rank.JACK, Suit.HEART);
-        Card card3 = new Card(Rank.SIX, Suit.SPADE);
-        Card card4 = new Card(Rank.SIX, Suit.HEART);
-
-        ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(card1);
-        cards.add(card3);
-        cards.add(card4);
-
-        Evaluator evaluator = new Evaluator();
-
-        evaluator.hand = cards;
-
-        Hashtable<String, ArrayList<Card>> groupByRankTest = evaluator.handByRank(evaluator.hand);
-
-        Assert.assertEquals(card1, groupByRankTest.get(Rank.JACK.name()).get(0));
-        Assert.assertEquals(card4, groupByRankTest.get(Rank.SIX.name()).get(0));
-        Assert.assertEquals(card3, groupByRankTest.get(Rank.SIX.name()).get(1));
-        Assert.assertEquals(1, groupByRankTest.get(Rank.JACK.name()).size());
-        Assert.assertEquals(2, groupByRankTest.get(Rank.SIX.name()).size());
-
-    }
-
-    @Test public void groupHandBySuit() {
-        Card card1 = new Card(Rank.SIX, Suit.HEART);
-        Card card3 = new Card(Rank.SIX, Suit.SPADE);
-        Card card4 = new Card(Rank.JACK, Suit.HEART);
-
-        ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(card1);
-        cards.add(card3);
-        cards.add(card4);
-
-        Evaluator evaluator = new Evaluator();
-
-        evaluator.hand = cards;
-
-        Hashtable<String, ArrayList<Card>> groupBySuitTest = evaluator.handBySuit(evaluator.hand);
-
-        System.out.println(groupBySuitTest);
-
-        Assert.assertEquals(card4, groupBySuitTest.get(Suit.HEART.name()).get(0));
-        Assert.assertEquals(card1, groupBySuitTest.get(Suit.HEART.name()).get(1));
-        Assert.assertEquals(card3, groupBySuitTest.get(Suit.SPADE.name()).get(0));
-        Assert.assertEquals(2, groupBySuitTest.get(Suit.HEART.name()).size());
-        Assert.assertEquals(1, groupBySuitTest.get(Suit.SPADE.name()).size());
     }
 
     @Test public void testIsThereIsAPair() {
@@ -99,7 +48,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.pair());
 
 
@@ -120,7 +69,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.threeOfAKind());
     }
 
@@ -139,7 +88,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.fourOfAKind());
     }
 
@@ -158,7 +107,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.threeOfAKind());
     }
 
@@ -177,7 +126,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.fullHouse());
     }
 
@@ -196,7 +145,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.fullHouse());
     }
 
@@ -215,7 +164,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         Evaluator evaluator = new Evaluator();
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.twoPair());
     }
 
@@ -240,7 +189,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
 
         Assert.assertEquals(true, evaluator.flush());
     }
@@ -266,7 +215,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
 
         Assert.assertEquals(true, evaluator.highStraight());
     }
@@ -292,7 +241,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
 
         Assert.assertEquals(true, evaluator.mediumStraight());
     }
@@ -318,7 +267,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
 
         Assert.assertEquals(true, evaluator.lowStraight());
     }
@@ -344,7 +293,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.highStraight());
         Assert.assertEquals(true, evaluator.mediumStraight());
         Assert.assertEquals(false, evaluator.lowStraight());
@@ -371,7 +320,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.highStraight());
         Assert.assertEquals(false, evaluator.mediumStraight());
         Assert.assertEquals(false, evaluator.lowStraight());
@@ -397,7 +346,7 @@ public class EvaluatorTest {
 
         Evaluator evaluator = new Evaluator();
 
-        evaluator.hand = cards;
+        evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.highStraight());
         Assert.assertEquals(false, evaluator.mediumStraight());
         Assert.assertEquals(false, evaluator.lowStraight());

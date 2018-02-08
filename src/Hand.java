@@ -22,7 +22,7 @@ public class Hand {
         holdEm.add(card2);
     }
 
-    private ArrayList<Card> sortHand() {
+    public ArrayList<Card> sortHand() {
         sortedHighToLow = holdEm;
         Collections.sort(sortedHighToLow, Card.CardRankComparator);
         return sortedHighToLow;
@@ -35,7 +35,7 @@ public class Hand {
         return groupedByRank;
     }
 
-    public Hashtable<String, ArrayList<Card>> handBySuit(ArrayList<Card> inputHand) {
+    public Hashtable<String, ArrayList<Card>> groupBySuit(ArrayList<Card> inputHand) {
         createHandBySuitHashTable();
         inputHandIntoBySuitHashtable(inputHand);
         sortByRankInSuitHashTable();
