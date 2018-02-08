@@ -224,4 +224,32 @@ public class EvaluatorTest {
         Assert.assertEquals(true, evaluator.twoPair());
     }
 
+    @Test public void checkHandIsFlush(){
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SEVEN, Suit.SPADE);
+        Card card3 = new Card(Rank.JACK, Suit.HEART);
+        Card card4 = new Card(Rank.TWO, Suit.HEART);
+        Card card5 = new Card(Rank.KING, Suit.HEART);
+        Card card6 = new Card(Rank.FOUR, Suit.HEART);
+        Card card7 = new Card(Rank.ACE, Suit.DIAMOND);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+
+
+        Evaluator evaluator = new Evaluator();
+
+        evaluator.hand = cards;
+
+        Assert.assertEquals(true, evaluator.flush());
+    }
+
 }

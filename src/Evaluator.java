@@ -74,6 +74,18 @@ public class Evaluator {
         return hand.get(0);
     }
 
+    public boolean flush(){
+        handBySuit(hand);
+
+        for (int i = 0; i < groupBySuit.size(); i++){
+            String key = Suit.values()[i].name();
+            if (groupBySuit.get(key).size() >= 4){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean pair(){
         handByRank(hand);
         for (int i = groupByRank.size()-1; i >= 0; --i) {
