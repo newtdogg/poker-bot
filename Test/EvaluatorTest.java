@@ -34,22 +34,6 @@ public class EvaluatorTest {
 
     }
 
-    @Test public void pairOnePlayer() {
-
-        Card card3 = new Card(Rank.SIX, Suit.SPADE);
-        Card card4 = new Card(Rank.SIX, Suit.HEART);
-//        System.out.println(card1.rank);
-
-        ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(card3);
-        cards.add(card4);
-
-        Evaluator evaluator = new Evaluator();
-
-        evaluator.hand = cards;
-
-        Assert.assertEquals(true, evaluator.pair());
-    }
 
     @Test public void groupHandByRank() {
         Card card1 = new Card(Rank.JACK, Suit.HEART);
@@ -103,6 +87,83 @@ public class EvaluatorTest {
         Assert.assertEquals(card3, groupBySuitTest.get(Suit.SPADE.name()).get(0));
         Assert.assertEquals(2, groupBySuitTest.get(Suit.HEART.name()).size());
         Assert.assertEquals(1, groupBySuitTest.get(Suit.SPADE.name()).size());
+    }
 
+    @Test public void testIsThereIsAPair() {
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.JACK, Suit.HEART);
+        Card card4 = new Card(Rank.SEVEN, Suit.HEART);
+        Card card5 = new Card(Rank.NINE, Suit.HEART);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = cards;
+        Assert.assertEquals(true, evaluator.pair());
+
+
+    }
+
+    @Test public void testIsThereIsThreeOfKind() {
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.HEART);
+        Card card4 = new Card(Rank.SEVEN, Suit.HEART);
+        Card card5 = new Card(Rank.NINE, Suit.HEART);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = cards;
+        Assert.assertEquals(true, evaluator.threeOfAKind());
+    }
+
+    @Test public void testIsThereIsFourOfKind() {
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.CLUB);
+        Card card4 = new Card(Rank.SIX, Suit.DIAMOND);
+        Card card5 = new Card(Rank.NINE, Suit.HEART);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = cards;
+        Assert.assertEquals(true, evaluator.fourOfAKind());
+    }
+
+    @Test public void threeOfKindFailsIfFourOfKind() {
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.CLUB);
+        Card card4 = new Card(Rank.SIX, Suit.DIAMOND);
+        Card card5 = new Card(Rank.NINE, Suit.HEART);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = cards;
+        Assert.assertEquals(false, evaluator.threeOfAKind());
     }
 }

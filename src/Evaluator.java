@@ -75,17 +75,36 @@ public class Evaluator {
     }
 
     public boolean pair(){
+        handByRank(hand);
+        for (int i = groupByRank.size()-1; i >= 0; --i) {
+            String key = Rank.values()[i].name();
+            if (groupByRank.get(key).size() == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-       int comp = 0;
-       for (int i = 0; i < hand.size(); i++) {
-           comp = Rank.valueOf(hand.get(i).rank.name()).ordinal();
-           for (int j = i + 1; j < hand.size(); j++) {
-               if(comp == Rank.valueOf(hand.get(j).rank.name()).ordinal()) {
-                   return true;
-               }
-           }
-       }
-       return false;
+    public boolean threeOfAKind(){
+        handByRank(hand);
+        for (int i = groupByRank.size()-1; i >= 0; --i) {
+            String key = Rank.values()[i].name();
+            if (groupByRank.get(key).size() == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean fourOfAKind(){
+        handByRank(hand);
+        for (int i = groupByRank.size()-1; i >= 0; --i) {
+            String key = Rank.values()[i].name();
+            if (groupByRank.get(key).size() == 4) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean highestPair(){
