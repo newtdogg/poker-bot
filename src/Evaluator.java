@@ -115,6 +115,22 @@ public class Evaluator {
         return false;
     }
 
+    public boolean twoPair() {
+        handByRank(hand);
+        int pairCount = 0;
+        for (int i = groupByRank.size()-1; i >= 0; --i) {
+            String key = Rank.values()[i].name();
+            if (groupByRank.get(key).size() == 2) {
+                pairCount += 1;
+            }
+        }
+        if (pairCount == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean highestPair(){
 
 //        // descending sort

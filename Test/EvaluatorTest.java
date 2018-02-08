@@ -185,4 +185,43 @@ public class EvaluatorTest {
         evaluator.hand = cards;
         Assert.assertEquals(true, evaluator.fullHouse());
     }
+
+    @Test public void checkThereisNotFullHouse() {
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.CLUB);
+        Card card4 = new Card(Rank.NINE, Suit.DIAMOND);
+        Card card5 = new Card(Rank.SEVEN, Suit.HEART);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = cards;
+        Assert.assertEquals(false, evaluator.fullHouse());
+    }
+
+    @Test public void checkTwoPair() {
+        Card card1 = new Card(Rank.SIX, Suit.HEART);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.EIGHT, Suit.CLUB);
+        Card card4 = new Card(Rank.NINE, Suit.DIAMOND);
+        Card card5 = new Card(Rank.NINE, Suit.HEART);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = cards;
+        Assert.assertEquals(true, evaluator.twoPair());
+    }
+
 }
