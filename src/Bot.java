@@ -27,7 +27,7 @@ public class Bot {
             evaluatorHandArray.add(this.hand.playableCards.get(i));
         }
         
-        this.evaluator.hand = this.hand.playableCards;
+//        this.evaluator.hand = this.hand.playableCards;
     }
 
     private void assignCards() {

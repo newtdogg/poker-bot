@@ -16,7 +16,9 @@ public class EvaluatorTest {
         Card card5 = new Card(Rank.ACE, Suit.HEART);
         Card card6 = new Card(Rank.KING, Suit.HEART);
 
-//        System.out.println(card1.rank);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
 
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
@@ -26,7 +28,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
 
         Assert.assertEquals(card5, evaluator.highCard());
@@ -40,6 +41,9 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.SEVEN, Suit.HEART);
         Card card5 = new Card(Rank.NINE, Suit.HEART);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -47,7 +51,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.pair());
 
@@ -61,6 +64,9 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.SEVEN, Suit.HEART);
         Card card5 = new Card(Rank.NINE, Suit.HEART);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -68,7 +74,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.threeOfAKind());
     }
@@ -80,6 +85,9 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.SIX, Suit.DIAMOND);
         Card card5 = new Card(Rank.NINE, Suit.HEART);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -87,7 +95,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.fourOfAKind());
     }
@@ -99,6 +106,9 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.SIX, Suit.DIAMOND);
         Card card5 = new Card(Rank.NINE, Suit.HEART);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -106,7 +116,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.threeOfAKind());
     }
@@ -118,6 +127,10 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.NINE, Suit.DIAMOND);
         Card card5 = new Card(Rank.NINE, Suit.HEART);
 
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -125,7 +138,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.fullHouse());
     }
@@ -137,6 +149,9 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.NINE, Suit.DIAMOND);
         Card card5 = new Card(Rank.SEVEN, Suit.HEART);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -144,7 +159,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.fullHouse());
     }
@@ -156,6 +170,9 @@ public class EvaluatorTest {
         Card card4 = new Card(Rank.NINE, Suit.DIAMOND);
         Card card5 = new Card(Rank.NINE, Suit.HEART);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
@@ -163,7 +180,6 @@ public class EvaluatorTest {
         cards.add(card4);
         cards.add(card5);
 
-        Evaluator evaluator = new Evaluator();
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.twoPair());
     }
@@ -179,6 +195,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.FOUR, Suit.HEART);
         Card card7 = new Card(Rank.ACE, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -186,8 +205,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
 
@@ -205,6 +222,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.KING, Suit.HEART);
         Card card7 = new Card(Rank.ACE, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -212,8 +232,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
 
@@ -231,6 +249,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.NINE, Suit.HEART);
         Card card7 = new Card(Rank.ACE, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -238,8 +259,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
 
@@ -257,6 +276,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.NINE, Suit.HEART);
         Card card7 = new Card(Rank.ACE, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -264,8 +286,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
 
@@ -283,6 +303,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.TEN, Suit.HEART);
         Card card7 = new Card(Rank.EIGHT, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -290,8 +313,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.highStraight());
@@ -310,6 +331,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.THREE, Suit.HEART);
         Card card7 = new Card(Rank.TWO, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -317,8 +341,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.highStraight());
@@ -336,6 +358,9 @@ public class EvaluatorTest {
         Card card6 = new Card(Rank.THREE, Suit.HEART);
         Card card7 = new Card(Rank.TWO, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -343,8 +368,6 @@ public class EvaluatorTest {
         cards.add(card5);
         cards.add(card6);
         cards.add(card7);
-
-        Evaluator evaluator = new Evaluator();
 
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(false, evaluator.highStraight());

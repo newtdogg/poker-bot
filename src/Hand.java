@@ -23,7 +23,7 @@ public class Hand {
     }
 
     public ArrayList<Card> sortHand() {
-        sortedHighToLow = holdEm;
+        sortedHighToLow = playableCards;
         Collections.sort(sortedHighToLow, Card.CardRankComparator);
         return sortedHighToLow;
     }
