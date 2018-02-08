@@ -9,6 +9,7 @@ public class Bot {
     public Card card2;
     public int card1rank;
     public int card2rank;
+
     Bot() {
         this.hand = null;
         this.handWeight = 0;
@@ -17,6 +18,15 @@ public class Bot {
         this.card1rank = 0;
         this.card2rank = 0;
     }
+
+    public void passHandToEvaluator() {
+        for (int i = 0; i < this.hand.playableCards.size(); i++){
+//            evaluatorHandArray.add(this.hand.playableCards.get(i));
+        }
+
+//        this.evaluator.hand = this.hand.playableCards;
+    }
+
     private void assignCards() {
         this.card1 = this.hand.holdEm.get(0);
         this.card2 = this.hand.holdEm.get(1);
