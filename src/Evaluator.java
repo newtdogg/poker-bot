@@ -9,47 +9,63 @@ public class Evaluator {
     public Hashtable<String, ArrayList<Card>> groupBySuit;
 
     public Hashtable<String, ArrayList<Card>> handByRank(ArrayList<Card> inputHand) {
-        groupByRank = new Hashtable<String, ArrayList<Card>>();
+        createHandByRankHashTable();
+        inputCardsIntoByRankHashTable(inputHand);
+        sortBySuitInByRank();
+        return groupByRank;
+    }
 
+    private void createHandByRankHashTable() {
+        groupByRank = new Hashtable<String, ArrayList<Card>>();
         for (int i = 0; i < Rank.values().length; i++) {
             String key = Rank.values()[i].name();
             groupByRank.put(key, new ArrayList<Card>());
         }
+    }
 
+    private void inputCardsIntoByRankHashTable(ArrayList<Card> inputHand) {
         for (int i = 0; i < inputHand.size(); i++) {
             Card card = inputHand.get(i);
             String rank = card.rank.name();
             groupByRank.get(rank).add(card);
         }
+    }
 
+    private void sortBySuitInByRank() {
         for (int i = 0; i < groupByRank.size(); i++) {
             String rank = Rank.values()[i].name();
             Collections.sort(groupByRank.get(rank), Card.CardSuitComparator);
         }
-
-        return groupByRank;
     }
 
     public Hashtable<String, ArrayList<Card>> handBySuit(ArrayList<Card> inputHand) {
-        groupBySuit = new Hashtable<String, ArrayList<Card>>();
+        createHandBySuitHashTable();
+        inputHandIntoBySuitHashtable(inputHand);
+        sortByRankInSuitHashTable();
+        return groupBySuit;
+    }
 
+    private void createHandBySuitHashTable() {
+        groupBySuit = new Hashtable<String, ArrayList<Card>>();
         for (int i = 0; i < Suit.values().length; i++) {
             String key = Suit.values()[i].name();
             groupBySuit.put(key, new ArrayList<Card>());
         }
+    }
 
+    private void inputHandIntoBySuitHashtable(ArrayList<Card> inputHand) {
         for (int i = 0; i < inputHand.size(); i++) {
             Card card = inputHand.get(i);
             String suit = card.suit.name();
             groupBySuit.get(suit).add(card);
         }
+    }
 
+    private void sortByRankInSuitHashTable(){
         for (int i = 0; i < groupBySuit.size(); i++) {
             String suit = Suit.values()[i].name();
             Collections.sort(groupBySuit.get(suit), Card.CardRankComparator);
         }
-
-        return groupBySuit;
     }
 
 
