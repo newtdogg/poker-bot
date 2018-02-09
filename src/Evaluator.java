@@ -61,7 +61,6 @@ public class Evaluator {
                     counter += 1;
                 }
             }
-            System.out.println(counter);
             if (counter == 5) {
                 return true;
             }
@@ -97,7 +96,7 @@ public class Evaluator {
 
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
-            if (hand.groupedBySuit.get(key).size() >= 4){
+            if (hand.groupedBySuit.get(key).size() >= 5){
                 return true;
             }
         }
@@ -127,7 +126,6 @@ public class Evaluator {
         allAvailableHands = new Hashtable<>();
         for (int i = 0; i < WinningHands.values().length; i++) {
             String key = WinningHands.values()[i].name();
-            System.out.println(key);
             allAvailableHands.put(key, new ArrayList<Card>());
         }
     }
@@ -223,6 +221,17 @@ public class Evaluator {
             String typeOfHand = WinningHands.FLUSH.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
+    }
+
+    public String typeOfBestHand(){
+        for (int i = this.allAvailableHands.size() - 1; i >= 0  ; --i) {
+            int indexOfEnum = WinningHands.values()[i].ordinal();
+            String key = WinningHands.values()[indexOfEnum].name();
+            if (!this.allAvailableHands.get(key).isEmpty()){
+                return key;
+            }
+        }
+        return "unlucky";
     }
 
 }

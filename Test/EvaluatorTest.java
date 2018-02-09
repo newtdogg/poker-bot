@@ -477,6 +477,34 @@ public class EvaluatorTest {
 
     }
 
+    @Test public void returningTheBestHandofTwoHands(){
+        Card card1 = new Card(Rank.KING, Suit.DIAMOND);
+        Card card2 = new Card(Rank.SEVEN, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.SPADE);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        evaluator.categoriseAvailableHands();
+
+        Assert.assertEquals("STRAIGHT", evaluator.typeOfBestHand());
+    }
+
 
 
 }
