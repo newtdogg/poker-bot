@@ -104,6 +104,24 @@ public class Evaluator {
         return false;
     }
 
+    public boolean royalFlush(Hand hand){
+        hand.groupBySuit(hand.playableCards);
+        int counter = 0;
+        for (int i = 0; i < hand.groupedBySuit.size(); i++){
+            String key = Suit.values()[i].name();
+            if (hand.groupedBySuit.get(key).size() >= 4){
+                int highestOrdinal = hand.groupedBySuit.get(key).get(0).rank.ordinal();
+                for(int j = 1; j < hand.groupedBySuit.get(key).size(); j++) {
+                    if(highestOrdinal - j == hand.groupedBySuit.get(key).get(j).rank.ordinal()) {
+                        counter += 1;
+                    }
+                }
+                return counter == 4;
+            }
+        }
+        return false;
+    }
+
     public boolean fullHouse(Hand hand) {
         hand.groupByRank(hand.playableCards);
         if (threeOfAKind(hand) && pair(hand)) {
