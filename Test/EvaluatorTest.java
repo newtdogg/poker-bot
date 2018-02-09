@@ -52,7 +52,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(true, evaluator.pair());
+        Assert.assertEquals(true, evaluator.pair(evaluator.hand));
 
 
     }
@@ -75,7 +75,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(true, evaluator.threeOfAKind());
+        Assert.assertEquals(true, evaluator.threeOfAKind(evaluator.hand));
     }
 
     @Test public void testIsThereIsFourOfKind() {
@@ -96,7 +96,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(true, evaluator.fourOfAKind());
+        Assert.assertEquals(true, evaluator.fourOfAKind(evaluator.hand));
     }
 
     @Test public void threeOfKindFailsIfFourOfKind() {
@@ -117,7 +117,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(false, evaluator.threeOfAKind());
+        Assert.assertEquals(false, evaluator.threeOfAKind(evaluator.hand));
     }
 
     @Test public void checkThereisFullHouse() {
@@ -139,7 +139,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(true, evaluator.fullHouse());
+        Assert.assertEquals(true, evaluator.fullHouse(evaluator.hand));
     }
 
     @Test public void checkThereisNotFullHouse() {
@@ -160,7 +160,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(false, evaluator.fullHouse());
+        Assert.assertEquals(false, evaluator.fullHouse(evaluator.hand));
     }
 
     @Test public void checkTwoPair() {
@@ -181,7 +181,7 @@ public class EvaluatorTest {
         cards.add(card5);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(true, evaluator.twoPair());
+        Assert.assertEquals(true, evaluator.twoPair(evaluator.hand));
     }
 
     @Test public void checkHandIsFlush(){
@@ -208,7 +208,61 @@ public class EvaluatorTest {
 
         evaluator.hand.playableCards = cards;
 
-        Assert.assertEquals(true, evaluator.flush());
+        Assert.assertEquals(true, evaluator.flush(evaluator.hand));
+    }
+
+    @Test public void checkHandIsRoyalFlush(){
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.SIX, Suit.SPADE);
+        Card card2 = new Card(Rank.QUEEN, Suit.HEART);
+        Card card3 = new Card(Rank.JACK, Suit.HEART);
+        Card card4 = new Card(Rank.TEN, Suit.HEART);
+        Card card5 = new Card(Rank.KING, Suit.HEART);
+        Card card6 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card7 = new Card(Rank.ACE, Suit.HEART);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        Assert.assertEquals(true, evaluator.royalFlush(evaluator.hand));
+    }
+
+    @Test public void checkHandIsStraightFlush(){
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.SIX, Suit.SPADE);
+        Card card2 = new Card(Rank.QUEEN, Suit.HEART);
+        Card card3 = new Card(Rank.JACK, Suit.HEART);
+        Card card4 = new Card(Rank.TEN, Suit.HEART);
+        Card card5 = new Card(Rank.KING, Suit.HEART);
+        Card card6 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card7 = new Card(Rank.NINE, Suit.HEART);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        Assert.assertEquals(true, evaluator.straightFlush(evaluator.hand));
     }
 
     @Test public void testStraight(){
@@ -234,48 +288,19 @@ public class EvaluatorTest {
         cards.add(card7);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(true, evaluator.straight());
+        Assert.assertEquals(true, evaluator.straight(evaluator.hand));
     }
 
     @Test public void testStraightAce() {
-//        ArrayList<Card> cards = new ArrayList<Card>();
-//
-//        Card card1 = new Card(Rank.ACE, Suit.HEART);
-//        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
-//        Card card3 = new Card(Rank.KING, Suit.HEART);
-//        Card card4 = new Card(Rank.QUEEN, Suit.SPADE);
-//        Card card5 = new Card(Rank.FOUR, Suit.HEART);
-//        Card card6 = new Card(Rank.THREE, Suit.HEART);
-//        Card card7 = new Card(Rank.TWO, Suit.DIAMOND);
-//
-//        Evaluator evaluator = new Evaluator();
-//        evaluator.hand = new Hand(card1, card2);
-//
-//        cards.add(card1);
-//        cards.add(card2);
-//        cards.add(card3);
-//        cards.add(card4);
-//        cards.add(card5);
-//        cards.add(card6);
-//        cards.add(card7);
-//
-//        evaluator.hand.playableCards = cards;
-//        Assert.assertEquals(false, evaluator.highStraight());
-//        Assert.assertEquals(false, evaluator.mediumStraight());
-//        Assert.assertEquals(false, evaluator.lowStraight());
-//        Assert.assertEquals(true, evaluator.aceLowStraight());
-    }
-
-    @Test public void testNotStraight() {
         ArrayList<Card> cards = new ArrayList<Card>();
 
         Card card1 = new Card(Rank.ACE, Suit.HEART);
-        Card card2 = new Card(Rank.QUEEN, Suit.SPADE);
-        Card card3 = new Card(Rank.EIGHT, Suit.HEART);
-        Card card4 = new Card(Rank.NINE, Suit.SPADE);
-        Card card5 = new Card(Rank.THREE, Suit.HEART);
-        Card card6 = new Card(Rank.TEN, Suit.HEART);
-        Card card7 = new Card(Rank.QUEEN, Suit.DIAMOND);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.KING, Suit.HEART);
+        Card card4 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card5 = new Card(Rank.FOUR, Suit.HEART);
+        Card card6 = new Card(Rank.THREE, Suit.HEART);
+        Card card7 = new Card(Rank.TWO, Suit.DIAMOND);
 
         Evaluator evaluator = new Evaluator();
         evaluator.hand = new Hand(card1, card2);
@@ -289,7 +314,221 @@ public class EvaluatorTest {
         cards.add(card7);
 
         evaluator.hand.playableCards = cards;
-        Assert.assertEquals(false, evaluator.straight());
+        Assert.assertEquals(true, evaluator.aceLowStraight(evaluator.hand));
     }
 
+    @Test public void addingPairToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.CLUB);
+        Card card3 = new Card(Rank.ACE, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.CLUB);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        evaluator.categoriseAvailableHands();
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.PAIR.toString()).size());
+    }
+
+    @Test public void addingThreeOfAKindToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.CLUB);
+        Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card4 = new Card(Rank.TEN, Suit.CLUB);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        evaluator.categoriseAvailableHands();
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.THREEOFAKIND.toString()).size());
+        Assert.assertEquals(0, evaluator.allAvailableHands.get(WinningHands.PAIR.toString()).size());
+    }
+
+    @Test public void addingFourOfAKindToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.CLUB);
+        Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card4 = new Card(Rank.FOUR, Suit.CLUB);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        evaluator.categoriseAvailableHands();
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.FOUROFAKIND.toString()).size());
+    }
+
+    @Test public void addingTwoPairToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.CLUB);
+        Card card3 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card4 = new Card(Rank.TEN, Suit.CLUB);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.TWOPAIR.toString()).size());
+        Assert.assertEquals(0, evaluator.allAvailableHands.get(WinningHands.PAIR.toString()).size());
+    }
+
+    @Test public void addingFlushToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.JACK, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.SPADE);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.FLUSH.toString()).size());
+    }
+
+    @Test public void addingStraightToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.SEVEN, Suit.CLUB);
+        Card card3 = new Card(Rank.SIX, Suit.DIAMOND);
+        Card card4 = new Card(Rank.TEN, Suit.CLUB);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        evaluator.categoriseAvailableHands();
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.STRAIGHT.toString()).size());
+    }
+
+    @Test public void addingStraightFlushToAllAvailableHandsMeansHandIsAddedToStraightAndFlush() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.SEVEN, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.SPADE);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.SPADE);
+        Card card7 = new Card(Rank.KING, Suit.SPADE);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+
+        evaluator.categoriseAvailableHands();
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.STRAIGHT.toString()).size());
+        Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.FLUSH.toString()).size());
+
+    }
 }

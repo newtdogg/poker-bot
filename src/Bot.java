@@ -1,4 +1,8 @@
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.Hashtable;
+
 public class Bot {
     public Hand hand;
     public Evaluator evaluator;
@@ -9,6 +13,7 @@ public class Bot {
     public int card2rank;
 
 
+
     Bot() {
         this.hand = null;
         this.handWeight = 0;
@@ -16,11 +21,19 @@ public class Bot {
         this.card2 = null;
         this.card1rank = 0;
         this.card2rank = 0;
+        this.evaluator = new Evaluator();
     }
 
     public void passHandToEvaluator() {
+        // here we create the hash table of best available hands
+        // this.evaluator.allAvailableHands = new hash table
+//        createAllAvailableHandsHashTable();
+        // call evaluate methods which map the hands to the new hash table (bot has an evaluator)
+        // any methods to assess different hand weight call upon the hash table: this.evaluator.allAvailableHands
         this.evaluator.hand = this.hand;
     }
+
+
 
     private void assignCards() {
         this.card1 = this.hand.holdEm.get(0);
