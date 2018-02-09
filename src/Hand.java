@@ -9,6 +9,8 @@ public class Hand {
     public ArrayList<Card> playableCards;
     public ArrayList<Card> playableCardsArray = new ArrayList<Card>();
     public ArrayList<Card> sortedHighToLow;
+    public ArrayList<Card> bestFiveCardsArray = new ArrayList<Card>();
+    public ArrayList<Card> bestFiveCards;
     public Hashtable<String, ArrayList<Card>> groupedByRank;
     public Hashtable<String, ArrayList<Card>> groupedBySuit;
 
@@ -16,6 +18,7 @@ public class Hand {
     public Hand(Card card1, Card card2){
         this.holdEm = holdEmArray;
         this.playableCards = playableCardsArray;
+        this.bestFiveCards = bestFiveCardsArray;
         playableCards.add(card1);
         playableCards.add(card2);
         holdEm.add(card1);

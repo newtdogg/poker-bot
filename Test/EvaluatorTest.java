@@ -533,6 +533,35 @@ public class EvaluatorTest {
         Assert.assertEquals("PAIR", evaluator.typeOfBestHand());
     }
 
+    @Test public void accessBestFiveCardsInRoyalFlushArrayAndReturnArrayList(){
+        Card card1 = new Card(Rank.KING, Suit.DIAMOND);
+        Card card2 = new Card(Rank.ACE, Suit.DIAMOND);
+        Card card3 = new Card(Rank.QUEEN, Suit.DIAMOND);
+        Card card4 = new Card(Rank.JACK, Suit.DIAMOND);
+        Card card5 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card6 = new Card(Rank.NINE, Suit.DIAMOND);
+        Card card7 = new Card(Rank.EIGHT, Suit.DIAMOND);
 
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        System.out.println(evaluator.hand.groupedBySuit);
+
+
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+    }
 
 }

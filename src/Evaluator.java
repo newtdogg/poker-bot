@@ -231,7 +231,26 @@ public class Evaluator {
                 return key;
             }
         }
-        return "unlucky";
+        return "you not have a high card you silly";
+    }
+
+    public void selectBestFiveCards(Hand hand){
+        System.out.println(typeOfBestHand());
+        if (typeOfBestHand() == "ROYALFLUSH"){
+            royalFlushShrink(hand);
+        }
+    }
+
+    private void royalFlushShrink(Hand hand){
+        for (int i = 0; i < hand.groupedBySuit.size(); i++){
+            String key = Suit.values()[i].name();
+            if (hand.groupedBySuit.get(key).size() >= 5){
+                for (int j = 0; j < 5; j++) {
+                    Card card = hand.groupedBySuit.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
     }
 
 }
