@@ -1,6 +1,9 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 public class BotTest {
     Deck deck;
     @Before
@@ -113,5 +116,34 @@ public class BotTest {
 //        System.out.println(bot.hand.playableCards);
 //        System.out.println(bot.evaluator.hand.playableCards);
 //        Assert.assertEquals("Pair", bot.evaluateHand());
+    }
+
+    @Test public void addingPairToAllAvailableHands() {
+        Bot bot = new Bot();
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.CLUB);
+        Card card3 = new Card(Rank.ACE, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.CLUB);
+        Card card5 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.KING, Suit.DIAMOND);
+
+        bot.hand = new Hand(card1, card2);
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        bot.hand.playableCards = cards;
+
+        bot.categoriseAvailableHands();
     }
 }

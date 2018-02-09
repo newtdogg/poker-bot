@@ -1,4 +1,8 @@
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.Hashtable;
+
 public class Bot {
     public Hand hand;
     public Evaluator evaluator;
@@ -7,6 +11,7 @@ public class Bot {
     public Card card2;
     public int card1rank;
     public int card2rank;
+    public Hashtable<String, ArrayList<Card>> allAvailableHands;
 
 
     Bot() {
@@ -16,10 +21,45 @@ public class Bot {
         this.card2 = null;
         this.card1rank = 0;
         this.card2rank = 0;
+        this.evaluator = new Evaluator();
     }
 
     public void passHandToEvaluator() {
+        // here we create the hash table of best available hands
+        // this.evaluator.allAvailableHands = new hash table
+//        createAllAvailableHandsHashTable();
+        // call evaluate methods which map the hands to the new hash table (bot has an evaluator)
+        // any methods to assess different hand weight call upon the hash table: this.evaluator.allAvailableHands
         this.evaluator.hand = this.hand;
+    }
+
+    public void categoriseAvailableHands() {
+        createAllAvailableHandsHashTable();
+        ////////////////////////////////////////////////////////////
+        // evaluator methods need to change to take hand args now //
+        //   also need to do this from royal flush down to pair   //
+        ////////////////////////////////////////////////////////////
+        if (this.evaluator.pair(this.hand)) {
+            addPairToAllAvailableHands();
+        }
+    }
+
+    private void addPairToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.PAIR.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    public void createAllAvailableHandsHashTable(){
+        allAvailableHands = new Hashtable<>();
+        for (int i = 0; i < WinningHands.values().length; i++) {
+            String key = WinningHands.values()[i].name();
+            System.out.println(key);
+            allAvailableHands.put(key, new ArrayList<Card>());
+        }
     }
 
     private void assignCards() {
