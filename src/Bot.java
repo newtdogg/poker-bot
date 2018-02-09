@@ -11,7 +11,7 @@ public class Bot {
     public Card card2;
     public int card1rank;
     public int card2rank;
-    public Hashtable<String, ArrayList<Card>> allAvailableHands;
+
 
 
     Bot() {
@@ -33,60 +33,7 @@ public class Bot {
         this.evaluator.hand = this.hand;
     }
 
-    public void categoriseAvailableHands() {
-        createAllAvailableHandsHashTable();
 
-        ////////////////////////////////////////////////////////////
-        // evaluator methods need to change to take hand args now //
-        //   also need to do this from royal flush down to pair   //
-        ////////////////////////////////////////////////////////////
-
-        if (this.evaluator.pair(this.hand)) {
-            addPairToAllAvailableHands();
-        }
-        if (this.evaluator.threeOfAKind(this.hand)) {
-            addThreeOfAKindToAllAvailableHands();
-        }
-        if (this.evaluator.fullHouse(this.hand)) {
-            addFullHouseToAllAvailableHands();
-        }
-    }
-
-    private void addPairToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
-        for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
-            String typeOfHand = WinningHands.PAIR.toString();
-            allAvailableHands.get(typeOfHand).add(card);
-        }
-    }
-
-    private void addThreeOfAKindToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
-        for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
-            String typeOfHand = WinningHands.THREEOFAKIND.toString();
-            allAvailableHands.get(typeOfHand).add(card);
-        }
-    }
-
-    private void addFullHouseToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
-        for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
-            String typeOfHand = WinningHands.FULLHOUSE.toString();
-            allAvailableHands.get(typeOfHand).add(card);
-        }
-    }
-
-    public void createAllAvailableHandsHashTable(){
-        allAvailableHands = new Hashtable<>();
-        for (int i = 0; i < WinningHands.values().length; i++) {
-            String key = WinningHands.values()[i].name();
-            System.out.println(key);
-            allAvailableHands.put(key, new ArrayList<Card>());
-        }
-    }
 
     private void assignCards() {
         this.card1 = this.hand.holdEm.get(0);
