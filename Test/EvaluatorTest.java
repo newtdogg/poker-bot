@@ -238,6 +238,33 @@ public class EvaluatorTest {
         Assert.assertEquals(true, evaluator.royalFlush(evaluator.hand));
     }
 
+    @Test public void checkHandIsStraightFlush(){
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        Card card1 = new Card(Rank.SIX, Suit.SPADE);
+        Card card2 = new Card(Rank.QUEEN, Suit.HEART);
+        Card card3 = new Card(Rank.JACK, Suit.HEART);
+        Card card4 = new Card(Rank.TEN, Suit.HEART);
+        Card card5 = new Card(Rank.KING, Suit.HEART);
+        Card card6 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card7 = new Card(Rank.NINE, Suit.HEART);
+
+        Evaluator evaluator = new Evaluator();
+        evaluator.hand = new Hand(card1, card2);
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+
+        evaluator.hand.playableCards = cards;
+
+        Assert.assertEquals(true, evaluator.straightFlush(evaluator.hand));
+    }
+
     @Test public void testStraight(){
         ArrayList<Card> cards = new ArrayList<Card>();
 
