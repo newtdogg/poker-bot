@@ -37,7 +37,7 @@ public class Evaluator {
                 pairCount += 1;
             }
         }
-        return pairCount == 2;
+        return pairCount >= 2;
     }
 
     public boolean threeOfAKind(Hand hand){
@@ -123,15 +123,23 @@ public class Evaluator {
         return false;
     }
 
+    public void createAllAvailableHandsHashTable(){
+        allAvailableHands = new Hashtable<>();
+        for (int i = 0; i < WinningHands.values().length; i++) {
+            String key = WinningHands.values()[i].name();
+            System.out.println(key);
+            allAvailableHands.put(key, new ArrayList<Card>());
+        }
+    }
+
     public void categoriseAvailableHands() {
         createAllAvailableHandsHashTable();
 
-        ////////////////////////////////////////////////////////////
-        //   also need to do this from royal flush down to pair   //
-        ////////////////////////////////////////////////////////////
-
-        if (pair(this.hand)) {
+        if (pair(this.hand) && !twoPair(this.hand)) {
             addPairToAllAvailableHands();
+        }
+        if (twoPair(this.hand)) {
+            addTwoPairToAllAvailableHands();
         }
         if (threeOfAKind(this.hand)) {
             addThreeOfAKindToAllAvailableHands();
@@ -139,13 +147,35 @@ public class Evaluator {
         if (fullHouse(this.hand)) {
             addFullHouseToAllAvailableHands();
         }
+        if (straight(this.hand) || aceLowStraight(this.hand)) {
+            addStraightToAllAvailableHands();
+        }
+        if (fourOfAKind(this.hand)) {
+            addFourOfAKindToAllAvailableHands();
+        }
+        if (flush(this.hand)) {
+            addFlushToAllAvailableHands();
+        }
     }
+
+    //////////////////////////////////////////////////////////
+    // Could these methods be combined into one mega method //
+    //////////////////////////////////////////////////////////
 
     private void addPairToAllAvailableHands() {
         int sizeOfPlayableCards = this.hand.playableCards.size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
             Card card = this.hand.playableCards.get(i);
             String typeOfHand = WinningHands.PAIR.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    private void addTwoPairToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.TWOPAIR.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
@@ -168,12 +198,30 @@ public class Evaluator {
         }
     }
 
-    public void createAllAvailableHandsHashTable(){
-        allAvailableHands = new Hashtable<>();
-        for (int i = 0; i < WinningHands.values().length; i++) {
-            String key = WinningHands.values()[i].name();
-            System.out.println(key);
-            allAvailableHands.put(key, new ArrayList<Card>());
+    private void addStraightToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.STRAIGHT.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    private void addFourOfAKindToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.FOUROFAKIND.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    private void addFlushToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.FLUSH.toString();
+            allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
