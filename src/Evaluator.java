@@ -119,7 +119,7 @@ public class Evaluator {
                     }
                 }
                 System.out.println(counter);
-                if (counter == 5) {
+                if (counter >= 5) {
                     return true;
                 }
 
@@ -140,7 +140,7 @@ public class Evaluator {
                         counter += 1;
                     }
                 }
-                return counter == 4;
+                return counter >= 4;
             }
         }
         return false;
@@ -196,6 +196,12 @@ public class Evaluator {
         }
         if (flush(this.hand)) {
             addFlushToAllAvailableHands();
+        }
+        if (straightFlush(this.hand)) {
+            addStraightFlushToAllAvailableHands();
+        }
+        if (royalFlush(this.hand)) {
+            addRoyalFlushToAllAvailableHands();
         }
     }
 
@@ -266,6 +272,24 @@ public class Evaluator {
         }
     }
 
+    private void addStraightFlushToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.STRAIGHTFLUSH.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    private void addRoyalFlushToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.ROYALFLUSH.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
     public String typeOfBestHand(){
         for (int i = this.allAvailableHands.size() - 1; i >= 0  ; --i) {
             int indexOfEnum = WinningHands.values()[i].ordinal();
@@ -278,7 +302,6 @@ public class Evaluator {
     }
 
     public void selectBestFiveCards(Hand hand){
-        System.out.println(typeOfBestHand());
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushShrink(hand);
         }

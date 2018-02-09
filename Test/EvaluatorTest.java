@@ -612,7 +612,7 @@ public class EvaluatorTest {
 
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
-        System.out.println(evaluator.hand.groupedBySuit);
+        System.out.println(evaluator.hand.bestFiveCards);
 
 
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
