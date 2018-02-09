@@ -145,5 +145,6 @@ public class BotTest {
         bot.hand.playableCards = cards;
 
         bot.categoriseAvailableHands();
+        Assert.assertEquals(7, bot.allAvailableHands.get(WinningHands.PAIR.toString()).size());
     }
 }

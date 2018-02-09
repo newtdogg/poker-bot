@@ -375,6 +375,4 @@ public class EvaluatorTest {
         Assert.assertEquals(false, evaluator.lowStraight());
         Assert.assertEquals(true, evaluator.aceLowStraight());
     }
-
-
 }
