@@ -50,51 +50,24 @@ public class Evaluator {
         return false;
     }
 
-    public boolean highStraight(){
-        hand.sortHand();
-        int highestCardOrdinal = hand.sortedHighToLow.get(0).rank.ordinal();
-        int counter = 0;
-        for (int j = 1; j < 5; j++) {
+    public boolean straight(){
+        for (int n = 0; n < 3; n++) {
+            hand.sortHand();
+            int highestCardOrdinal = hand.sortedHighToLow.get(n).rank.ordinal();
+            int counter = 1;
             for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
-                 if(highestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
+                 if(highestCardOrdinal - counter == hand.sortedHighToLow.get(i).rank.ordinal()) {
                      counter += 1;
                  }
             }
-        }
-        System.out.println(counter);
-        return counter == 4;
-    }
-
-    public boolean mediumStraight() {
-        hand.sortHand();
-        int secondHighestCardOrdinal = hand.sortedHighToLow.get(1).rank.ordinal();
-        int counter = 0;
-        for (int j = 1; j < 5; j++) {
-            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
-                if(secondHighestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
-                    counter += 1;
-                }
+            System.out.println(counter);
+            if (counter == 5) {
+             return true;
             }
         }
-        System.out.println(counter);
-        return counter == 4;
+        return false;
     }
-
-    public boolean lowStraight() {
-        hand.sortHand();
-        int thirdHighestCardOrdinal = hand.sortedHighToLow.get(2).rank.ordinal();
-        int counter = 0;
-        for (int j = 1; j < 5; j++) {
-            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
-                if(thirdHighestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
-                    counter += 1;
-                }
-            }
-        }
-        System.out.println(counter);
-        return counter == 4;
-    }
-
+    
     public boolean aceLowStraight() {
         hand.sortHand();
         int thirdHighestCardOrdinal = hand.sortedHighToLow.get(3).rank.ordinal();
