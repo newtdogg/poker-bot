@@ -5,9 +5,6 @@ import java.util.Hashtable;
 
 public class Evaluator {
 
-    public ArrayList<Card> sortedHand;
-    public Hashtable<String, ArrayList<Card>> groupByRank;
-    public Hashtable<String, ArrayList<Card>> groupBySuit;
     public Hand hand;
 
     public Evaluator(){
