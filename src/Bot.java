@@ -35,12 +35,20 @@ public class Bot {
 
     public void categoriseAvailableHands() {
         createAllAvailableHandsHashTable();
+
         ////////////////////////////////////////////////////////////
         // evaluator methods need to change to take hand args now //
         //   also need to do this from royal flush down to pair   //
         ////////////////////////////////////////////////////////////
+
         if (this.evaluator.pair(this.hand)) {
             addPairToAllAvailableHands();
+        }
+        if (this.evaluator.threeOfAKind(this.hand)) {
+            addThreeOfAKindToAllAvailableHands();
+        }
+        if (this.evaluator.fullHouse(this.hand)) {
+            addFullHouseToAllAvailableHands();
         }
     }
 
@@ -49,6 +57,24 @@ public class Bot {
         for (int i = 0; i < sizeOfPlayableCards; i++) {
             Card card = this.hand.playableCards.get(i);
             String typeOfHand = WinningHands.PAIR.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    private void addThreeOfAKindToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.THREEOFAKIND.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
+
+    private void addFullHouseToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.playableCards.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.playableCards.get(i);
+            String typeOfHand = WinningHands.FULLHOUSE.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
