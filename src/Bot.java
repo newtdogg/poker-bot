@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 public class Bot {
-    ArrayList<Card> handArray = new ArrayList<Card>();
-    ArrayList<Card> playableHandArray = new ArrayList<Card>();
     public Hand hand;
-    public ArrayList<Card> playableHand;
+    public Evaluator evaluator;
     public int handWeight;
     public Card card1;
     public Card card2;
     public int card1rank;
     public int card2rank;
+
 
     Bot() {
         this.hand = null;
@@ -20,11 +19,7 @@ public class Bot {
     }
 
     public void passHandToEvaluator() {
-        for (int i = 0; i < this.hand.playableCards.size(); i++){
-//            evaluatorHandArray.add(this.hand.playableCards.get(i));
-        }
-
-//        this.evaluator.hand = this.hand.playableCards;
+        this.evaluator.hand = this.hand;
     }
 
     private void assignCards() {

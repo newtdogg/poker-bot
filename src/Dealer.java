@@ -3,8 +3,6 @@ import java.util.Random;
 public class Dealer {
     public ArrayList<Card> deck;
     public ArrayList<Card> board;
-    public Bot bot;
-    public Hand handa;
     Random r = new Random();
 
     public Dealer() {
