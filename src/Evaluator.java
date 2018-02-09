@@ -70,17 +70,25 @@ public class Evaluator {
     
     public boolean aceLowStraight() {
         hand.sortHand();
-        int thirdHighestCardOrdinal = hand.sortedHighToLow.get(3).rank.ordinal();
-        int counter = 0;
-        for (int j = 1; j < 4; j++) {
-            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
-                if(thirdHighestCardOrdinal - j == hand.sortedHighToLow.get(i).rank.ordinal()) {
+        int highestCardOrdinal = 0;
+        for(int n = 0; n < hand.sortedHighToLow.size(); n++) {
+            if(hand.sortedHighToLow.get(n).rank.ordinal() == 3){
+                highestCardOrdinal = hand.sortedHighToLow.get(n).rank.ordinal();
+            }
+        }
+
+        if(hand.sortedHighToLow.get(0).rank == Rank.ACE) {
+            int counter = 1;
+            for (int i = 0; i < hand.sortedHighToLow.size(); i++) {
+                if (highestCardOrdinal - counter == hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
             }
+            return counter == 4;
         }
-        System.out.println(counter);
-        return counter == 3 && hand.sortedHighToLow.get(0).rank == Rank.ACE;
+        else {
+            return false;
+        }
     }
 
     public boolean flush(){
