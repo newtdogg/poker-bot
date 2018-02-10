@@ -304,6 +304,8 @@ public class Evaluator {
     public void selectBestFiveCards(Hand hand){
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(hand);
+        } else if (typeOfBestHand() == "FULLHOUSE") {
+            fullHouseShrink(hand);
         } else if (typeOfBestHand() == "FLUSH"){
             royalFlushOrFlushShrink(hand);
         }
@@ -317,6 +319,23 @@ public class Evaluator {
                     Card card = hand.groupedBySuit.get(key).get(j);
                     hand.bestFiveCards.add(card);
                 }
+            }
+        }
+    }
+
+    private void fullHouseShrink(Hand hand){
+        for (int i = 0; i< hand.groupedByRank.size(); i++){
+            String key = Rank.values()[i].name();
+            if (hand.groupedByRank.get(key).size() == 3) {
+                for (int j = 0; j < 3; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            } else if (hand.groupedByRank.get(key).size() == 3) {
+                Card card1 = hand.groupedByRank.get(key).get(0);
+                Card card2 = hand.groupedByRank.get(key).get(0);
+                hand.bestFiveCards.add(card1);
+                hand.bestFiveCards.add(card2);
             }
         }
     }
