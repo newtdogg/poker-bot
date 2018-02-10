@@ -318,31 +318,28 @@ public class Evaluator {
         }
     }
 
-    private void royalFlushOrFlushShrink(Hand hand){
-        for (int i = 0; i < hand.groupedBySuit.size(); i++){
-            String key = Suit.values()[i].name();
-            if (hand.groupedBySuit.get(key).size() >= 5){
-                for (int j = 0; j < 5; j++) {
-                    Card card = hand.groupedBySuit.get(key).get(j);
+
+//    SHRINK METHODS BELOW:
+
+    private void pairShrink(Hand hand){
+        // extract into a differnet method
+        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+            String key = Rank.values()[i].name();
+            int numberOfSameRank = hand.groupedByRank.get(key).size();
+            if (numberOfSameRank == 2) {
+                for (int j = 0; j < numberOfSameRank; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
                     hand.bestFiveCards.add(card);
                 }
             }
         }
-    }
-
-    private void fullHouseShrink(Hand hand){
-        for (int i = 0; i< hand.groupedByRank.size(); i++){
-            String key = Rank.values()[i].name();
-            if (hand.groupedByRank.get(key).size() == 3) {
-                for (int j = 0; j < 3; j++) {
-                    Card card = hand.groupedByRank.get(key).get(j);
+        // extract into a differnet method
+        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
+            Card card = hand.sortedHighToLow.get(j);
+            if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
+                while (hand.bestFiveCards.size() < 5) {
                     hand.bestFiveCards.add(card);
                 }
-            } else if (hand.groupedByRank.get(key).size() == 3) {
-                Card card1 = hand.groupedByRank.get(key).get(0);
-                Card card2 = hand.groupedByRank.get(key).get(1);
-                hand.bestFiveCards.add(card1);
-                hand.bestFiveCards.add(card2);
             }
         }
     }
@@ -369,34 +366,41 @@ public class Evaluator {
         }
     }
 
-    private void pairShrink(Hand hand){
-        // extract into a differnet method
-        for (int i = 0; i<hand.groupedByRank.size(); i++) {
-            String key = Rank.values()[i].name();
-            if (hand.groupedByRank.get(key).size() == 2) {
-                for (int j = 0; j < 3; j++) {
-                    Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
-                }
-            }
-        }
-        // extract into a differnet method
-        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
-            Card card = hand.sortedHighToLow.get(j);
-            if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
-                while (hand.bestFiveCards.size() <= 5) {
-                    hand.bestFiveCards.add(card);
-                }
-            }
-        }
-    }
-
     private void straightShrink(Hand hand){
         for (int j = this.highestCardOrdinalForStraight; j > this.highestCardOrdinalForStraight - 5; j--) {
             Card card = hand.sortedHighToLow.get(j);
             hand.bestFiveCards.add(card);
         }
     }
-}
+
+
+    private void fullHouseShrink(Hand hand){
+        for (int i = 0; i< hand.groupedByRank.size(); i++){
+            String key = Rank.values()[i].name();
+            if (hand.groupedByRank.get(key).size() == 3) {
+                for (int j = 0; j < 3; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            } else if (hand.groupedByRank.get(key).size() == 3) {
+                Card card1 = hand.groupedByRank.get(key).get(0);
+                Card card2 = hand.groupedByRank.get(key).get(1);
+                hand.bestFiveCards.add(card1);
+                hand.bestFiveCards.add(card2);
+            }
+        }
+    }
+
+    private void royalFlushOrFlushShrink(Hand hand){
+        for (int i = 0; i < hand.groupedBySuit.size(); i++){
+            String key = Suit.values()[i].name();
+            if (hand.groupedBySuit.get(key).size() >= 5){
+                for (int j = 0; j < 5; j++) {
+                    Card card = hand.groupedBySuit.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
+    }
 
 }

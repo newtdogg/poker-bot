@@ -407,7 +407,21 @@ public class EvaluatorTest {
         evaluator.hand.playableCards = cards;
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
-        System.out.println(evaluator.hand.bestFiveCards);
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+    }
+
+   @Test public void testPairShrink(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TwoOfClubs);
+        cards.add(FiveOfDiamonds);
+        cards.add(AceOfHearts);
+        cards.add(KingOfHearts);
+        cards.add(QueenOfHearts);
+        cards.add(FiveOfClubs);
+        cards.add(TenOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
     }
 
