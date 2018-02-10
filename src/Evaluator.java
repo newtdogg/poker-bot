@@ -315,11 +315,24 @@ public class Evaluator {
             threeOfAKindShrink(hand);
         } else if (typeOfBestHand() == "PAIR") {
             pairShrink(hand);
+        } else {
+            highCardShrink(hand);
         }
     }
 
 
 //    SHRINK METHODS BELOW:
+
+    private void highCardShrink(Hand hand) {
+        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
+            Card card = hand.sortedHighToLow.get(j);
+            if (!hand.bestFiveCards.contains(card)) {
+                while (hand.bestFiveCards.size() < 5) {
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
+    }
 
     private void pairShrink(Hand hand){
         // extract into a differnet method
@@ -333,15 +346,7 @@ public class Evaluator {
                 }
             }
         }
-        // extract into a differnet method
-        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
-            Card card = hand.sortedHighToLow.get(j);
-            if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
-                while (hand.bestFiveCards.size() < 5) {
-                    hand.bestFiveCards.add(card);
-                }
-            }
-        }
+        highCardShrink(hand);
     }
 
     private void threeOfAKindShrink(Hand hand){
@@ -356,15 +361,7 @@ public class Evaluator {
                 }
             }
         }
-        // extract into a differnet method
-        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
-            Card card = hand.sortedHighToLow.get(j);
-            if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
-                while (hand.bestFiveCards.size() < 5) {
-                    hand.bestFiveCards.add(card);
-                }
-            }
-        }
+        highCardShrink(hand);
     }
 
     private void straightShrink(Hand hand){
