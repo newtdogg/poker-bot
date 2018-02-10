@@ -303,11 +303,13 @@ public class Evaluator {
 
     public void selectBestFiveCards(Hand hand){
         if (typeOfBestHand() == "ROYALFLUSH"){
-            royalFlushShrink(hand);
+            royalFlushOrFlushShrink(hand);
+        } else if (typeOfBestHand() == "FLUSH"){
+            royalFlushOrFlushShrink(hand);
         }
     }
 
-    private void royalFlushShrink(Hand hand){
+    private void royalFlushOrFlushShrink(Hand hand){
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
             if (hand.groupedBySuit.get(key).size() >= 5){
