@@ -310,6 +310,8 @@ public class Evaluator {
             royalFlushOrFlushShrink(hand);
         } else if (typeOfBestHand() == "THREEOFAKIND") {
             threeOfAKindShrink(hand);
+        } else if (typeOfBestHand() == "PAIR") {
+            pairShrink(hand);
         }
     }
 
@@ -343,6 +345,7 @@ public class Evaluator {
     }
 
     private void threeOfAKindShrink(Hand hand){
+        // extract into a differnet method
         for (int i = 0; i<hand.groupedByRank.size(); i++) {
             String key = Rank.values()[i].name();
             if (hand.groupedByRank.get(key).size() == 3) {
@@ -352,9 +355,31 @@ public class Evaluator {
                 }
             }
         }
+        // extract into a differnet method
         for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
             Card card = hand.sortedHighToLow.get(j);
-            // need to add the highest five cards that are not included in the highestFiveCards //
+            if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
+                while (hand.bestFiveCards.size() <= 5) {
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
+    }
+
+    private void pairShrink(Hand hand){
+        // extract into a differnet method
+        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+            String key = Rank.values()[i].name();
+            if (hand.groupedByRank.get(key).size() == 2) {
+                for (int j = 0; j < 3; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
+        // extract into a differnet method
+        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
+            Card card = hand.sortedHighToLow.get(j);
             if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
                 while (hand.bestFiveCards.size() <= 5) {
                     hand.bestFiveCards.add(card);
