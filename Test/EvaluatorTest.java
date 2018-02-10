@@ -428,10 +428,10 @@ public class EvaluatorTest {
     }
 
     @Test public void testPairShrink(){
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.hand = new Hand(TwoOfClubs, KingOfHearts);
         cards.add(TwoOfClubs);
-        cards.add(FiveOfDiamonds);
-        cards.add(AceOfHearts);
+        cards.add(ThreeOfSpades);
+        cards.add(KingOfClubs);
         cards.add(KingOfHearts);
         cards.add(QueenOfHearts);
         cards.add(FiveOfClubs);
@@ -440,8 +440,27 @@ public class EvaluatorTest {
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
-        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
-        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(KingOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(KingOfHearts) );
+    }
+
+    @Test public void testTwoPairShrink(){
+            evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+            cards.add(TwoOfClubs);
+            cards.add(FiveOfDiamonds);
+            cards.add(AceOfHearts);
+            cards.add(KingOfHearts);
+            cards.add(TwoOfHearts);
+            cards.add(FiveOfClubs);
+            cards.add(TenOfHearts);
+            evaluator.hand.playableCards = cards;
+            evaluator.categoriseAvailableHands();
+            evaluator.selectBestFiveCards(evaluator.hand);
+            Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
+            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TwoOfClubs) );
+            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TwoOfHearts) );
     }
 
     @Test public void testThreeOfAKindShrink(){
