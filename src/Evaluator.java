@@ -7,9 +7,11 @@ public class Evaluator {
 
     public Hashtable<String, ArrayList<Card>> allAvailableHands;
     public Hand hand;
+    int highestCardOrdinalForStraight;
 
     public Evaluator(){
         this.hand = null;
+        this.highestCardOrdinalForStraight = 0;
     }
 
     public Card highCard(){
@@ -62,6 +64,7 @@ public class Evaluator {
                 }
             }
             if (counter == 5) {
+                this.highestCardOrdinalForStraight = highestCardOrdinal;
                 return true;
             }
         }
@@ -387,5 +390,13 @@ public class Evaluator {
             }
         }
     }
+
+    private void straightShrink(Hand hand){
+        for (int j = this.highestCardOrdinalForStraight; j > this.highestCardOrdinalForStraight - 5; j--) {
+            Card card = hand.sortedHighToLow.get(j);
+            hand.bestFiveCards.add(card);
+        }
+    }
+}
 
 }
