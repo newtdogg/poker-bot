@@ -251,6 +251,8 @@ public class EvaluatorTest {
         cards.add(QueenOfHearts);
         cards.add(JackOfClubs);
         cards.add(TenOfHearts);
+        cards.add(EightOfHearts);
+        cards.add(TwoOfClubs);
         evaluator.hand.playableCards = cards;
         Assert.assertEquals(true, evaluator.straight(evaluator.hand));
     }
@@ -408,6 +410,22 @@ public class EvaluatorTest {
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
         System.out.println(evaluator.hand.bestFiveCards);
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+    }
+
+    @Test public void accessBestFiveCardsInStraightArrayAndReturnArrayList(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TenOfHearts);
+        cards.add(NineOfDiamonds);
+        cards.add(EightOfClubs);
+        cards.add(SevenOfHearts);
+        cards.add(SixOfClubs);
+        cards.add(FiveOfClubs);
+        cards.add(FourOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(TenOfHearts, evaluator.hand.bestFiveCards.get(0) );
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
     }
 
