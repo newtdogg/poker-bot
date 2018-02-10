@@ -55,16 +55,16 @@ public class Evaluator {
 
     public boolean straight(Hand hand){
         for (int n = 0; n < 3; n++) {
+            System.out.println(n);
             hand.sortHand();
-            int highestCardOrdinal = hand.sortedHighToLow.get(n).rank.ordinal();
             int counter = 1;
             for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
-                if(highestCardOrdinal - counter == hand.sortedHighToLow.get(i).rank.ordinal()) {
+                if(hand.sortedHighToLow.get(n).rank.ordinal() - counter == hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
             }
-            if (counter == 5) {
-                this.highestCardOrdinalForStraight = highestCardOrdinal;
+            if (counter >= 5) {
+                this.highestCardOrdinalForStraight = hand.sortedHighToLow.get(n).rank.ordinal();
                 return true;
             }
         }
@@ -87,6 +87,7 @@ public class Evaluator {
                     counter += 1;
                 }
             }
+            this.highestCardOrdinalForStraight = 3;
             return counter == 4;
         }
         else {
@@ -311,8 +312,10 @@ public class Evaluator {
             fourOfAKindShrink(hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
             fullHouseShrink(hand);
-        } else if (typeOfBestHand() == "FLUSH"){
+        } else if (typeOfBestHand() == "FLUSH") {
             royalFlushOrFlushShrink(hand);
+        } else if (typeOfBestHand() == "STRAIGHT") {
+            straightShrink(hand);
         } else if (typeOfBestHand() == "THREEOFAKIND") {
             threeOfAKindShrink(hand);
         } else if (typeOfBestHand() == "TWOPAIR") {
@@ -382,10 +385,22 @@ public class Evaluator {
         highCardShrink(hand);
     }
 
-    private void straightShrink(Hand hand){
-        for (int j = this.highestCardOrdinalForStraight; j > this.highestCardOrdinalForStraight - 5; j--) {
-            Card card = hand.sortedHighToLow.get(j);
-            hand.bestFiveCards.add(card);
+    private void straightShrink(Hand hand) {
+        for (int j = 0; j < 4; j++) {
+            System.out.println(Rank.values()[highestCardOrdinalForStraight]);
+            if (hand.sortedHighToLow.get(j).rank == Rank.values()[highestCardOrdinalForStraight]) {
+                hand.bestFiveCards.add(hand.sortedHighToLow.get(j));
+                for (int i = 1; i < 7; i++) {
+                    for (int n = 1; n < 5; n++) {
+                        if (highestCardOrdinalForStraight - n == hand.sortedHighToLow.get(i).rank.ordinal()) {
+                            hand.bestFiveCards.add(hand.sortedHighToLow.get(i));
+                        }
+                    }
+                }
+                if (highestCardOrdinalForStraight == 3) {
+                    hand.bestFiveCards.add(hand.sortedHighToLow.get(0));
+                }
+            }
         }
     }
 
@@ -422,10 +437,10 @@ public class Evaluator {
         highCardShrink(hand);
     }
 
-    private void royalFlushOrFlushShrink(Hand hand){
-        for (int i = 0; i < hand.groupedBySuit.size(); i++){
+    private void royalFlushOrFlushShrink(Hand hand) {
+        for (int i = 0; i < hand.groupedBySuit.size(); i++) {
             String key = Suit.values()[i].name();
-            if (hand.groupedBySuit.get(key).size() >= 5){
+            if (hand.groupedBySuit.get(key).size() >= 5) {
                 for (int j = 0; j < 5; j++) {
                     Card card = hand.groupedBySuit.get(key).get(j);
                     hand.bestFiveCards.add(card);
@@ -433,5 +448,5 @@ public class Evaluator {
             }
         }
     }
-
 }
+
