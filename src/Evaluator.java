@@ -307,6 +307,8 @@ public class Evaluator {
     public void selectBestFiveCards(Hand hand){
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(hand);
+        } else if (typeOfBestHand() == "FOUROFAKIND") {
+            fourOfAKindShrink(hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
             fullHouseShrink(hand);
         } else if (typeOfBestHand() == "FLUSH"){
@@ -340,18 +342,13 @@ public class Evaluator {
         // extract into a differnet method
         for (int i = 0; i<hand.groupedByRank.size(); i++) {
             String key = Rank.values()[i].name();
-            System.out.println(key);
             int numberOfSameRank = hand.groupedByRank.get(key).size();
-            System.out.println(numberOfSameRank);
-
             if (numberOfSameRank == 2) {
-                System.out.println(hand.bestFiveCards.size());
                 for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
                     hand.bestFiveCards.add(card);
                 }
             }
-            System.out.println(hand.bestFiveCards.size());
         }
         highCardShrink(hand);
     }
@@ -409,6 +406,20 @@ public class Evaluator {
                 }
             }
         }
+    }
+
+    private void fourOfAKindShrink(Hand hand){
+        for (int i = 0; i< hand.groupedByRank.size(); i++){
+            String key = Rank.values()[i].name();
+            int numberOfSameRank = hand.groupedByRank.get(key).size();
+            if (numberOfSameRank == 4) {
+                for (int j = 0; j < numberOfSameRank; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
+        highCardShrink(hand);
     }
 
     private void royalFlushOrFlushShrink(Hand hand){

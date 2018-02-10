@@ -503,4 +503,25 @@ public class EvaluatorTest {
 
     }
 
+    @Test public void testFourOfAKindShrink(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TwoOfClubs);
+        cards.add(FiveOfDiamonds);
+        cards.add(FiveOfClubs);
+        cards.add(FiveOfSpades);
+        cards.add(FiveOfHearts);
+        cards.add(ThreeOfSpades);
+        cards.add(TenOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfHearts) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfSpades) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TenOfHearts) );
+
+    }
+
 }
