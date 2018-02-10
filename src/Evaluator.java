@@ -308,6 +308,8 @@ public class Evaluator {
             fullHouseShrink(hand);
         } else if (typeOfBestHand() == "FLUSH"){
             royalFlushOrFlushShrink(hand);
+        } else if (typeOfBestHand() == "THREEOFAKIND") {
+            threeOfAKindShrink(hand);
         }
     }
 
@@ -333,9 +335,30 @@ public class Evaluator {
                 }
             } else if (hand.groupedByRank.get(key).size() == 3) {
                 Card card1 = hand.groupedByRank.get(key).get(0);
-                Card card2 = hand.groupedByRank.get(key).get(0);
+                Card card2 = hand.groupedByRank.get(key).get(1);
                 hand.bestFiveCards.add(card1);
                 hand.bestFiveCards.add(card2);
+            }
+        }
+    }
+
+    private void threeOfAKindShrink(Hand hand){
+        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+            String key = Rank.values()[i].name();
+            if (hand.groupedByRank.get(key).size() == 3) {
+                for (int j = 0; j < 3; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
+            }
+        }
+        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
+            Card card = hand.sortedHighToLow.get(j);
+            // need to add the highest five cards that are not included in the highestFiveCards //
+            if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
+                while (hand.bestFiveCards.size() <= 5) {
+                    hand.bestFiveCards.add(card);
+                }
             }
         }
     }
