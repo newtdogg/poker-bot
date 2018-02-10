@@ -429,4 +429,39 @@ public class EvaluatorTest {
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
     }
 
+    @Test public void accessBestFiveCardsInAceLowStraightArrayAndReturnArrayList(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(AceOfHearts);
+        cards.add(KingOfClubs);
+        cards.add(SevenOfHearts);
+        cards.add(ThreeOfSpades);
+        cards.add(TwoOfDiamonds);
+        cards.add(FiveOfClubs);
+        cards.add(FourOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(FiveOfClubs, evaluator.hand.bestFiveCards.get(0) );
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+    }
+    @Test public void accessBestFiveCardsInAceLowStraightArrayAndReturnArrayListtwo(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(AceOfHearts);
+        cards.add(AceOfClubs);
+        cards.add(SevenOfHearts);
+        cards.add(ThreeOfSpades);
+        cards.add(TwoOfDiamonds);
+        cards.add(FiveOfClubs);
+        cards.add(FourOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        System.out.println(evaluator.hand.bestFiveCards.get(0).rank);
+        System.out.println(evaluator.hand.bestFiveCards.get(1).rank);
+        System.out.println(evaluator.hand.bestFiveCards.get(2).rank);
+        System.out.println(evaluator.hand.bestFiveCards.get(3).rank);
+        System.out.println(evaluator.hand.bestFiveCards.get(4).rank);
+        Assert.assertEquals(FiveOfClubs, evaluator.hand.bestFiveCards.get(0) );
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+    }
 }

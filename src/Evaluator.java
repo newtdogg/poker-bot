@@ -87,6 +87,7 @@ public class Evaluator {
                     counter += 1;
                 }
             }
+            this.highestCardOrdinalForStraight = 3;
             return counter == 4;
         }
         else {
@@ -394,7 +395,7 @@ public class Evaluator {
     }
 
     private void straightShrink(Hand hand){
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 4; j++) {
             System.out.println(Rank.values()[highestCardOrdinalForStraight]);
             if (hand.sortedHighToLow.get(j).rank == Rank.values()[highestCardOrdinalForStraight]) {
                 hand.bestFiveCards.add(hand.sortedHighToLow.get(j));
@@ -405,8 +406,15 @@ public class Evaluator {
                         }
                     }
                 }
+                if (highestCardOrdinalForStraight == 3) {
+                    hand.bestFiveCards.add(hand.sortedHighToLow.get(0));
+                }
             }
         }
+    }
+
+    private void aceLowStraightShrink(Hand hand){
+
     }
 }
 
