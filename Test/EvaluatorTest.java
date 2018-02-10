@@ -423,6 +423,48 @@ public class EvaluatorTest {
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+    }
+
+    @Test public void testThreeOfAKindShrink(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TwoOfClubs);
+        cards.add(FiveOfDiamonds);
+        cards.add(AceOfHearts);
+        cards.add(KingOfHearts);
+        cards.add(FiveOfHearts);
+        cards.add(FiveOfClubs);
+        cards.add(TenOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfHearts) );
+
+    }
+
+    @Test public void testFullHouseShrink(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TwoOfClubs);
+        cards.add(FiveOfDiamonds);
+        cards.add(KingOfDiamonds);
+        cards.add(KingOfHearts);
+        cards.add(FiveOfHearts);
+        cards.add(FiveOfClubs);
+        cards.add(TenOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfHearts) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(KingOfDiamonds) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(KingOfHearts) );
+
     }
 
 }

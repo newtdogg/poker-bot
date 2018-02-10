@@ -348,8 +348,9 @@ public class Evaluator {
         // extract into a differnet method
         for (int i = 0; i<hand.groupedByRank.size(); i++) {
             String key = Rank.values()[i].name();
-            if (hand.groupedByRank.get(key).size() == 3) {
-                for (int j = 0; j < 3; j++) {
+            int numberOfSameRank = hand.groupedByRank.get(key).size();
+            if (numberOfSameRank == 3) {
+                for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
                     hand.bestFiveCards.add(card);
                 }
@@ -359,7 +360,7 @@ public class Evaluator {
         for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
             Card card = hand.sortedHighToLow.get(j);
             if (hand.sortedHighToLow.get(j).rank != hand.bestFiveCards.get(0).rank) {
-                while (hand.bestFiveCards.size() <= 5) {
+                while (hand.bestFiveCards.size() < 5) {
                     hand.bestFiveCards.add(card);
                 }
             }
@@ -377,16 +378,17 @@ public class Evaluator {
     private void fullHouseShrink(Hand hand){
         for (int i = 0; i< hand.groupedByRank.size(); i++){
             String key = Rank.values()[i].name();
-            if (hand.groupedByRank.get(key).size() == 3) {
-                for (int j = 0; j < 3; j++) {
+            int numberOfSameRank = hand.groupedByRank.get(key).size();
+            if (numberOfSameRank == 3) {
+                for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
                     hand.bestFiveCards.add(card);
                 }
-            } else if (hand.groupedByRank.get(key).size() == 3) {
-                Card card1 = hand.groupedByRank.get(key).get(0);
-                Card card2 = hand.groupedByRank.get(key).get(1);
-                hand.bestFiveCards.add(card1);
-                hand.bestFiveCards.add(card2);
+            } else if (numberOfSameRank == 2) {
+                for (int j = 0; j < numberOfSameRank; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
+                }
             }
         }
     }
