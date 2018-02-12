@@ -344,4 +344,32 @@ public class BotTest {
         Assert.assertEquals(16252928, Math.round(bot.handWeigthingSuitFrequency()));
     }
 
+    @Test
+    public void testStraighWeighting() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.THREE, Suit.SPADE);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.SIX, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card5 = new Card(Rank.EIGHT, Suit.HEART);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.SEVEN, Suit.SPADE);
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+        Assert.assertEquals(3712, Math.round(bot.handWeigthingStraight()));
+    }
+
 }

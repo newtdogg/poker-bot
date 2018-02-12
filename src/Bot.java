@@ -162,6 +162,17 @@ public class Bot {
         return scalar;
     }
 
+    private double scaleStraightWinners() {
+        passHandToEvaluator();
+        double scalar = 0;
+        this.evaluator.categoriseAvailableHands();
+        System.out.println(this.evaluator.typeOfBestHand());
+        if (this.evaluator.typeOfBestHand() == "STRAIGHT") {
+            scalar = Math.pow(2, 7);
+        }
+        return scalar;
+    }
+
     public double handWeigthingSuitFrequency() {
         assignPrimeRanks();
         this.hand.groupBySuit(this.hand.playableCards);
@@ -174,5 +185,17 @@ public class Bot {
             }
         }
         return 0;
+    }
+
+    public double handWeigthingStraight() {
+        assignPrimeRanks();
+        this.evaluator.straight(this.hand);
+        this.evaluator.aceLowStraight(this.hand);
+
+        int highCardOrd = this.evaluator.highestCardOrdinalForStraight;
+
+        System.out.println(primeRankMap.get(Rank.values()[highCardOrd].name()));
+
+        return primeRankMap.get(Rank.values()[highCardOrd].name()) * scaleStraightWinners();
     }
 }
