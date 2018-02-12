@@ -55,7 +55,6 @@ public class Evaluator {
 
     public boolean straight(Hand hand){
         for (int n = 0; n < 3; n++) {
-            System.out.println(n);
             hand.sortHand();
             int counter = 1;
             for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
@@ -122,7 +121,6 @@ public class Evaluator {
                         counter += 1;
                     }
                 }
-                System.out.println(counter);
                 if (counter >= 5) {
                     return true;
                 }
@@ -308,6 +306,8 @@ public class Evaluator {
     public void selectBestFiveCards(Hand hand){
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(hand);
+        } else if (typeOfBestHand() == "STRAIGHTFLUSH") {
+            straightShrink(hand);
         } else if (typeOfBestHand() == "FOUROFAKIND") {
             fourOfAKindShrink(hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
@@ -357,18 +357,18 @@ public class Evaluator {
     }
 
     private void twoPairShrink(Hand hand){
-            for (int i = 0; i<hand.groupedByRank.size(); i++) {
-                String key = Rank.values()[i].name();
-                int numberOfSameRank = hand.groupedByRank.get(key).size();
-                if (numberOfSameRank == 2) {
-                    for (int j = 0; j < numberOfSameRank; j++) {
-                        Card card = hand.groupedByRank.get(key).get(j);
-                        hand.bestFiveCards.add(card);
-                    }
+        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+            String key = Rank.values()[i].name();
+            int numberOfSameRank = hand.groupedByRank.get(key).size();
+            if (numberOfSameRank == 2) {
+                for (int j = 0; j < numberOfSameRank; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
                 }
             }
-            highCardShrink(hand);
         }
+        highCardShrink(hand);
+    }
 
     private void threeOfAKindShrink(Hand hand){
         // extract into a differnet method
@@ -387,7 +387,6 @@ public class Evaluator {
 
     private void straightShrink(Hand hand) {
         for (int j = 0; j < 4; j++) {
-            System.out.println(Rank.values()[highestCardOrdinalForStraight]);
             if (hand.sortedHighToLow.get(j).rank == Rank.values()[highestCardOrdinalForStraight]) {
                 hand.bestFiveCards.add(hand.sortedHighToLow.get(j));
                 for (int i = 1; i < 7; i++) {
@@ -449,4 +448,11 @@ public class Evaluator {
         }
     }
 }
+
+
+
+
+
+
+
 

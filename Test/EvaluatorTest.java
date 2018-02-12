@@ -412,7 +412,7 @@ public class EvaluatorTest {
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
     }
 
-   @Test public void testHighShrink(){
+    @Test public void testHighShrink(){
         evaluator.hand = new Hand(TwoOfClubs, KingOfDiamonds);
         cards.add(TwoOfClubs);
         cards.add(KingOfDiamonds);
@@ -447,22 +447,22 @@ public class EvaluatorTest {
     }
 
     @Test public void testTwoPairShrink(){
-            evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
-            cards.add(TwoOfClubs);
-            cards.add(FiveOfDiamonds);
-            cards.add(AceOfHearts);
-            cards.add(KingOfHearts);
-            cards.add(TwoOfHearts);
-            cards.add(FiveOfClubs);
-            cards.add(TenOfHearts);
-            evaluator.hand.playableCards = cards;
-            evaluator.categoriseAvailableHands();
-            evaluator.selectBestFiveCards(evaluator.hand);
-            Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
-            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
-            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
-            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TwoOfClubs) );
-            Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TwoOfHearts) );
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TwoOfClubs);
+        cards.add(FiveOfDiamonds);
+        cards.add(AceOfHearts);
+        cards.add(KingOfHearts);
+        cards.add(TwoOfHearts);
+        cards.add(FiveOfClubs);
+        cards.add(TenOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TwoOfClubs) );
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(TwoOfHearts) );
     }
 
     @Test public void testThreeOfAKindShrink(){
@@ -534,7 +534,7 @@ public class EvaluatorTest {
         cards.add(SevenOfHearts);
         cards.add(SixOfClubs);
         cards.add(FiveOfClubs);
-        cards.add(FourOfHearts);
+        cards.add(KingOfHearts);
         evaluator.hand.playableCards = cards;
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
@@ -569,12 +569,23 @@ public class EvaluatorTest {
         evaluator.hand.playableCards = cards;
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
-        System.out.println(evaluator.hand.bestFiveCards.get(0).rank);
-        System.out.println(evaluator.hand.bestFiveCards.get(1).rank);
-        System.out.println(evaluator.hand.bestFiveCards.get(2).rank);
-        System.out.println(evaluator.hand.bestFiveCards.get(3).rank);
-        System.out.println(evaluator.hand.bestFiveCards.get(4).rank);
         Assert.assertEquals(FiveOfClubs, evaluator.hand.bestFiveCards.get(0) );
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
+    }
+
+    @Test public void accessBestFiveCardsInStraightFlushArrayAndReturnArrayList(){
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TenOfHearts);
+        cards.add(NineOfHearts);
+        cards.add(EightOfHearts);
+        cards.add(SevenOfHearts);
+        cards.add(SixOfHearts);
+        cards.add(FiveOfClubs);
+        cards.add(JackOfDiamonds);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(TenOfHearts, evaluator.hand.bestFiveCards.get(0) );
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
     }
 }
