@@ -100,4 +100,21 @@ public class Bot {
         }
         return cardsFromHand;
     }
+
+    public int weightPair() {
+        hand.groupByRank(this.hand);
+        System.out.println(hand);
+
+        System.out.println(this.hand.groupedByRank.get(Rank.values()[2].name()));
+
+        for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
+            String key = Rank.values()[i].name();
+            if (this.hand.groupedByRank.get(key).size() == 2) {
+                return this.hand.groupedByRank.get(key).get(0).rank.ordinal();
+            }
+        }
+        return 0;
+    }
+
+
 }

@@ -148,5 +148,27 @@ public class BotTest {
         Assert.assertEquals(2, bot.cardsFromHandInBestCombo());
     }
 
+    @Test
+    public void assignWeightToPairs() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot);
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.HEART);
+        Card card3 = new Card(Rank.THREE, Suit.HEART);
+        Card card4 = new Card(Rank.SIX, Suit.HEART);
+        Card card5 = new Card(Rank.SEVEN, Suit.HEART);
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+
+        Assert.assertEquals(3, bot.weightPair());
+        }
+
 
 }
