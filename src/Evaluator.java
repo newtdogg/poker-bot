@@ -135,7 +135,7 @@ public class Evaluator {
         int counter = 0;
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
-            if (hand.groupedBySuit.get(key).size() >= 4){
+            if (hand.groupedBySuit.get(key).size() >= 5 && hand.groupedBySuit.get(key).get(0).rank.name() == "ACE" && hand.groupedBySuit.get(key).get(1).rank.name() == "KING"){
                 int highestOrdinal = hand.groupedBySuit.get(key).get(0).rank.ordinal();
                 for(int j = 1; j < hand.groupedBySuit.get(key).size(); j++) {
                     if(highestOrdinal - j == hand.groupedBySuit.get(key).get(j).rank.ordinal()) {
@@ -147,6 +147,10 @@ public class Evaluator {
         }
         return false;
     }
+
+//    private boolean royalFlushChecker() {
+//        return hand.groupedBySuit.get(key).get(0).rank.name() == "ACE" && hand.groupedBySuit.get(key).get(1).rank.name() == "KING";
+//    }
 
     public boolean fullHouse(Hand hand) {
         hand.groupByRank(hand.playableCards);
