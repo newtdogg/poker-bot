@@ -189,7 +189,7 @@ public class BotTest {
         bot.hand.playableCards.add(card4);
         bot.hand.playableCards.add(card5);
 
-        Assert.assertEquals(2, bot.weightRankFrequencyWinners());
+        Assert.assertEquals(81, bot.weightRankFrequencyWinners());
     }
 
 

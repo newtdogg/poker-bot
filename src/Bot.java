@@ -102,21 +102,39 @@ public class Bot {
     }
 
     public int weightRankFrequencyWinners() {
+        int toBeScaled = 0;
         hand.groupByRank(this.hand.playableCards);
         for (int f = Suit.values().length; f > 1; f--) {
             for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
                 String key = Rank.values()[i].name();
                 if (this.hand.groupedByRank.get(key).size() == f) {
-                    return this.hand.groupedByRank.get(key).get(0).rank.ordinal()+1;
+                    toBeScaled = this.hand.groupedByRank.get(key).get(0).rank.ordinal()+1;
+                    return toBeScaled * 2^scaleRankFrequencyWinners();
                 }
             }
         }
         return 0;
     }
-//
-//    public int scaleRankFrequencyWinners() {
-//
-//    }
+
+    private int scaleRankFrequencyWinners() {
+        // need to pass bot hand to evaluator
+        this.evaluator.hand = this.hand;////
+        ////////////////////////////////////
+        this.evaluator.categoriseAvailableHands();
+        System.out.println(this.evaluator.typeOfBestHand());
+        int scalar = 0;
+        if(this.evaluator.typeOfBestHand() == "PAIR") {
+            scalar = 1;
+        } else if (this.evaluator.typeOfBestHand() == "TWOPAIR") {
+            scalar = 2;
+        } else if (this.evaluator.typeOfBestHand() == "THREEOFAKIND") {
+            scalar = 3;
+        } else if (this.evaluator.typeOfBestHand() == "FOUROFAKIND") {
+            scalar = 7;
+        }
+
+        return scalar;
+    }
 
 
 }
