@@ -118,5 +118,35 @@ public class BotTest {
 //        Assert.assertEquals("Pair", bot.evaluateHand());
     }
 
+    @Test
+    public void numberOfHoldEmInBestCombo() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot);
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FIVE, Suit.HEART);
+        Card card3 = new Card(Rank.THREE, Suit.HEART);
+        Card card4 = new Card(Rank.SIX, Suit.HEART);
+        Card card5 = new Card(Rank.SEVEN, Suit.HEART);
+
+
+        bot.hand.holdEm.clear();
+        bot.hand.holdEm.add(card1);
+        bot.hand.holdEm.add(card2);
+        System.out.println(bot.hand.holdEm);
+
+
+        bot.hand.bestFiveCards.add(card1);
+        bot.hand.bestFiveCards.add(card2);
+
+        bot.hand.bestFiveCards.add(card3);
+        bot.hand.bestFiveCards.add(card4);
+        bot.hand.bestFiveCards.add(card5);
+
+        Assert.assertEquals(2, bot.cardsFromHandInBestCombo());
+    }
+
 
 }

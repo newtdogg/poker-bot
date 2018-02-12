@@ -41,6 +41,7 @@ public class Bot {
         this.card1rank = this.card1.rank.ordinal();
         this.card2rank = this.card2.rank.ordinal();
     }
+
     public int weighHand() {
         assignCards();
         combineCardValue();
@@ -70,19 +71,33 @@ public class Bot {
             handWeight *= 2;
         }
     }
+
     private boolean cardsAreConnected() {
         return (this.card1rank == this.card2rank + 1 || this.card1rank == this.card2rank - 1);
     }
+
     private boolean cardsAreSemiConnected() {
         int difference = Math.abs(this.card1rank - this.card2rank);
         return (difference > 1 && difference < 5 );
     }
+
     private boolean pocketPairs() {
         return this.card1rank == this.card2rank;
     }
+
     private void cardsAreSuited(){
         if (card1.suit == card2.suit) {
             handWeight += 8;
         }
+    }
+
+    public int cardsFromHandInBestCombo() {
+        int cardsFromHand = 0;
+        for (int i = 0; i < this.hand.holdEm.size(); i++) {
+            if ( hand.bestFiveCards.contains(this.hand.holdEm.get(i)) ) {
+                cardsFromHand += 1;
+            }
+        }
+        return cardsFromHand;
     }
 }
