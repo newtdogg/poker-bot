@@ -35,7 +35,9 @@
                   <background color="-15157191"/>
                   <enabled value="true"/>
                 </properties>
-                <border type="line"/>
+                <border type="line">
+                  <color color="-16777216"/>
+                </border>
                 <children>
                   <component id="2b652" class="javax.swing.JLabel" binding="card1suit">
                     <constraints>
