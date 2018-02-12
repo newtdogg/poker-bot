@@ -585,6 +585,9 @@ public class EvaluatorTest {
         evaluator.hand.playableCards = cards;
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards(evaluator.hand);
+        System.out.println(evaluator.hand.bestFiveCards.get(0).rank );
+        System.out.println(evaluator.hand.bestFiveCards.get(0).suit);
+        System.out.println(evaluator.typeOfBestHand());
         Assert.assertEquals(TenOfHearts, evaluator.hand.bestFiveCards.get(0) );
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size() );
     }

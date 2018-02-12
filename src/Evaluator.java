@@ -311,7 +311,7 @@ public class Evaluator {
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(hand);
         } else if (typeOfBestHand() == "STRAIGHTFLUSH") {
-            straightShrink(hand);
+            royalFlushOrFlushShrink(hand);
         } else if (typeOfBestHand() == "FOUROFAKIND") {
             fourOfAKindShrink(hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
