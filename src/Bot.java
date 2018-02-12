@@ -114,9 +114,9 @@ public class Bot {
         return 0;
     }
 
-    public int scaleFrequencyWinners() {
-        
-    }
+//    public int scaleFrequencyWinners() {
+//
+//    }
 
 
 }

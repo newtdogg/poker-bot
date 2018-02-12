@@ -159,7 +159,7 @@ public class BotTest {
         Card card2 = new Card(Rank.FOUR, Suit.HEART);
         Card card3 = new Card(Rank.ACE, Suit.HEART);
         Card card4 = new Card(Rank.ACE, Suit.HEART);
-        Card card5 = new Card(Rank.SEVEN, Suit.HEART);
+        Card card5 = new Card(Rank.FOUR, Suit.HEART);
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
