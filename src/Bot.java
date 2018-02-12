@@ -25,14 +25,8 @@ public class Bot {
     }
 
     public void passHandToEvaluator() {
-        // here we create the hash table of best available hands
-        // this.evaluator.allAvailableHands = new hash table
-//        createAllAvailableHandsHashTable();
-        // call evaluate methods which map the hands to the new hash table (bot has an evaluator)
-        // any methods to assess different hand weight call upon the hash table: this.evaluator.allAvailableHands
         this.evaluator.hand = this.hand;
     }
-
 
 
     private void assignCards() {
@@ -50,6 +44,7 @@ public class Bot {
         cardsAreSuited();
         return this.handWeight;
     }
+
     private void highCardBonus() {
         if (this.card1rank >= 8 && this.card2rank >= 8) {
             handWeight += 14;
@@ -57,15 +52,17 @@ public class Bot {
             handWeight += 2;
         }
     }
+
     private void combineCardValue() {
         int cardOneValue = this.card1rank + 2;
         int cardTwoValue = this.card2rank + 2;
         handWeight += (cardOneValue + cardTwoValue);
     }
+
     private void cardPositions() {
-        if (cardsAreConnected()){
+        if (cardsAreConnected()) {
             handWeight += 5;
-        } else if (cardsAreSemiConnected()){
+        } else if (cardsAreSemiConnected()) {
             handWeight += 2;
         } else if (pocketPairs()) {
             handWeight *= 2;
@@ -78,14 +75,14 @@ public class Bot {
 
     private boolean cardsAreSemiConnected() {
         int difference = Math.abs(this.card1rank - this.card2rank);
-        return (difference > 1 && difference < 5 );
+        return (difference > 1 && difference < 5);
     }
 
     private boolean pocketPairs() {
         return this.card1rank == this.card2rank;
     }
 
-    private void cardsAreSuited(){
+    private void cardsAreSuited() {
         if (card1.suit == card2.suit) {
             handWeight += 8;
         }
@@ -94,7 +91,7 @@ public class Bot {
     public int cardsFromHandInBestCombo() {
         int cardsFromHand = 0;
         for (int i = 0; i < this.hand.holdEm.size(); i++) {
-            if ( hand.bestFiveCards.contains(this.hand.holdEm.get(i)) ) {
+            if (hand.bestFiveCards.contains(this.hand.holdEm.get(i))) {
                 cardsFromHand += 1;
             }
         }
@@ -102,7 +99,7 @@ public class Bot {
     }
 
 
-        private void assignPrimeRanks() {
+    private void assignPrimeRanks() {
         primeRankMap.put("TWO", 3);
         primeRankMap.put("THREE", 5);
         primeRankMap.put("FOUR", 7);
@@ -122,7 +119,7 @@ public class Bot {
         assignPrimeRanks();
         this.hand.groupByRank(this.hand.playableCards);
         for (int f = Suit.values().length; f > 1; f--) {
-            for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
+            for (int i = this.hand.groupedByRank.size() - 1; i >= 0; --i) {
                 String key = Rank.values()[i].name();
                 if (this.hand.groupedByRank.get(key).size() == f) {
                     String rankPrime = this.hand.groupedByRank.get(key).get(0).rank.name();
@@ -135,13 +132,10 @@ public class Bot {
 
 
     private double scaleRankFrequencyWinners() {
-        // need to pass bot hand to evaluator
-        this.evaluator.hand = this.hand;////
-        ////////////////////////////////////
+        passHandToEvaluator();
         this.evaluator.categoriseAvailableHands();
-        System.out.println(this.evaluator.typeOfBestHand());
         double scalar = 0;
-        if(this.evaluator.typeOfBestHand() == "PAIR") {
+        if (this.evaluator.typeOfBestHand() == "PAIR") {
             scalar = Math.pow(2, 2);
         } else if (this.evaluator.typeOfBestHand() == "TWOPAIR") {
             scalar = Math.pow(2, 3);
@@ -149,7 +143,36 @@ public class Bot {
             scalar = Math.pow(2, 5);
         } else if (this.evaluator.typeOfBestHand() == "FOUROFAKIND") {
             scalar = Math.pow(2, 17);
+        } else if (this.evaluator.typeOfBestHand() == "FULLHOUSE") {
+            scalar = Math.pow(2, 13);
         }
         return scalar;
+    }
+
+    private double scaleSuitFrequencyWinners() {
+        passHandToEvaluator();
+        double scalar = 0;
+        this.evaluator.categoriseAvailableHands();
+        System.out.println(this.evaluator.typeOfBestHand());
+        if (this.evaluator.typeOfBestHand() == "STRAIGHTFLUSH" || this.evaluator.typeOfBestHand() == "ROYALFLUSH") {
+            scalar = Math.pow(2, 19);
+        } else if (this.evaluator.typeOfBestHand() == "FLUSH") {
+            scalar = Math.pow(2, 11);
+        }
+        return scalar;
+    }
+
+    public double handWeigthingSuitFrequency() {
+        assignPrimeRanks();
+        this.hand.groupBySuit(this.hand.playableCards);
+        for (int i = 0; i < this.hand.groupedBySuit.size(); i++) {
+            String key = Suit.values()[i].name();
+            if (this.hand.groupedBySuit.get(key).size() >= 5) {
+                String rankPrime = this.hand.groupedBySuit.get(key).get(0).rank.name();
+                System.out.println(primeRankMap.get(rankPrime) * scaleSuitFrequencyWinners());
+                return primeRankMap.get(rankPrime) * scaleSuitFrequencyWinners();
+            }
+        }
+        return 0;
     }
 }
