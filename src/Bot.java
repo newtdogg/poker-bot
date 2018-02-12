@@ -102,10 +102,7 @@ public class Bot {
     }
 
     public int weightPair() {
-        hand.groupByRank(this.hand);
-        System.out.println(hand);
-
-        System.out.println(this.hand.groupedByRank.get(Rank.values()[2].name()));
+        hand.groupByRank(this.hand.playableCards);
 
         for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
