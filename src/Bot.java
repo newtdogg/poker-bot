@@ -11,7 +11,7 @@ public class Bot {
     public Card card2;
     public int card1rank;
     public int card2rank;
-
+    public Hashtable<String, Integer> primeRankMap = new Hashtable<String, Integer>();
 
 
     Bot() {
@@ -101,22 +101,36 @@ public class Bot {
         return cardsFromHand;
     }
 
-    public int weightFrequencyWinners() {
-        hand.groupByRank(this.hand.playableCards);
-        for (int f = 4; f > 1; f--) {
+
+    private void assignPrimeRanks() {
+        primeRankMap.put("TWO", 3);
+        primeRankMap.put("THREE", 5);
+        primeRankMap.put("FOUR", 7);
+        primeRankMap.put("FIVE", 11);
+        primeRankMap.put("SIX", 13);
+        primeRankMap.put("SEVEN", 17);
+        primeRankMap.put("EIGHT", 19);
+        primeRankMap.put("NINE", 23);
+        primeRankMap.put("TEN", 29);
+        primeRankMap.put("JACK", 31);
+        primeRankMap.put("QUEEN", 37);
+        primeRankMap.put("KING", 41);
+        primeRankMap.put("ACE", 43);
+    }
+
+    public int handWeigthingRankFrequency() {
+        assignPrimeRanks();
+        this.hand.groupByRank(this.hand.playableCards);
+        for (int f = Suit.values().length; f > 1; f--) {
             for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
                 String key = Rank.values()[i].name();
                 if (this.hand.groupedByRank.get(key).size() == f) {
-                    return this.hand.groupedByRank.get(key).get(0).rank.ordinal();
+                    String rankPrime = this.hand.groupedByRank.get(key).get(0).rank.name();
+                    return primeRankMap.get(rankPrime);
                 }
             }
         }
         return 0;
     }
-
-//    public int scaleFrequencyWinners() {
-//
-//    }
-
 
 }

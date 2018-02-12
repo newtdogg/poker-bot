@@ -149,26 +149,33 @@ public class BotTest {
     }
 
     @Test
-    public void assignWeightToFrequencyWinners() {
+    public void testHandWeighting() {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
         dealer.dealHand(bot);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
 
-        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
-        Card card2 = new Card(Rank.FOUR, Suit.HEART);
+        Card card1 = new Card(Rank.TWO, Suit.SPADE);
+        Card card2 = new Card(Rank.THREE, Suit.HEART);
         Card card3 = new Card(Rank.ACE, Suit.HEART);
         Card card4 = new Card(Rank.ACE, Suit.HEART);
-        Card card5 = new Card(Rank.FOUR, Suit.HEART);
+        Card card5 = new Card(Rank.NINE, Suit.HEART);
+        Card card6 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card7 = new Card(Rank.TEN, Suit.HEART);
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
         bot.hand.playableCards.add(card3);
         bot.hand.playableCards.add(card4);
         bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(12, bot.weightFrequencyWinners());
-        }
+        Assert.assertEquals(43, bot.handWeigthingRankFrequency());
+    }
+
 
 
 }
