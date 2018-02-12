@@ -43,14 +43,20 @@ public class Game {
     public Game() {
         Dealer dealer = new Dealer();
         Bot bot = new Bot();
+        dealer.generateRankSymbols();
+        dealer.generateSuitSymbols();
         Deal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dealer.dealHand(bot);
-                card1rank.setText(bot.hand.holdEm.get(0).rank.name());
-                card1suit.setText(bot.hand.holdEm.get(0).suit.name());
-                card2rank.setText(bot.hand.holdEm.get(1).rank.name());
-                card2suit.setText(bot.hand.holdEm.get(1).suit.name());
+                String key1rank = bot.hand.holdEm.get(0).rank.name();
+                String key2rank = bot.hand.holdEm.get(1).rank.name();
+                String key1suit = bot.hand.holdEm.get(0).suit.name();
+                String key2suit = bot.hand.holdEm.get(1).suit.name();
+                card1rank.setText(dealer.rankSymbol.get(key1rank).toString());
+                card1suit.setText(dealer.suitSymbol.get(key1suit).toString());
+                card2rank.setText(dealer.rankSymbol.get(key2rank).toString());
+                card2suit.setText(dealer.suitSymbol.get(key2suit).toString());
                 card1.setBackground(Color.white);
                 card2.setBackground(Color.white);
             }
@@ -59,12 +65,18 @@ public class Game {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dealer.dealFlop(bot);
-                flop1rank.setText(bot.hand.playableCards.get(2).rank.name());
-                flop1suit.setText(bot.hand.playableCards.get(2).suit.name());
-                flop2rank.setText(bot.hand.playableCards.get(3).rank.name());
-                flop2suit.setText(bot.hand.playableCards.get(3).suit.name());
-                flop3rank.setText(bot.hand.playableCards.get(4).rank.name());
-                flop3suit.setText(bot.hand.playableCards.get(4).suit.name());
+                String key3rank = bot.hand.playableCards.get(2).rank.name();
+                String key4rank = bot.hand.playableCards.get(3).rank.name();
+                String key5rank = bot.hand.playableCards.get(4).rank.name();
+                String key3suit = bot.hand.playableCards.get(2).suit.name();
+                String key4suit = bot.hand.playableCards.get(3).suit.name();
+                String key5suit = bot.hand.playableCards.get(4).suit.name();
+                flop1rank.setText(dealer.rankSymbol.get(key3rank).toString());
+                flop1suit.setText(dealer.suitSymbol.get(key3suit).toString());
+                flop2rank.setText(dealer.rankSymbol.get(key4rank).toString());
+                flop2suit.setText(dealer.suitSymbol.get(key4suit).toString());
+                flop3rank.setText(dealer.rankSymbol.get(key5rank).toString());
+                flop3suit.setText(dealer.suitSymbol.get(key5suit).toString());
                 flop1.setBackground(Color.white);
                 flop2.setBackground(Color.white);
                 flop3.setBackground(Color.white);
@@ -72,8 +84,5 @@ public class Game {
             }
         });
     }
-
-
-
 
 }

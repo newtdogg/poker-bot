@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.Hashtable;
 
 public class Card {
 
@@ -8,6 +9,7 @@ public class Card {
     Card(Rank inputRank, Suit inputSuit) {
         this.rank = inputRank;
         this.suit = inputSuit;
+
     }
 
     public static Comparator<Card> CardRankComparator = new Comparator<Card>() {
@@ -30,3 +32,4 @@ public class Card {
         }
     };
 }
+
