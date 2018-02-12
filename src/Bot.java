@@ -150,7 +150,6 @@ public class Bot {
         } else if (this.evaluator.typeOfBestHand() == "FOUROFAKIND") {
             scalar = Math.pow(2, 17);
         }
-
         return scalar;
     }
 }
