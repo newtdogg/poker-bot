@@ -158,7 +158,29 @@ public class BotTest {
         Card card1 = new Card(Rank.FOUR, Suit.SPADE);
         Card card2 = new Card(Rank.FOUR, Suit.HEART);
         Card card3 = new Card(Rank.ACE, Suit.HEART);
-        Card card4 = new Card(Rank.ACE, Suit.HEART);
+        Card card4 = new Card(Rank.TWO, Suit.CLUB);
+        Card card5 = new Card(Rank.FOUR, Suit.CLUB);
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+
+        Assert.assertEquals(3, bot.weightRankFrequencyWinners());
+    }
+
+    @Test
+    public void scaleRankFrequencyWinners() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot);
+
+        Card card1 = new Card(Rank.FOUR, Suit.SPADE);
+        Card card2 = new Card(Rank.FOUR, Suit.HEART);
+        Card card3 = new Card(Rank.ACE, Suit.HEART);
+        Card card4 = new Card(Rank.ACE, Suit.CLUB);
         Card card5 = new Card(Rank.FOUR, Suit.HEART);
 
         bot.hand.playableCards.add(card1);
@@ -167,8 +189,8 @@ public class BotTest {
         bot.hand.playableCards.add(card4);
         bot.hand.playableCards.add(card5);
 
-        Assert.assertEquals(12, bot.weightFrequencyWinners());
-        }
+        Assert.assertEquals(2, bot.weightRankFrequencyWinners());
+    }
 
 
 }

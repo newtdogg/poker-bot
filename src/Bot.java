@@ -101,20 +101,20 @@ public class Bot {
         return cardsFromHand;
     }
 
-    public int weightFrequencyWinners() {
+    public int weightRankFrequencyWinners() {
         hand.groupByRank(this.hand.playableCards);
-        for (int f = 4; f > 1; f--) {
+        for (int f = Suit.values().length; f > 1; f--) {
             for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
                 String key = Rank.values()[i].name();
                 if (this.hand.groupedByRank.get(key).size() == f) {
-                    return this.hand.groupedByRank.get(key).get(0).rank.ordinal();
+                    return this.hand.groupedByRank.get(key).get(0).rank.ordinal()+1;
                 }
             }
         }
         return 0;
     }
-
-//    public int scaleFrequencyWinners() {
+//
+//    public int scaleRankFrequencyWinners() {
 //
 //    }
 
