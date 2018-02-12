@@ -118,7 +118,7 @@ public class Bot {
         primeRankMap.put("ACE", 43);
     }
 
-    public int handWeigthingRankFrequency() {
+    public double handWeigthingRankFrequency() {
         assignPrimeRanks();
         this.hand.groupByRank(this.hand.playableCards);
         for (int f = Suit.values().length; f > 1; f--) {
@@ -126,7 +126,7 @@ public class Bot {
                 String key = Rank.values()[i].name();
                 if (this.hand.groupedByRank.get(key).size() == f) {
                     String rankPrime = this.hand.groupedByRank.get(key).get(0).rank.name();
-                    return primeRankMap.get(rankPrime);
+                    return primeRankMap.get(rankPrime) * scaleRankFrequencyWinners();
                 }
             }
         }
@@ -134,21 +134,21 @@ public class Bot {
     }
 
 
-    private int scaleRankFrequencyWinners() {
+    private double scaleRankFrequencyWinners() {
         // need to pass bot hand to evaluator
         this.evaluator.hand = this.hand;////
         ////////////////////////////////////
         this.evaluator.categoriseAvailableHands();
         System.out.println(this.evaluator.typeOfBestHand());
-        int scalar = 0;
+        double scalar = 0;
         if(this.evaluator.typeOfBestHand() == "PAIR") {
-            scalar = 1;
+            scalar = Math.pow(2, 2);
         } else if (this.evaluator.typeOfBestHand() == "TWOPAIR") {
-            scalar = 2;
+            scalar = Math.pow(2, 3);
         } else if (this.evaluator.typeOfBestHand() == "THREEOFAKIND") {
-            scalar = 3;
+            scalar = Math.pow(2, 5);
         } else if (this.evaluator.typeOfBestHand() == "FOUROFAKIND") {
-            scalar = 7;
+            scalar = Math.pow(2, 17);
         }
 
         return scalar;
