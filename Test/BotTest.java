@@ -173,7 +173,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(172, Math.round(bot.handWeigthingRankFrequency()));
+        Assert.assertEquals(172, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -200,8 +200,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
-
-        Assert.assertEquals(928, Math.round(bot.handWeigthingRankFrequency()));
+        Assert.assertEquals(928, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -229,7 +228,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(3801088, Math.round(bot.handWeigthingRankFrequency()));
+        Assert.assertEquals(3801088, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -257,7 +256,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(232, Math.round(bot.handWeigthingRankFrequency()));
+        Assert.assertEquals(232, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -285,7 +284,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(40960, Math.round(bot.handWeigthingRankFrequency()));
+        Assert.assertEquals(40960, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -312,8 +311,10 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
+        bot.passHandToEvaluator();
+        bot.evaluator.categoriseAvailableHands();
 
-        Assert.assertEquals(63488, Math.round(bot.handWeigthingSuitFrequency()));
+        Assert.assertEquals(63488, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -341,7 +342,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(16252928, Math.round(bot.handWeigthingSuitFrequency()));
+        Assert.assertEquals(16252928, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -369,7 +370,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(3712, Math.round(bot.handWeigthingStraight()));
+        Assert.assertEquals(3712, Math.round(bot.getHandWeight()));
     }
 
 }

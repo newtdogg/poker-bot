@@ -115,7 +115,7 @@ public class Bot {
         primeRankMap.put("ACE", 43);
     }
 
-    public double handWeigthingRankFrequency() {
+    private double handWeigthingRankFrequency() {
         assignPrimeRanks();
         this.hand.groupByRank(this.hand.playableCards);
         for (int f = Suit.values().length; f > 1; f--) {
@@ -132,8 +132,6 @@ public class Bot {
 
 
     private double scaleRankFrequencyWinners() {
-        passHandToEvaluator();
-        this.evaluator.categoriseAvailableHands();
         double scalar = 0;
         if (this.evaluator.typeOfBestHand() == "PAIR") {
             scalar = Math.pow(2, 2);
@@ -150,7 +148,6 @@ public class Bot {
     }
 
     private double scaleSuitFrequencyWinners() {
-        passHandToEvaluator();
         double scalar = 0;
         this.evaluator.categoriseAvailableHands();
         if (this.evaluator.typeOfBestHand() == "STRAIGHTFLUSH" || this.evaluator.typeOfBestHand() == "ROYALFLUSH") {
@@ -162,7 +159,6 @@ public class Bot {
     }
 
     private double scaleStraightWinners() {
-        passHandToEvaluator();
         double scalar = 0;
         this.evaluator.categoriseAvailableHands();
         if (this.evaluator.typeOfBestHand() == "STRAIGHT") {
@@ -171,25 +167,51 @@ public class Bot {
         return scalar;
     }
 
-    public double handWeigthingSuitFrequency() {
+    private double handWeigthingSuitFrequency() {
         assignPrimeRanks();
         this.hand.groupBySuit(this.hand.playableCards);
         for (int i = 0; i < this.hand.groupedBySuit.size(); i++) {
             String key = Suit.values()[i].name();
             if (this.hand.groupedBySuit.get(key).size() >= 5) {
                 String rankPrime = this.hand.groupedBySuit.get(key).get(0).rank.name();
-                System.out.println(primeRankMap.get(rankPrime) * scaleSuitFrequencyWinners());
                 return primeRankMap.get(rankPrime) * scaleSuitFrequencyWinners();
             }
         }
         return 0;
     }
 
-    public double handWeigthingStraight() {
+    private double handWeigthingStraight() {
         assignPrimeRanks();
         this.evaluator.straight(this.hand);
         this.evaluator.aceLowStraight(this.hand);
         int highCardOrd = this.evaluator.highestCardOrdinalForStraight;
         return primeRankMap.get(Rank.values()[highCardOrd].name()) * scaleStraightWinners();
+    }
+
+    public double getHandWeight() {
+        double handWeight = 0.0;
+        passHandToEvaluator();
+        evaluator.categoriseAvailableHands();
+        if (this.evaluator.typeOfBestHand() == "PAIR") {
+            handWeight = handWeigthingRankFrequency();
+        } else if (this.evaluator.typeOfBestHand() == "TWOPAIR") {
+            handWeight = handWeigthingRankFrequency();
+        }  else if (this.evaluator.typeOfBestHand() == "THREEOFAKIND") {
+            handWeight = handWeigthingRankFrequency();
+        } else if (this.evaluator.typeOfBestHand() == "STRAIGHT") {
+            handWeight = handWeigthingStraight();
+        } else if (this.evaluator.typeOfBestHand() == "FLUSH") {
+            handWeight = handWeigthingSuitFrequency();
+        } else if (this.evaluator.typeOfBestHand() == "FULLHOUSE") {
+            handWeight = handWeigthingRankFrequency();
+        } else if (this.evaluator.typeOfBestHand() == "FOUROFAKIND") {
+            handWeight = handWeigthingRankFrequency();
+        } else if (this.evaluator.typeOfBestHand() == "STRAIGHTFLUSH") {
+            handWeight = handWeigthingSuitFrequency();
+        } else if (this.evaluator.typeOfBestHand() == "ROYALFLUSH") {
+            handWeight = handWeigthingSuitFrequency();
+        }
+        return handWeight;
+
     }
 }
