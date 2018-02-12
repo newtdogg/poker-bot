@@ -101,16 +101,21 @@ public class Bot {
         return cardsFromHand;
     }
 
-    public int weightPair() {
+    public int weightFrequencyWinners() {
         hand.groupByRank(this.hand.playableCards);
-
-        for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
-            String key = Rank.values()[i].name();
-            if (this.hand.groupedByRank.get(key).size() == 2) {
-                return this.hand.groupedByRank.get(key).get(0).rank.ordinal();
+        for (int f = 4; f > 1; f--) {
+            for (int i = this.hand.groupedByRank.size()-1; i >= 0; --i) {
+                String key = Rank.values()[i].name();
+                if (this.hand.groupedByRank.get(key).size() == f) {
+                    return this.hand.groupedByRank.get(key).get(0).rank.ordinal();
+                }
             }
         }
         return 0;
+    }
+
+    public int scaleFrequencyWinners() {
+        
     }
 
 
