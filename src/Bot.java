@@ -153,7 +153,6 @@ public class Bot {
         passHandToEvaluator();
         double scalar = 0;
         this.evaluator.categoriseAvailableHands();
-        System.out.println(this.evaluator.typeOfBestHand());
         if (this.evaluator.typeOfBestHand() == "STRAIGHTFLUSH" || this.evaluator.typeOfBestHand() == "ROYALFLUSH") {
             scalar = Math.pow(2, 19);
         } else if (this.evaluator.typeOfBestHand() == "FLUSH") {
@@ -166,7 +165,6 @@ public class Bot {
         passHandToEvaluator();
         double scalar = 0;
         this.evaluator.categoriseAvailableHands();
-        System.out.println(this.evaluator.typeOfBestHand());
         if (this.evaluator.typeOfBestHand() == "STRAIGHT") {
             scalar = Math.pow(2, 7);
         }
@@ -191,11 +189,7 @@ public class Bot {
         assignPrimeRanks();
         this.evaluator.straight(this.hand);
         this.evaluator.aceLowStraight(this.hand);
-
         int highCardOrd = this.evaluator.highestCardOrdinalForStraight;
-
-        System.out.println(primeRankMap.get(Rank.values()[highCardOrd].name()));
-
         return primeRankMap.get(Rank.values()[highCardOrd].name()) * scaleStraightWinners();
     }
 }
