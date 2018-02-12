@@ -176,6 +176,4 @@ public class BotTest {
         Assert.assertEquals(43, bot.handWeigthingRankFrequency());
     }
 
-
-
 }

@@ -102,7 +102,7 @@ public class Bot {
     }
 
 
-    private void assignPrimeRanks() {
+        private void assignPrimeRanks() {
         primeRankMap.put("TWO", 3);
         primeRankMap.put("THREE", 5);
         primeRankMap.put("FOUR", 7);
@@ -133,4 +133,24 @@ public class Bot {
         return 0;
     }
 
+
+    private int scaleRankFrequencyWinners() {
+        // need to pass bot hand to evaluator
+        this.evaluator.hand = this.hand;////
+        ////////////////////////////////////
+        this.evaluator.categoriseAvailableHands();
+        System.out.println(this.evaluator.typeOfBestHand());
+        int scalar = 0;
+        if(this.evaluator.typeOfBestHand() == "PAIR") {
+            scalar = 1;
+        } else if (this.evaluator.typeOfBestHand() == "TWOPAIR") {
+            scalar = 2;
+        } else if (this.evaluator.typeOfBestHand() == "THREEOFAKIND") {
+            scalar = 3;
+        } else if (this.evaluator.typeOfBestHand() == "FOUROFAKIND") {
+            scalar = 7;
+        }
+
+        return scalar;
+    }
 }
