@@ -623,4 +623,17 @@ public class EvaluatorTest {
         Assert.assertEquals(TenOfHearts, evaluator.hand.bestFiveCards.get(0));
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size());
     }
+
+    @Test
+    public void testingSelectBestFiveCardsHighCard() {
+        evaluator.hand = new Hand(TwoOfClubs, ThreeOfSpades);
+        cards.add(FiveOfDiamonds);
+        cards.add(SixOfHearts);
+        cards.add(NineOfHearts);
+        cards.add(AceOfSpades);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(evaluator.hand);
+        Assert.assertEquals(false, evaluator.hand.bestFiveCards.contains(TwoOfClubs));
+    }
 }

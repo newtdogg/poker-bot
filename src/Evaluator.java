@@ -357,12 +357,10 @@ public class Evaluator {
     }
 
     private void highCardShrink(Hand hand) {
-        for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
+        for (int j = 0; j < hand.sortedHighToLow.size(); j++) {
             Card card = hand.sortedHighToLow.get(j);
-            if (!hand.bestFiveCards.contains(card)) {
-                while (hand.bestFiveCards.size() < 5) {
-                    hand.bestFiveCards.add(card);
-                }
+            if (!hand.bestFiveCards.contains(card) && hand.bestFiveCards.size() < 5) {
+                hand.bestFiveCards.add(card);
             }
         }
     }
