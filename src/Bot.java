@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class Bot {
+    public String status;
     public Hand hand;
     public Evaluator evaluator;
     public int handWeight;
@@ -22,6 +23,7 @@ public class Bot {
         this.card1rank = 0;
         this.card2rank = 0;
         this.evaluator = new Evaluator();
+        this.status = "N/A";
     }
 
     public void passHandToEvaluator() {
@@ -36,7 +38,7 @@ public class Bot {
         this.card2rank = this.card2.rank.ordinal();
     }
 
-    public int weighHand() {
+    public int weighHoldEm() {
         assignCards();
         combineCardValue();
         cardPositions();
@@ -110,6 +112,23 @@ public class Bot {
 
         handWeight = scalar *(typeOfHandValue) + valueOfHighestCard;
         return handWeight;
+    }
+
+    public void respondToHand() {
+        passHandToEvaluator();
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards(this.hand);
+        if (getHandWeight() <= 21) {
+            this.status = "Check/Fold";
+        } else if (getHandWeight() < 40) {
+            this.status =  "Call";
+        } else if (getHandWeight() < 66 ) {
+            this.status =  "Small Raise";
+        } else if (getHandWeight() < 87 ) {
+            this.status =  "Large Raise";
+        } else {
+            this.status =  "All in";
+        }
     }
 
 }
