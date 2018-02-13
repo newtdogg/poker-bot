@@ -608,7 +608,7 @@ public class EvaluatorTest {
     }
 
     @Test
-    public void accessBestFiveCardsInStraightFlushArrayAndReturnArrayList() {
+    public void addNextBestCardsUpTo5() {
         evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
         cards.add(TenOfHearts);
         cards.add(NineOfHearts);
