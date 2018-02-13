@@ -125,7 +125,7 @@ public class Bot {
     public int getHandWeight() {
         passHandToEvaluator();
         evaluator.categoriseAvailableHands();
-        evaluator.selectBestFiveCards(this.hand);
+        evaluator.selectBestFiveCards();
 
         int scalar = Rank.values().length;
         String typeOfWinningHand = this.evaluator.typeOfBestHand();
@@ -151,7 +151,7 @@ public class Bot {
     public void respondToHand() {
         passHandToEvaluator();
         evaluator.categoriseAvailableHands();
-        evaluator.selectBestFiveCards(this.hand);
+        evaluator.selectBestFiveCards();
         if (getHandWeight() <= 21) {
             this.status = "Check/Fold";
         } else if (getHandWeight() < 40) {

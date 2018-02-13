@@ -327,32 +327,32 @@ public class Evaluator {
         return "you not have a high card you silly";
     }
 
-
     ////////////////////////////
     // SELECT BEST FIVE CARDS //
     ////////////////////////////
 
-    public void selectBestFiveCards(Hand hand){
+
+    public void selectBestFiveCards(){
         if (typeOfBestHand() == "ROYALFLUSH"){
-            royalFlushOrFlushShrink(hand);
+            royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "STRAIGHTFLUSH") {
-            royalFlushOrFlushShrink(hand);
+            royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "FOUROFAKIND") {
-            fourOfAKindShrink(hand);
+            fourOfAKindShrink(this.hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
-            fullHouseShrink(hand);
+            fullHouseShrink(this.hand);
         } else if (typeOfBestHand() == "FLUSH") {
-            royalFlushOrFlushShrink(hand);
+            royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "STRAIGHT") {
-            straightShrink(hand);
+            straightShrink(this.hand);
         } else if (typeOfBestHand() == "THREEOFAKIND") {
-            threeOfAKindShrink(hand);
+            threeOfAKindShrink(this.hand);
         } else if (typeOfBestHand() == "TWOPAIR") {
-            pairShrink(hand);
+            pairShrink(this.hand);
         } else if (typeOfBestHand() == "PAIR") {
-            pairShrink(hand);
+            pairShrink(this.hand);
         } else if (typeOfBestHand() == "HIGHCARD") {
-            highCardShrink(hand);
+            highCardShrink(this.hand);
         }
     }
 
@@ -365,8 +365,8 @@ public class Evaluator {
         }
     }
 
-    private void pairShrink(Hand hand){
-        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+    private void pairShrink(Hand hand) {
+        for (int i = 0; i < hand.groupedByRank.size(); i++) {
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
             if (numberOfSameRank == 2) {
@@ -455,4 +455,5 @@ public class Evaluator {
             }
         }
     }
+
 }
