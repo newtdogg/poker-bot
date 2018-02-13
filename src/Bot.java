@@ -212,6 +212,5 @@ public class Bot {
             handWeight = handWeigthingSuitFrequency();
         }
         return handWeight;
-
     }
 }
