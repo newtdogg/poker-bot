@@ -13,6 +13,7 @@ public class DealerTest {
     @Before
     public void initialize(){
         dealer = new Dealer();
+        player = new Player();
         bot = new Bot();
         dealer.dealHand(bot, player);
     }
