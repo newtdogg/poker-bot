@@ -420,8 +420,8 @@ public class BotTest {
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
-        bot.hand.playableCards.add(card3);
-        bot.hand.playableCards.add(card4);
+            bot.hand.playableCards.add(card3);
+            bot.hand.playableCards.add(card4);
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
