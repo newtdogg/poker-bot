@@ -14,7 +14,7 @@ public class Comparison {
         this.bot2 = bot2;
     }
 
-    public boolean compareHands() {
+    public Bot compareHands() {
 
         this.bot1.passHandToEvaluator();
         this.bot2.passHandToEvaluator();
@@ -25,24 +25,36 @@ public class Comparison {
         this.bot1.evaluator.selectBestFiveCards();
         this.bot2.evaluator.selectBestFiveCards();
 
-        if (this.bot1.evaluator.typeOfBestHand() == "PAIR" && this.bot1.evaluator.typeOfBestHand() == "PAIR") {
-            if(this.bot1.evaluator.hand.bestFiveCards.get(2).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(2).rank.ordinal()) {
-                return true;
+        if (this.bot1.evaluator.typeOfBestHand() == "PAIR" && this.bot2.evaluator.typeOfBestHand() == "PAIR") {
+            for (int i = 2; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
+                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
+                    return this.bot1;
+                }
             }
-        } else if (this.bot1.evaluator.typeOfBestHand() == "TWOPAIR" && this.bot1.evaluator.typeOfBestHand() == "TWOPAIR") {
-            if(this.bot1.evaluator.hand.bestFiveCards.get(4).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(4).rank.ordinal()) {
-                return true;
+            return this.bot2;
+        } else if (this.bot1.evaluator.typeOfBestHand() == "TWOPAIR" && this.bot2.evaluator.typeOfBestHand() == "TWOPAIR") {
+            for (int i = 4; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
+                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
+                    return this.bot1;
+                }
             }
-        } else if (this.bot1.evaluator.typeOfBestHand() == "THREEOFAKIND" && this.bot1.evaluator.typeOfBestHand() == "THREEOFAKIND") {
-            if(this.bot1.evaluator.hand.bestFiveCards.get(3).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(3).rank.ordinal()) {
-                return true;
+            return this.bot2;
+        } else if (this.bot1.evaluator.typeOfBestHand() == "THREEOFAKIND" && this.bot2.evaluator.typeOfBestHand() == "THREEOFAKIND") {
+            for (int i = 3; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
+                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
+                    return this.bot1;
+                }
             }
-        } else if (this.bot1.evaluator.typeOfBestHand() == "FOUROFAKIND" && this.bot1.evaluator.typeOfBestHand() == "FOUROFAKIND") {
-            if(this.bot1.evaluator.hand.bestFiveCards.get(4).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(4).rank.ordinal()) {
-                return true;
+            return this.bot2;
+        } else if (this.bot1.evaluator.typeOfBestHand() == "FOUROFAKIND" && this.bot2.evaluator.typeOfBestHand() == "FOUROFAKIND") {
+            for (int i = 4; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
+                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
+                    return this.bot1;
+                }
             }
+            return this.bot2;
         }
-        return false;
+        return null;
     }
 
 

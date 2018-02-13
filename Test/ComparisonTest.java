@@ -18,9 +18,9 @@ public class ComparisonTest {
         bot2.hand.holdEm.clear();
 
         Card card1 = new Card(Rank.THREE, Suit.SPADE);
-        Card card2 = new Card(Rank.THREE, Suit.SPADE);
-        Card card3 = new Card(Rank.SIX, Suit.SPADE);
-        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card2 = new Card(Rank.THREE, Suit.CLUB);
+        Card card3 = new Card(Rank.THREE, Suit.SPADE);
+        Card card4 = new Card(Rank.THREE, Suit.DIAMOND);
         Card card5 = new Card(Rank.ACE, Suit.HEART);
         Card card6 = new Card(Rank.NINE, Suit.CLUB);
         Card card7 = new Card(Rank.JACK, Suit.SPADE);
@@ -33,13 +33,13 @@ public class ComparisonTest {
         bot1.hand.playableCards.add(card6);
         bot1.hand.playableCards.add(card7);
 
-        Card card8 = new Card(Rank.THREE, Suit.SPADE);
+        Card card8 = new Card(Rank.THREE, Suit.HEART);
         Card card9 = new Card(Rank.THREE, Suit.SPADE);
-        Card card10 = new Card(Rank.FOUR, Suit.SPADE);
-        Card card11 = new Card(Rank.KING, Suit.DIAMOND);
-        Card card12 = new Card(Rank.TEN, Suit.HEART);
+        Card card10 = new Card(Rank.THREE, Suit.SPADE);
+        Card card11 = new Card(Rank.THREE, Suit.DIAMOND);
+        Card card12 = new Card(Rank.KING, Suit.HEART);
         Card card13 = new Card(Rank.NINE, Suit.CLUB);
-        Card card14 = new Card(Rank.SEVEN, Suit.SPADE);
+        Card card14 = new Card(Rank.JACK, Suit.SPADE);
 
         bot2.hand.playableCards.add(card8);
         bot2.hand.playableCards.add(card9);
@@ -52,7 +52,7 @@ public class ComparisonTest {
 
         Comparison comparison = new Comparison(bot1, bot2);
 
-        Assert.assertEquals(true, comparison.compareHands());
+        Assert.assertEquals(bot1, comparison.compareHands());
     }
 
 
