@@ -41,6 +41,10 @@ public class Game {
     private JButton checkFold;
     private JLabel botStatus;
     private JLabel playerStatus;
+    private JButton resetButton;
+    private JLabel botChips;
+    private JLabel playerChips;
+    private JLabel potText;
     public int pot;
 
     public static void main(String args[]){
@@ -58,6 +62,11 @@ public class Game {
         pot = 0;
         dealer.generateRankSymbols();
         dealer.generateSuitSymbols();
+        call.setVisible(false);
+        checkFold.setVisible(false);
+        bet.setVisible(false);
+        botChips.setText(Integer.toString(bot.chips));
+        playerChips.setText(Integer.toString(player.chips));
 
         Play.addActionListener(new ActionListener() {
             @Override
@@ -81,7 +90,25 @@ public class Game {
                 player2suit.setText(dealer.suitSymbol.get(key2suitPlayer).toString());
                 bot1.setBackground(Color.white);
                 bot2.setBackground(Color.white);
+
                 Play.setVisible(false);
+                bot.weighHoldEm();
+                blinds(bot, player);
+                if (bot.status == "Call"){
+                    bet.setVisible(true);
+                    call.setVisible(true);
+                    call.setText("Check");
+                    botStatus.setText("Check");
+                } else if (bot.status == "Raise") {
+                    call.setVisible(true);
+                    checkFold.setVisible(true);
+                    botStatus.setText(bot.status);
+                } else if (bot.status == "Check/Fold"){
+                    botStatus.setText("Check");
+                    bet.setVisible(true);
+                    call.setVisible(true);
+                    call.setText("Check");
+                }
 
             }
         });
@@ -89,23 +116,50 @@ public class Game {
         checkFold.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (bot.status == "Check/Fold"){
-                    displayFlop(dealer, bot);
-                } else {
-                    bot.chips += pot;
-                }
+                bot.chips += pot;
+                botStatus.setText(bot.status);
+                reset(bot, dealer, player);
             }
         });
 
         call.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (bot.status =="check") {
+                if (bot.status =="Check/Fold") {
                     displayFlop(dealer, bot);
+                    showStack(bot, player);
+                } else if (bot.status == "Call"){
+                    displayFlop(dealer, bot);
+                    showStack(bot, player);
+                } else if (bot.status == "Raise"){
+                    displayFlop(dealer, bot);
+                    bot.chips -= 20;
+                    player.chips -= 20;
+                    pot += 40;
                 }
             }
         });
 
+        bet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (bot.status == "Call" || bot.status == "Raise"){
+                    botStatus.setText(bot.status);
+                    displayFlop(dealer, bot);
+                    showStack(bot, player);
+                } else {
+                    player.chips += pot;
+                    botStatus.setText(bot.status);
+                    reset(bot, dealer, player);
+                }
+            }
+        });
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reset(bot, dealer, player);
+            }
+        });
     }
 
     private void displayFlop(Dealer dealer, Bot bot){
@@ -126,5 +180,49 @@ public class Game {
         flop2.setBackground(Color.white);
         flop3.setBackground(Color.white);
         flop1.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+    }
+
+    private void reset(Bot bot, Dealer dealer, Player player){
+        bot1rank.setText("");
+        bot2rank.setText("");
+        player1rank.setText("");
+        player2rank.setText("");
+        bot1suit.setText("");
+        bot2suit.setText("");
+        player1suit.setText("");
+        player2suit.setText("");
+        flop1rank.setText("");
+        flop2rank.setText("");
+        flop3rank.setText("");
+        flop1suit.setText("");
+        flop2suit.setText("");
+        flop3suit.setText("");
+        Play.setVisible(true);
+        checkFold.setText("Check/Fold");
+        bet.setText("Bet");
+        call.setText("Call");
+        checkFold.setVisible(false);
+        bet.setVisible(false);
+        call.setVisible(false);
+        bot.status = "";
+        botStatus.setText("");
+        bot.hand = null;
+        bot.handWeight = 0;
+        dealer.deck = new Deck().createDeck();
+        player.hand = null;
+        showStack(bot, player);
+    }
+
+    private void blinds(Bot bot, Player player){
+        bot.chips -= 10;
+        player.chips -= 10;
+        pot += 20;
+        potText.setText(Integer.toString(pot));
+        showStack(bot, player);
+    }
+
+    private void showStack(Bot bot, Player player){
+        botChips.setText(Integer.toString(bot.chips));
+        playerChips.setText(Integer.toString(player.chips));
     }
 }
