@@ -170,12 +170,37 @@ public class Bot {
             hand.sortHand();
             int counter = 1;
             for (int i = 1; i < this.hand.sortedHighToLow.size(); i++) {
-                if(this.hand.sortedHighToLow.get(n).rank.ordinal() - counter == this.hand.sortedHighToLow.get(i).rank.ordinal()) {
+                int highestCardOrdinal = this.hand.sortedHighToLow.get(n).rank.ordinal();
+                if(highestCardOrdinal - counter == this.hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
             }
             if (counter == 4) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean nearStraightFlush() {
+        this.hand.groupBySuit(this.hand.playableCards);
+
+        for (int i = 0; i < this.hand.groupedBySuit.size(); i++){
+            String key = Suit.values()[i].name();
+            ArrayList<Card> suit = this.hand.groupedBySuit.get(key);
+            if (suit.size() >= 4 ) {
+                for (int m = 0; m <= suit.size()-4; m++) {
+                    int highestCardOrdinal = suit.get(m).rank.ordinal();
+                    int counter = 1;
+                    for (int n = m+1; n < suit.size(); n++) {
+                        if(highestCardOrdinal - counter == suit.get(n).rank.ordinal()) {
+                            counter += 1;
+                        }
+                    }
+                    if (counter == 4) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
