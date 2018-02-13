@@ -37,8 +37,10 @@ public class Game {
     private JLabel player2suit;
     private JLabel player2rank;
     private JButton bet;
-    private JButton check;
-    private JButton fold;
+    private JButton call;
+    private JButton checkFold;
+    private JLabel botStatus;
+    private JLabel playerStatus;
     public int pot;
 
     public static void main(String args[]){
@@ -84,42 +86,45 @@ public class Game {
             }
         });
 
-
-
-//        dealFlopButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                dealer.dealFlop(bot);
-//                String key3rank = bot.hand.playableCards.get(2).rank.name();
-//                String key4rank = bot.hand.playableCards.get(3).rank.name();
-//                String key5rank = bot.hand.playableCards.get(4).rank.name();
-//                String key3suit = bot.hand.playableCards.get(2).suit.name();
-//                String key4suit = bot.hand.playableCards.get(3).suit.name();
-//                String key5suit = bot.hand.playableCards.get(4).suit.name();
-//                flop1rank.setText(dealer.rankSymbol.get(key3rank).toString());
-//                flop1suit.setText(dealer.suitSymbol.get(key3suit).toString());
-//                flop2rank.setText(dealer.rankSymbol.get(key4rank).toString());
-//                flop2suit.setText(dealer.suitSymbol.get(key4suit).toString());
-//                flop3rank.setText(dealer.rankSymbol.get(key5rank).toString());
-//                flop3suit.setText(dealer.suitSymbol.get(key5suit).toString());
-//                flop1.setBackground(Color.white);
-//                flop2.setBackground(Color.white);
-//                flop3.setBackground(Color.white);
-//                flop1.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
-//            }
-//        });
-        fold.addActionListener(new ActionListener() {
+        checkFold.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bot.chips += pot;
+                if (bot.status == "Check/Fold"){
+                    displayFlop(dealer, bot);
+                } else {
+                    bot.chips += pot;
+                }
             }
         });
-        check.addActionListener(new ActionListener() {
+
+        call.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (b)
+                if (bot.status =="check") {
+                    displayFlop(dealer, bot);
+                }
             }
         });
+
     }
 
+    private void displayFlop(Dealer dealer, Bot bot){
+        dealer.dealFlop(bot);
+        String key3rank = bot.hand.playableCards.get(2).rank.name();
+        String key4rank = bot.hand.playableCards.get(3).rank.name();
+        String key5rank = bot.hand.playableCards.get(4).rank.name();
+        String key3suit = bot.hand.playableCards.get(2).suit.name();
+        String key4suit = bot.hand.playableCards.get(3).suit.name();
+        String key5suit = bot.hand.playableCards.get(4).suit.name();
+        flop1rank.setText(dealer.rankSymbol.get(key3rank).toString());
+        flop1suit.setText(dealer.suitSymbol.get(key3suit).toString());
+        flop2rank.setText(dealer.rankSymbol.get(key4rank).toString());
+        flop2suit.setText(dealer.suitSymbol.get(key4suit).toString());
+        flop3rank.setText(dealer.rankSymbol.get(key5rank).toString());
+        flop3suit.setText(dealer.suitSymbol.get(key5suit).toString());
+        flop1.setBackground(Color.white);
+        flop2.setBackground(Color.white);
+        flop3.setBackground(Color.white);
+        flop1.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+    }
 }

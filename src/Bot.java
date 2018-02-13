@@ -39,13 +39,13 @@ public class Bot {
         this.card2rank = this.card2.rank.ordinal();
     }
 
-    public int weighHoldEm() {
+    public void weighHoldEm() {
         assignCards();
         combineCardValue();
         cardPositions();
         highCardBonus();
         cardsAreSuited();
-        return this.handWeight;
+        respondToHoldEm();
     }
 
     private void highCardBonus() {
@@ -113,6 +113,16 @@ public class Bot {
 
         handWeight = scalar *(typeOfHandValue) + valueOfHighestCard;
         return handWeight;
+    }
+
+    public void respondToHoldEm(){
+        if (this.handWeight <= 20){
+            this.status = "Check/Fold";
+        } else if (this.handWeight > 21 && this.handWeight <= 30){
+            this.status = "Call";
+        } else if (this.handWeight > 30){
+            this.status = "Raise";
+        }
     }
 
     public void respondToHand() {

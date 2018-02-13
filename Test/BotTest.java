@@ -25,7 +25,8 @@ public class BotTest {
         Card card2 = new Card(Rank.THREE, Suit.CLUB);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(10, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(10, bot.handWeight);
     }
     @Test
     public void weighingTwoHighCards() {
@@ -34,7 +35,8 @@ public class BotTest {
         Card card2 = new Card(Rank.TEN, Suit.CLUB);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(40, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(40, bot.handWeight);
     }
     @Test
     public void comparingTwoConsecutiveCards() {
@@ -43,7 +45,8 @@ public class BotTest {
         Card card2 = new Card(Rank.NINE, Suit.CLUB);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(22, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(22, bot.handWeight);
     }
     @Test
     public void comparingLowPocketPair() {
@@ -52,7 +55,8 @@ public class BotTest {
         Card card2 = new Card(Rank.NINE, Suit.CLUB);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(36, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(36, bot.handWeight);
     }
     @Test
     public void comparingHighPocketPair() {
@@ -61,7 +65,8 @@ public class BotTest {
         Card card2 = new Card(Rank.ACE, Suit.CLUB);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(70, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(70, bot.handWeight);
     }
     @Test
     public void comparingSemiConnectedCards() {
@@ -70,7 +75,8 @@ public class BotTest {
         Card card2 = new Card(Rank.FOUR, Suit.CLUB);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(8, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(8, bot.handWeight);
     }
     @Test
     public void comparingSuitedCards() {
@@ -79,7 +85,8 @@ public class BotTest {
         Card card2 = new Card(Rank.FOUR, Suit.SPADE);
         Hand hand = new Hand(card1, card2);
         bot.hand = hand;
-        Assert.assertEquals(16, bot.weighHoldEm());
+        bot.weighHoldEm();
+        Assert.assertEquals(16, bot.handWeight);
     }
     @Test
     public void addFlopToHand() {
@@ -124,7 +131,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
 
         Card card1 = new Card(Rank.FOUR, Suit.SPADE);
         Card card2 = new Card(Rank.FIVE, Suit.HEART);
@@ -154,7 +161,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -182,7 +189,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -210,7 +217,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -237,7 +244,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -265,7 +272,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -293,7 +300,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -321,7 +328,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -351,7 +358,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -379,7 +386,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
@@ -407,7 +414,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
