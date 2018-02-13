@@ -142,4 +142,20 @@ public class Bot {
         }
     }
 
+    public boolean nearStraight() {
+        for (int n = 0; n <= this.hand.playableCards.size()-4; n++) {
+            hand.sortHand();
+            int counter = 1;
+            for (int i = 1; i < this.hand.sortedHighToLow.size(); i++) {
+                if(this.hand.sortedHighToLow.get(n).rank.ordinal() - counter == this.hand.sortedHighToLow.get(i).rank.ordinal()) {
+                    counter += 1;
+                }
+            }
+            if (counter == 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
