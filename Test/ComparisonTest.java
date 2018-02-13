@@ -37,7 +37,7 @@ public class ComparisonTest {
         Card card9 = new Card(Rank.THREE, Suit.SPADE);
         Card card10 = new Card(Rank.FOUR, Suit.SPADE);
         Card card11 = new Card(Rank.KING, Suit.DIAMOND);
-        Card card12 = new Card(Rank.EIGHT, Suit.HEART);
+        Card card12 = new Card(Rank.TEN, Suit.HEART);
         Card card13 = new Card(Rank.NINE, Suit.CLUB);
         Card card14 = new Card(Rank.SEVEN, Suit.SPADE);
 
@@ -52,7 +52,7 @@ public class ComparisonTest {
 
         Comparison comparison = new Comparison(bot1, bot2);
 
-//        Assert.assertEquals(true, comparison.compareHands(bot1.evaluator.hand.bestFiveCards, bot1.evaluator.typeOfBestHand()));
+        Assert.assertEquals(true, comparison.compareHands());
     }
 
 

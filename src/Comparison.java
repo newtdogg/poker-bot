@@ -14,26 +14,36 @@ public class Comparison {
         this.bot2 = bot2;
     }
 
-    public void compareHands() {
+    public boolean compareHands() {
 
-        bot1.passHandToEvaluator();
-        bot2.passHandToEvaluator();
+        this.bot1.passHandToEvaluator();
+        this.bot2.passHandToEvaluator();
 
         this.bot1.evaluator.categoriseAvailableHands();
         this.bot2.evaluator.categoriseAvailableHands();
 
+        this.bot1.evaluator.selectBestFiveCards();
+        this.bot2.evaluator.selectBestFiveCards();
+
         if (this.bot1.evaluator.typeOfBestHand() == "PAIR" && this.bot1.evaluator.typeOfBestHand() == "PAIR") {
-            compareKickers();
+            if(this.bot1.evaluator.hand.bestFiveCards.get(2).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(2).rank.ordinal()) {
+                return true;
+            }
         } else if (this.bot1.evaluator.typeOfBestHand() == "TWOPAIR" && this.bot1.evaluator.typeOfBestHand() == "TWOPAIR") {
-            compareKickers();
+            if(this.bot1.evaluator.hand.bestFiveCards.get(4).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(4).rank.ordinal()) {
+                return true;
+            }
         } else if (this.bot1.evaluator.typeOfBestHand() == "THREEOFAKIND" && this.bot1.evaluator.typeOfBestHand() == "THREEOFAKIND") {
-            compareKickers();
+            if(this.bot1.evaluator.hand.bestFiveCards.get(3).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(3).rank.ordinal()) {
+                return true;
+            }
         } else if (this.bot1.evaluator.typeOfBestHand() == "FOUROFAKIND" && this.bot1.evaluator.typeOfBestHand() == "FOUROFAKIND") {
-            compareKickers();
+            if(this.bot1.evaluator.hand.bestFiveCards.get(4).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(4).rank.ordinal()) {
+                return true;
+            }
         }
+        return false;
     }
 
-    public void compareKickers() {
-        int highestKicker
-    }
+
 }
