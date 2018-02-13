@@ -182,7 +182,7 @@ public class Bot {
         return false;
     }
 
-    public void nearGoodHandWeigthBonus() {
+    private void nearGoodHandWeigthBonus() {
         if (this.hand.playableCards.size() > 2 && this.hand.playableCards.size() <= 6) {
             if (nearStraight() || nearFullHouse()) {
                 handWeight += 13;
