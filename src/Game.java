@@ -39,6 +39,8 @@ public class Game {
     private JButton bet;
     private JButton check;
     private JButton fold;
+    private JLabel botStatus;
+    private JLabel playerStatus;
     public int pot;
 
     public static void main(String args[]){
@@ -117,7 +119,7 @@ public class Game {
         check.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (b)
+
             }
         });
     }
