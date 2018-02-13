@@ -485,8 +485,8 @@ public class BotTest {
         Assert.assertEquals(true, bot.nearFullHouse());
     }
 
-    @Test
-    public void testBotsStatusAfterDealerDealsHand() {
+
+    @Test public void testNearStraight() {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
@@ -494,13 +494,13 @@ public class BotTest {
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
-        Card card1 = new Card(Rank.TWO, Suit.SPADE);
-        Card card2 = new Card(Rank.THREE, Suit.HEART);
-        Card card3 = new Card(Rank.ACE, Suit.HEART);
+        Card card1 = new Card(Rank.THREE, Suit.SPADE);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.QUEEN, Suit.SPADE);
         Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
-        Card card5 = new Card(Rank.TEN, Suit.CLUB);
-        Card card6 = new Card(Rank.TEN, Suit.SPADE);
-        Card card7 = new Card(Rank.TEN, Suit.HEART);
+        Card card5 = new Card(Rank.EIGHT, Suit.HEART);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.SEVEN, Suit.SPADE);
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
@@ -509,12 +509,11 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
-        bot.respondToHand();
-        Assert.assertEquals("All in", bot.status);
+
+        Assert.assertEquals(true, bot.nearStraight());
     }
 
-    @Test
-    public void testBotsStatusAfterDealerDealsHand2() {
+    @Test public void testNotNearStraight() {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
@@ -522,13 +521,13 @@ public class BotTest {
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
-        Card card1 = new Card(Rank.TWO, Suit.SPADE);
-        Card card2 = new Card(Rank.THREE, Suit.HEART);
-        Card card3 = new Card(Rank.ACE, Suit.HEART);
-        Card card4 = new Card(Rank.THREE, Suit.DIAMOND);
-        Card card5 = new Card(Rank.JACK, Suit.CLUB);
-        Card card6 = new Card(Rank.TEN, Suit.SPADE);
-        Card card7 = new Card(Rank.TEN, Suit.HEART);
+        Card card1 = new Card(Rank.THREE, Suit.SPADE);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card5 = new Card(Rank.TWO, Suit.HEART);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.SEVEN, Suit.SPADE);
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
@@ -537,8 +536,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
-        bot.respondToHand();
-        Assert.assertEquals("Call", bot.status);
-    }
 
+        Assert.assertEquals(false, bot.nearStraight());
+    }
 }
