@@ -24,7 +24,7 @@ public class Bot {
         this.card2rank = 0;
         this.chips = 100;
         this.evaluator = new Evaluator();
-        this.status = "N/A";
+        this.status = "";
     }
 
     ///////////////////

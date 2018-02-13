@@ -46,8 +46,9 @@ public class Game {
     private JLabel playerChips;
     private JLabel potText;
     public int pot;
+    public String gamestate;
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         JFrame frame = new JFrame("App");
         frame.setContentPane(new Game().main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,6 +61,7 @@ public class Game {
         Bot bot = new Bot();
         Player player = new Player();
         pot = 0;
+        gamestate = "preflop";
         dealer.generateRankSymbols();
         dealer.generateSuitSymbols();
         call.setVisible(false);
@@ -71,44 +73,11 @@ public class Game {
         Play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dealer.dealHand(bot, player);
-                String key1rankBot = bot.hand.holdEm.get(0).rank.name();
-                String key2rankBot = bot.hand.holdEm.get(1).rank.name();
-                String key1suitBot = bot.hand.holdEm.get(0).suit.name();
-                String key2suitBot = bot.hand.holdEm.get(1).suit.name();
-                String key1rankPlayer = player.hand.holdEm.get(0).rank.name();
-                String key2rankPlayer = player.hand.holdEm.get(1).rank.name();
-                String key1suitPlayer = player.hand.holdEm.get(0).suit.name();
-                String key2suitPlayer = player.hand.holdEm.get(1).suit.name();
-                bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
-                bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
-                bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
-                bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
-                player1rank.setText(dealer.rankSymbol.get(key1rankPlayer).toString());
-                player1suit.setText(dealer.suitSymbol.get(key1suitPlayer).toString());
-                player2rank.setText(dealer.rankSymbol.get(key2rankPlayer).toString());
-                player2suit.setText(dealer.suitSymbol.get(key2suitPlayer).toString());
-                bot1.setBackground(Color.white);
-                bot2.setBackground(Color.white);
-
-                Play.setVisible(false);
+                dealHands(bot, player, dealer);
                 bot.weighHoldEm();
+                displayButtons(bot);
+                Play.setVisible(false);
                 blinds(bot, player);
-                if (bot.status == "Call"){
-                    bet.setVisible(true);
-                    call.setVisible(true);
-                    call.setText("Check");
-                    botStatus.setText("Check");
-                } else if (bot.status == "Raise") {
-                    call.setVisible(true);
-                    checkFold.setVisible(true);
-                    botStatus.setText(bot.status);
-                } else if (bot.status == "Check/Fold"){
-                    botStatus.setText("Check");
-                    bet.setVisible(true);
-                    call.setVisible(true);
-                    call.setText("Check");
-                }
 
             }
         });
@@ -125,17 +94,34 @@ public class Game {
         call.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (bot.status =="Check/Fold") {
-                    displayFlop(dealer, bot);
-                    showStack(bot, player);
-                } else if (bot.status == "Call"){
-                    displayFlop(dealer, bot);
-                    showStack(bot, player);
-                } else if (bot.status == "Raise"){
-                    displayFlop(dealer, bot);
-                    bot.chips -= 20;
-                    player.chips -= 20;
-                    pot += 40;
+                if (gamestate == "preflop") {
+                    if (bot.status == "Check/Fold" || bot.status == "Call") {
+                        displayFlop(dealer, bot);
+                        showStack(bot, player);
+                    } else if (bot.status == "Raise") {
+                        displayFlop(dealer, bot);
+                        bot.chips -= 20;
+                        player.chips -= 20;
+                        pot += 40;
+                    }
+                } else if (gamestate == "flop"){
+                    botAnalyseFlop(bot);
+                    if (bot.status == "Check/Fold" || bot.status == "Call"){
+                        displayTurn(dealer, bot);
+                        showStack(bot, player);
+                    } else if (bot.status == "Small Raise"){
+                        smallRaise(bot, player);
+                        displayTurn(dealer, bot);
+                        showStack(bot, player);
+                    } else if (bot.status == "Large Raise"){
+                        bigRaise(bot, player);
+                        displayTurn(dealer, bot);
+                        showStack(bot, player);
+                    } else if (bot.status == "All in"){
+                        allIn(bot, player);
+                        displayTurn(dealer, bot);
+                        showStack(bot, player);
+                    }
                 }
             }
         });
@@ -143,14 +129,28 @@ public class Game {
         bet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (bot.status == "Call" || bot.status == "Raise"){
-                    botStatus.setText(bot.status);
-                    displayFlop(dealer, bot);
-                    showStack(bot, player);
-                } else {
-                    player.chips += pot;
-                    botStatus.setText(bot.status);
-                    reset(bot, dealer, player);
+                if (gamestate == "preflop") {
+                    if (bot.status == "Call" || bot.status == "Raise") {
+                        botStatus.setText(bot.status);
+                        smallRaise(bot, player);
+                        displayFlop(dealer, bot);
+                        showStack(bot, player);
+                    } else {
+                        player.chips += pot;
+                        botStatus.setText(bot.status);
+                        reset(bot, dealer, player);
+                    }
+                } else if (gamestate == "flop"){
+                    if (bot.status == "Call" || bot.status == "Large Raise" || bot.status == "Small Raise" || bot.status == "All in") {
+                        botStatus.setText(bot.status);
+                        smallRaise(bot, player);
+                        displayTurn(dealer, bot);
+                        showStack(bot, player);
+                    } else {
+                        player.chips += pot;
+                        botStatus.setText(bot.status);
+                        reset(bot, dealer, player);
+                    }
                 }
             }
         });
@@ -162,7 +162,92 @@ public class Game {
         });
     }
 
-    private void displayFlop(Dealer dealer, Bot bot){
+
+
+    private void blinds(Bot bot, Player player) {
+        bot.chips -= 10;
+        player.chips -= 10;
+        pot += 20;
+        potText.setText(Integer.toString(pot));
+        showStack(bot, player);
+    }
+
+    private void showStack(Bot bot, Player player) {
+        botChips.setText(Integer.toString(bot.chips));
+        playerChips.setText(Integer.toString(player.chips));
+    }
+
+    public void botAnalyseFlop(Bot bot) {
+        bot.getHandWeight();
+        bot.respondToHand();
+        displayButtons(bot);
+        System.out.println(bot.handWeight);
+        System.out.println(bot.status);
+        for (int i = 0; i < 5; i++) {
+            System.out.println(bot.evaluator.hand.bestFiveCards.get(i).rank.name());
+        }
+    }
+
+    private void displayButtons(Bot bot){
+        if (bot.status == "Call") {
+            bet.setVisible(true);
+            call.setVisible(true);
+            call.setText("Check");
+            botStatus.setText("Check");
+        } else if (bot.status == "Check/Fold") {
+            botStatus.setText("Check");
+            bet.setVisible(true);
+            call.setVisible(true);
+            call.setText("Check");
+        } else {
+            call.setVisible(true);
+            checkFold.setVisible(true);
+            checkFold.setText("Fold");
+            botStatus.setText(bot.status);
+        }
+    }
+
+    private void smallRaise(Bot bot, Player player){
+        bot.chips -= 20;
+        player.chips -= 20;
+        pot += 40;
+    }
+
+    private void bigRaise(Bot bot, Player player){
+        bot.chips -= 40;
+        player.chips -= 40;
+        pot += 80;
+    }
+
+    private void allIn(Bot bot, Player player){
+        pot += (bot.chips + player.chips);
+        bot.chips = 0;
+        player.chips = 0;
+    }
+
+    private void dealHands(Bot bot, Player player, Dealer dealer){
+        dealer.dealHand(bot, player);
+        String key1rankBot = bot.hand.holdEm.get(0).rank.name();
+        String key2rankBot = bot.hand.holdEm.get(1).rank.name();
+        String key1suitBot = bot.hand.holdEm.get(0).suit.name();
+        String key2suitBot = bot.hand.holdEm.get(1).suit.name();
+        String key1rankPlayer = player.hand.holdEm.get(0).rank.name();
+        String key2rankPlayer = player.hand.holdEm.get(1).rank.name();
+        String key1suitPlayer = player.hand.holdEm.get(0).suit.name();
+        String key2suitPlayer = player.hand.holdEm.get(1).suit.name();
+        bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
+        bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
+        bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
+        bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
+        player1rank.setText(dealer.rankSymbol.get(key1rankPlayer).toString());
+        player1suit.setText(dealer.suitSymbol.get(key1suitPlayer).toString());
+        player2rank.setText(dealer.rankSymbol.get(key2rankPlayer).toString());
+        player2suit.setText(dealer.suitSymbol.get(key2suitPlayer).toString());
+        bot1.setBackground(Color.white);
+        bot2.setBackground(Color.white);
+    }
+
+    private void displayFlop(Dealer dealer, Bot bot) {
         dealer.dealFlop(bot);
         String key3rank = bot.hand.playableCards.get(2).rank.name();
         String key4rank = bot.hand.playableCards.get(3).rank.name();
@@ -179,10 +264,21 @@ public class Game {
         flop1.setBackground(Color.white);
         flop2.setBackground(Color.white);
         flop3.setBackground(Color.white);
-        flop1.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+        flop1.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        gamestate = "flop";
     }
 
-    private void reset(Bot bot, Dealer dealer, Player player){
+    private void displayTurn(Dealer dealer, Bot bot){
+        dealer.dealTurn(bot);
+        String turnRankInt = dealer.board.get(3).rank.name();
+        String turnSuitInt = dealer.board.get(3).suit.name();
+        turnrank.setText(dealer.rankSymbol.get(turnRankInt).toString());
+        turnsuit.setText(dealer.suitSymbol.get(turnSuitInt).toString());
+        turnsuit.setBackground(Color.white);
+        gamestate = "turn";
+    }
+
+    public void reset(Bot bot, Dealer dealer, Player player) {
         bot1rank.setText("");
         bot2rank.setText("");
         player1rank.setText("");
@@ -197,6 +293,9 @@ public class Game {
         flop1suit.setText("");
         flop2suit.setText("");
         flop3suit.setText("");
+        turnsuit.setText("");
+        turnrank.setText("");
+        gamestate = "preflop";
         Play.setVisible(true);
         checkFold.setText("Check/Fold");
         bet.setText("Bet");
@@ -211,18 +310,5 @@ public class Game {
         dealer.deck = new Deck().createDeck();
         player.hand = null;
         showStack(bot, player);
-    }
-
-    private void blinds(Bot bot, Player player){
-        bot.chips -= 10;
-        player.chips -= 10;
-        pot += 20;
-        potText.setText(Integer.toString(pot));
-        showStack(bot, player);
-    }
-
-    private void showStack(Bot bot, Player player){
-        botChips.setText(Integer.toString(bot.chips));
-        playerChips.setText(Integer.toString(player.chips));
     }
 }
