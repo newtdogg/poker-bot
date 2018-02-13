@@ -142,4 +142,27 @@ public class Bot {
         }
     }
 
+    public boolean nearFlush() {
+        passHandToEvaluator();
+        evaluator.categoriseAvailableHands();
+        String key = this.evaluator.typeOfBestHand();
+        if (WinningHands.valueOf(key).ordinal() < WinningHands.valueOf("THREEOFAKIND").ordinal()) {
+            this.evaluator.hand.groupBySuit(this.hand.playableCards);
+            for (int i = 0; i < this.evaluator.hand.groupedBySuit.size(); i++){
+                String suitKey = Suit.values()[i].name();
+                if (this.evaluator.hand.groupedBySuit.get(suitKey).size() == 4) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
+    public boolean nearFullHouse() {
+        passHandToEvaluator();
+        evaluator.categoriseAvailableHands();
+        return this.evaluator.typeOfBestHand() == "TWOPAIR";
+    }
+
 }
