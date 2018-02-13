@@ -437,4 +437,57 @@ public class BotTest {
         Assert.assertEquals("Small Raise", bot.status);
     }
 
+    @Test public void testNearStraight() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.THREE, Suit.SPADE);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card5 = new Card(Rank.EIGHT, Suit.HEART);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.SEVEN, Suit.SPADE);
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+        Assert.assertEquals(true, bot.nearStraight());
+    }
+
+    @Test public void testNotNearStraight() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.THREE, Suit.SPADE);
+        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card3 = new Card(Rank.QUEEN, Suit.SPADE);
+        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
+        Card card5 = new Card(Rank.TWO, Suit.HEART);
+        Card card6 = new Card(Rank.NINE, Suit.CLUB);
+        Card card7 = new Card(Rank.SEVEN, Suit.SPADE);
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+        Assert.assertEquals(false, bot.nearStraight());
+    }
 }
