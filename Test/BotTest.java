@@ -549,11 +549,12 @@ public class BotTest {
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
-        Card card1 = new Card(Rank.TWO, Suit.SPADE);
-        Card card2 = new Card(Rank.JACK, Suit.SPADE);
-        Card card3 = new Card(Rank.KING, Suit.HEART);
+        Card card1 = new Card(Rank.TEN, Suit.SPADE);
+        Card card2 = new Card(Rank.SIX, Suit.SPADE);
+        Card card3 = new Card(Rank.EIGHT, Suit.SPADE);
         Card card4 = new Card(Rank.TWO, Suit.SPADE);
-        Card card5 = new Card(Rank.THREE, Suit.SPADE);
+        Card card5 = new Card(Rank.KING, Suit.DIAMOND);
+
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
@@ -561,8 +562,10 @@ public class BotTest {
         bot.hand.playableCards.add(card4);
         bot.hand.playableCards.add(card5);
 
-        Assert.assertEquals(40, bot.getHandWeight());
+
+        Assert.assertEquals(38, bot.getHandWeight());
     }
+
 
     @Test
     public void testNearStraightBonus() {
@@ -579,6 +582,7 @@ public class BotTest {
         Card card4 = new Card(Rank.JACK, Suit.SPADE);
         Card card5 = new Card(Rank.SIX, Suit.SPADE);
 
+
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
         bot.hand.playableCards.add(card3);
@@ -589,7 +593,8 @@ public class BotTest {
     }
 
     @Test
-    public void nearBonusShouldNotApplyAfterTurn() {
+    public void nearBonusShouldApplyAfterTurn() {
+
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
@@ -597,14 +602,38 @@ public class BotTest {
         bot.hand.playableCards.clear();
         bot.hand.holdEm.clear();
 
-        Card card1 = new Card(Rank.FIVE, Suit.CLUB);
-        Card card2 = new Card(Rank.THREE, Suit.SPADE);
+        Card card1 = new Card(Rank.FIVE, Suit.DIAMOND);
+        Card card2 = new Card(Rank.TWO, Suit.SPADE);
         Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
-        Card card4 = new Card(Rank.JACK, Suit.SPADE);
+        Card card4 = new Card(Rank.JACK, Suit.DIAMOND);
         Card card5 = new Card(Rank.SIX, Suit.SPADE);
-        Card card6 = new Card(Rank.SIX, Suit.DIAMOND);
-        Card card7 = new Card(Rank.SIX, Suit.HEART);
+        Card card6 = new Card(Rank.ACE, Suit.DIAMOND);
 
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+
+        Assert.assertEquals(39, bot.getHandWeight());
+    }
+
+    @Test public void testNearStraightFlush() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.TEN, Suit.SPADE);
+        Card card2 = new Card(Rank.JACK, Suit.SPADE);
+        Card card3 = new Card(Rank.EIGHT, Suit.SPADE);
+        Card card4 = new Card(Rank.NINE, Suit.SPADE);
+        Card card5 = new Card(Rank.KING, Suit.SPADE);
+        Card card6 = new Card(Rank.ACE, Suit.SPADE);
+        Card card7 = new Card(Rank.SEVEN, Suit.CLUB);
 
         bot.hand.playableCards.add(card1);
         bot.hand.playableCards.add(card2);
@@ -614,6 +643,33 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(44, bot.getHandWeight());
+        Assert.assertEquals(true, bot.nearStraightFlush());
+    }
+
+    @Test public void testNotNearStraightFlush() {
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.TEN, Suit.SPADE);
+        Card card2 = new Card(Rank.JACK, Suit.SPADE);
+        Card card3 = new Card(Rank.FIVE, Suit.SPADE);
+        Card card4 = new Card(Rank.NINE, Suit.SPADE);
+        Card card5 = new Card(Rank.TWO, Suit.HEART);
+        Card card6 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card7 = new Card(Rank.SEVEN, Suit.CLUB);
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+        Assert.assertEquals(false, bot.nearStraightFlush());
     }
 }
