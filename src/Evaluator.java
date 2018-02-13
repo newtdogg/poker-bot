@@ -19,6 +19,10 @@ public class Evaluator {
         return hand.playableCards.get(0);
     }
 
+    public boolean highCardHand(Hand hand){ ;
+        return true;
+    }
+
     public boolean pair(Hand hand){
         hand.groupByRank(hand.playableCards);
         for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
@@ -209,11 +213,23 @@ public class Evaluator {
         if (royalFlush(this.hand)) {
             addRoyalFlushToAllAvailableHands();
         }
+        if (highCardHand(this.hand)) {
+            addHighCardToAllAvailableHands();
+        }
     }
 
     //////////////////////////////////////////////////////////
     // Could these methods be combined into one mega method //
     //////////////////////////////////////////////////////////
+
+    private void addHighCardToAllAvailableHands() {
+        int sizeOfPlayableCards = this.hand.sortedHighToLow.size();
+        for (int i = 0; i < sizeOfPlayableCards; i++) {
+            Card card = this.hand.sortedHighToLow.get(i);
+            String typeOfHand = WinningHands.HIGHCARD.toString();
+            allAvailableHands.get(typeOfHand).add(card);
+        }
+    }
 
     private void addPairToAllAvailableHands() {
         int sizeOfPlayableCards = this.hand.playableCards.size();
@@ -326,7 +342,7 @@ public class Evaluator {
             twoPairShrink(hand);
         } else if (typeOfBestHand() == "PAIR") {
             pairShrink(hand);
-        } else {
+        } else if (typeOfBestHand() == "HIGHCARD") {
             highCardShrink(hand);
         }
     }
