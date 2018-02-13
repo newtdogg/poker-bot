@@ -112,6 +112,7 @@ public class Bot {
         int valueOfHighestCard = this.evaluator.hand.bestFiveCards.get(0).rank.ordinal() + 1;
 
         handWeight = scalar *(typeOfHandValue) + valueOfHighestCard;
+        nearGoodHandWeigthBonus();
         return handWeight;
     }
 
@@ -179,6 +180,16 @@ public class Bot {
             }
         }
         return false;
+    }
+
+    public void nearGoodHandWeigthBonus() {
+        if (this.hand.playableCards.size() > 2 && this.hand.playableCards.size() <= 6) {
+            if (nearStraight() || nearFullHouse()) {
+                handWeight += 13;
+            } if (nearFlush()) {
+                handWeight += 26;
+            }
+        }
     }
 
 }
