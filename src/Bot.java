@@ -27,10 +27,9 @@ public class Bot {
         this.status = "N/A";
     }
 
-    public void passHandToEvaluator() {
-        this.evaluator.hand = this.hand;
-    }
-
+    ///////////////////
+    // helper methods//
+    ///////////////////
 
     private void assignCards() {
         this.card1 = this.hand.holdEm.get(0);
@@ -38,6 +37,24 @@ public class Bot {
         this.card1rank = this.card1.rank.ordinal();
         this.card2rank = this.card2.rank.ordinal();
     }
+
+    public void passHandToEvaluator() {
+        this.evaluator.hand = this.hand;
+    }
+
+    public int cardsFromHandInBestCombo() {
+        int cardsFromHand = 0;
+        for (int i = 0; i < this.hand.holdEm.size(); i++) {
+            if (hand.bestFiveCards.contains(this.hand.holdEm.get(i))) {
+                cardsFromHand += 1;
+            }
+        }
+        return cardsFromHand;
+    }
+
+    //////////////////////////
+    // Weighing HoldEm hand //
+    //////////////////////////
 
     public void weighHoldEm() {
         assignCards();
@@ -48,18 +65,18 @@ public class Bot {
         respondToHoldEm();
     }
 
+    private void combineCardValue() {
+        int cardOneValue = this.card1rank + 2;
+        int cardTwoValue = this.card2rank + 2;
+        handWeight += (cardOneValue + cardTwoValue);
+    }
+
     private void highCardBonus() {
         if (this.card1rank >= 8 && this.card2rank >= 8) {
             handWeight += 14;
         } else if (this.card1rank >= 8 || this.card2rank >= 8) {
             handWeight += 2;
         }
-    }
-
-    private void combineCardValue() {
-        int cardOneValue = this.card1rank + 2;
-        int cardTwoValue = this.card2rank + 2;
-        handWeight += (cardOneValue + cardTwoValue);
     }
 
     private void cardPositions() {
@@ -91,15 +108,19 @@ public class Bot {
         }
     }
 
-    public int cardsFromHandInBestCombo() {
-        int cardsFromHand = 0;
-        for (int i = 0; i < this.hand.holdEm.size(); i++) {
-            if (hand.bestFiveCards.contains(this.hand.holdEm.get(i))) {
-                cardsFromHand += 1;
-            }
+    private void respondToHoldEm(){
+        if (this.handWeight <= 20){
+            this.status = "Check/Fold";
+        } else if (this.handWeight > 21 && this.handWeight <= 30){
+            this.status = "Call";
+        } else if (this.handWeight > 30){
+            this.status = "Raise";
         }
-        return cardsFromHand;
     }
+
+    ////////////////////
+    // Weighting hand //
+    ////////////////////
 
     public int getHandWeight() {
         passHandToEvaluator();
@@ -124,16 +145,6 @@ public class Bot {
             if (nearFlush()) {
                 handWeight += 26;
             }
-        }
-    }
-
-    public void respondToHoldEm(){
-        if (this.handWeight <= 20){
-            this.status = "Check/Fold";
-        } else if (this.handWeight > 21 && this.handWeight <= 30){
-            this.status = "Call";
-        } else if (this.handWeight > 30){
-            this.status = "Raise";
         }
     }
 
@@ -217,5 +228,4 @@ public class Bot {
         }
         return false;
     }
-
 }

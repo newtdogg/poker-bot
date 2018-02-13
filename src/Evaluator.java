@@ -14,6 +14,10 @@ public class Evaluator {
         this.highestCardOrdinalForStraight = 0;
     }
 
+    //////////////////////////////////////
+    // CHECKING HAND HAS WINNING TRICKS //
+    //////////////////////////////////////
+
     public Card highCard(){
         Collections.sort(hand.playableCards, Card.CardRankComparator);
         return hand.playableCards.get(0);
@@ -152,10 +156,6 @@ public class Evaluator {
         return false;
     }
 
-//    private boolean royalFlushChecker() {
-//        return hand.groupedBySuit.get(key).get(0).rank.name() == "ACE" && hand.groupedBySuit.get(key).get(1).rank.name() == "KING";
-//    }
-
     public boolean fullHouse(Hand hand) {
         hand.groupByRank(hand.playableCards);
         if (threeOfAKind(hand) && pair(hand)) {
@@ -174,6 +174,10 @@ public class Evaluator {
         }
         return false;
     }
+
+    ///////////////////////////////////
+    // CATEGORISE ALL AVAILABLE HANDS//
+    ///////////////////////////////////
 
     public void createAllAvailableHandsHashTable(){
         allAvailableHands = new Hashtable<>();
@@ -218,9 +222,9 @@ public class Evaluator {
         }
     }
 
-    //////////////////////////////////////////////////////////
-    // Could these methods be combined into one mega method //
-    //////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////
+    // Adding types of hand to allAvailableHands //
+    ///////////////////////////////////////////////
 
     private void addHighCardToAllAvailableHands() {
         int sizeOfPlayableCards = this.hand.sortedHighToLow.size();
@@ -323,6 +327,11 @@ public class Evaluator {
         return "you not have a high card you silly";
     }
 
+
+    ////////////////////////////
+    // SELECT BEST FIVE CARDS //
+    ////////////////////////////
+
     public void selectBestFiveCards(Hand hand){
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(hand);
@@ -339,16 +348,13 @@ public class Evaluator {
         } else if (typeOfBestHand() == "THREEOFAKIND") {
             threeOfAKindShrink(hand);
         } else if (typeOfBestHand() == "TWOPAIR") {
-            twoPairShrink(hand);
+            pairShrink(hand);
         } else if (typeOfBestHand() == "PAIR") {
             pairShrink(hand);
         } else if (typeOfBestHand() == "HIGHCARD") {
             highCardShrink(hand);
         }
     }
-
-
-//    SHRINK METHODS BELOW:
 
     private void highCardShrink(Hand hand) {
         for (int j = 0; j<hand.sortedHighToLow.size(); j++) {
@@ -362,24 +368,6 @@ public class Evaluator {
     }
 
     private void pairShrink(Hand hand){
-        for (int i = 0; i<hand.groupedByRank.size(); i++) {
-            String key = Rank.values()[i].name();
-            int numberOfSameRank = hand.groupedByRank.get(key).size();
-            if (numberOfSameRank == 2) {
-                for (int j = 0; j < numberOfSameRank; j++) {
-                    Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
-                }
-            }
-        }
-        highCardShrink(hand);
-    }
-
-    ///////////////////////
-    // can take this out //
-    ///////////////////////
-
-    private void twoPairShrink(Hand hand){
         for (int i = 0; i<hand.groupedByRank.size(); i++) {
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
@@ -425,7 +413,6 @@ public class Evaluator {
             }
         }
     }
-
 
     private void fullHouseShrink(Hand hand){
         for (int i = 0; i< hand.groupedByRank.size(); i++){
