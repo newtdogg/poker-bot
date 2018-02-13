@@ -307,27 +307,27 @@ public class Evaluator {
         return "you not have a high card you silly";
     }
 
-    public void selectBestFiveCards(Hand hand){
+    public void selectBestFiveCards(){
         if (typeOfBestHand() == "ROYALFLUSH"){
-            royalFlushOrFlushShrink(hand);
+            royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "STRAIGHTFLUSH") {
-            royalFlushOrFlushShrink(hand);
+            royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "FOUROFAKIND") {
-            fourOfAKindShrink(hand);
+            fourOfAKindShrink(this.hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
-            fullHouseShrink(hand);
+            fullHouseShrink(this.hand);
         } else if (typeOfBestHand() == "FLUSH") {
-            royalFlushOrFlushShrink(hand);
+            royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "STRAIGHT") {
-            straightShrink(hand);
+            straightShrink(this.hand);
         } else if (typeOfBestHand() == "THREEOFAKIND") {
-            threeOfAKindShrink(hand);
+            threeOfAKindShrink(this.hand);
         } else if (typeOfBestHand() == "TWOPAIR") {
-            twoPairShrink(hand);
+            twoPairShrink(this.hand);
         } else if (typeOfBestHand() == "PAIR") {
-            pairShrink(hand);
+            pairShrink(this.hand);
         } else {
-            highCardShrink(hand);
+            highCardShrink(this.hand);
         }
     }
 
