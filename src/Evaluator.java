@@ -346,7 +346,6 @@ public class Evaluator {
     }
 
     private void pairShrink(Hand hand){
-        // extract into a differnet method
         for (int i = 0; i<hand.groupedByRank.size(); i++) {
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
@@ -359,6 +358,10 @@ public class Evaluator {
         }
         highCardShrink(hand);
     }
+
+    ///////////////////////
+    // can take this out //
+    ///////////////////////
 
     private void twoPairShrink(Hand hand){
         for (int i = 0; i<hand.groupedByRank.size(); i++) {
