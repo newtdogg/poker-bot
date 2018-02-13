@@ -135,7 +135,7 @@ public class Evaluator {
         int counter = 0;
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
-            if (hand.groupedBySuit.get(key).size() >= 4){
+            if (hand.groupedBySuit.get(key).size() >= 5 && hand.groupedBySuit.get(key).get(0).rank.name() == "ACE" && hand.groupedBySuit.get(key).get(1).rank.name() == "KING"){
                 int highestOrdinal = hand.groupedBySuit.get(key).get(0).rank.ordinal();
                 for(int j = 1; j < hand.groupedBySuit.get(key).size(); j++) {
                     if(highestOrdinal - j == hand.groupedBySuit.get(key).get(j).rank.ordinal()) {
@@ -147,6 +147,10 @@ public class Evaluator {
         }
         return false;
     }
+
+//    private boolean royalFlushChecker() {
+//        return hand.groupedBySuit.get(key).get(0).rank.name() == "ACE" && hand.groupedBySuit.get(key).get(1).rank.name() == "KING";
+//    }
 
     public boolean fullHouse(Hand hand) {
         hand.groupByRank(hand.playableCards);
@@ -307,7 +311,7 @@ public class Evaluator {
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(hand);
         } else if (typeOfBestHand() == "STRAIGHTFLUSH") {
-            straightShrink(hand);
+            royalFlushOrFlushShrink(hand);
         } else if (typeOfBestHand() == "FOUROFAKIND") {
             fourOfAKindShrink(hand);
         } else if (typeOfBestHand() == "FULLHOUSE") {
@@ -357,18 +361,18 @@ public class Evaluator {
     }
 
     private void twoPairShrink(Hand hand){
-            for (int i = 0; i<hand.groupedByRank.size(); i++) {
-                String key = Rank.values()[i].name();
-                int numberOfSameRank = hand.groupedByRank.get(key).size();
-                if (numberOfSameRank == 2) {
-                    for (int j = 0; j < numberOfSameRank; j++) {
-                        Card card = hand.groupedByRank.get(key).get(j);
-                        hand.bestFiveCards.add(card);
-                    }
+        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+            String key = Rank.values()[i].name();
+            int numberOfSameRank = hand.groupedByRank.get(key).size();
+            if (numberOfSameRank == 2) {
+                for (int j = 0; j < numberOfSameRank; j++) {
+                    Card card = hand.groupedByRank.get(key).get(j);
+                    hand.bestFiveCards.add(card);
                 }
             }
-            highCardShrink(hand);
         }
+        highCardShrink(hand);
+    }
 
     private void threeOfAKindShrink(Hand hand){
         // extract into a differnet method
@@ -448,4 +452,3 @@ public class Evaluator {
         }
     }
 }
-
