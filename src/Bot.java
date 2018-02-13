@@ -11,6 +11,7 @@ public class Bot {
     public Card card2;
     public int card1rank;
     public int card2rank;
+    public int chips;
 
 
 
@@ -21,6 +22,7 @@ public class Bot {
         this.card2 = null;
         this.card1rank = 0;
         this.card2rank = 0;
+        this.chips = 100;
         this.evaluator = new Evaluator();
     }
 

@@ -10,11 +10,12 @@ public class BotTest {
     public void initialize() {
         deck = new Deck();
     }
+    public Player player = new Player();
     @Test
     public void botCanHoldTwoCards() {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         Assert.assertEquals(2, bot.hand.holdEm.size());
     }
     @Test
@@ -85,7 +86,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         dealer.dealFlop(bot);
         Assert.assertEquals(5, bot.hand.playableCards.size());
     }
@@ -94,7 +95,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         dealer.dealRiver(bot);
         Assert.assertEquals(3, bot.hand.playableCards.size());
     }
@@ -103,7 +104,7 @@ public class BotTest {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
-        dealer.dealHand(bot);
+        dealer.dealHand(bot, player);
         Assert.assertEquals(2, bot.hand.playableCards.size());
     }
     @Test
