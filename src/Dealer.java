@@ -19,15 +19,17 @@ public class Dealer {
 
     public void dealHand(Bot bot, Player player){
         int index1 = r.nextInt(this.deck.size() - 1);
-        int index2 = r.nextInt(this.deck.size() - 2);
-        int index3 = r.nextInt(this.deck.size() - 3);
-        int index4 = r.nextInt(this.deck.size() - 4);
         Card card1 = this.deck.get(index1);
-        Card card2 = this.deck.get(index2);
-        Card card3 = this.deck.get(index3);
-        Card card4 = this.deck.get(index4);
         this.deck.remove(card1);
+        int index2 = r.nextInt(this.deck.size() - 2);
+        Card card2 = this.deck.get(index2);
         this.deck.remove(card2);
+        int index3 = r.nextInt(this.deck.size() - 3);
+        Card card3 = this.deck.get(index3);
+        this.deck.remove(card3);
+        int index4 = r.nextInt(this.deck.size() - 4);
+        Card card4 = this.deck.get(index4);
+        this.deck.remove(card4);
         Hand handa = new Hand(card1, card2);
         Hand handb = new Hand(card3, card4);
         bot.hand = handa;
