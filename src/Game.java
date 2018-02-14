@@ -37,7 +37,7 @@ public class Game {
     private JLabel player1suit;
     private JLabel player2suit;
     private JLabel player2rank;
-    private JButton bet;
+    private JButton smallRaise;
     private JButton call;
     private JButton checkFold;
     private JLabel botStatus;
@@ -46,6 +46,7 @@ public class Game {
     private JLabel botChips;
     private JLabel playerChips;
     private JLabel potText;
+    private JButton bigRaise;
     public int pot;
     public String gamestate;
 
@@ -67,7 +68,8 @@ public class Game {
         dealer.generateSuitSymbols();
         call.setVisible(false);
         checkFold.setVisible(false);
-        bet.setVisible(false);
+        smallRaise.setVisible(false);
+        bigRaise.setVisible(false);
         botChips.setText(Integer.toString(bot.chips));
         playerChips.setText(Integer.toString(player.chips));
 
@@ -109,11 +111,11 @@ public class Game {
                         displayTurn(dealer, bot);
                         showStack(bot, player);
                     } else if (bot.status == "Small Raise"){
-                        smallRaise(bot, player);
+                        smallChipRaise(bot, player);
                         displayTurn(dealer, bot);
                         showStack(bot, player);
                     } else if (bot.status == "Large Raise"){
-                        bigRaise(bot, player);
+                        bigChipRaise(bot, player);
                         displayTurn(dealer, bot);
                         showStack(bot, player);
                     } else if (bot.status == "All in"){
@@ -125,11 +127,11 @@ public class Game {
                     if (bot.status == "Check/Fold" || bot.status == "Call"){
                         displayRiver(dealer, bot);
                     } else if (bot.status == "Small Raise"){
-                        smallRaise(bot, player);
+                        smallChipRaise(bot, player);
                         displayRiver(dealer, bot);
                         showStack(bot, player);
                     } else if (bot.status == "Large Raise"){
-                        smallRaise(bot, player);
+                        smallChipRaise(bot, player);
                         displayRiver(dealer, bot);
                         showStack(bot, player);
                     } else if (bot.status == "All in"){
@@ -137,49 +139,104 @@ public class Game {
                         displayRiver(dealer, bot);
                         showStack(bot, player);
                     }
+                } else {
+                    if (bot.status == "Check/Fold" || bot.status == "Call") {
+//                        winner methods
+                    } else if (bot.status == "Small Raise"){
+                        smallChipRaise(bot, player);
+                        //winner methods
+                        showStack(bot, player);
+                    } else if (bot.status == "Large Raise"){
+                        smallChipRaise(bot, player);
+                        //winner methods
+                        showStack(bot, player);
+                    } else if (bot.status == "All in"){
+                        allIn(bot, player);
+                        //winner methods
+                        showStack(bot, player);
+                    }
                 }
             }
         });
 
-        bet.addActionListener(new ActionListener() {
+        smallRaise.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gamestate == "preflop") {
                     if (bot.status == "Call" || bot.status == "Raise") {
                         botStatus.setText(bot.status);
-                        smallRaise(bot, player);
+                        smallChipRaise(bot, player);
                         displayFlop(dealer, bot);
                         showStack(bot, player);
                     } else {
-                        player.chips += pot;
-                        botStatus.setText(bot.status);
-                        reset(bot, dealer, player);
+                        botFold(player, bot, dealer);
                     }
                 } else if (gamestate == "flop"){
-                    if (bot.status == "Call" || bot.status == "Large Raise" || bot.status == "Small Raise" || bot.status == "All in") {
+                    if (bot.status == "Call" || bot.status == "Small Raise") {
                         botStatus.setText(bot.status);
-                        smallRaise(bot, player);
+                        smallChipRaise(bot, player);
                         displayTurn(dealer, bot);
                         showStack(bot, player);
                     } else {
-                        player.chips += pot;
-                        botStatus.setText(bot.status);
-                        reset(bot, dealer, player);
+                        botFold(player, bot, dealer);
                     }
                 } else if (gamestate == "turn"){
-                    if (bot.status == "Call" || bot.status == "Large Raise" || bot.status == "Small Raise" || bot.status == "All in") {
+                    if (bot.status == "Call" || bot.status == "Small Raise" ) {
                         botStatus.setText(bot.status);
-                        smallRaise(bot, player);
+                        smallChipRaise(bot, player);
                         displayRiver(dealer, bot);
                         showStack(bot, player);
                     } else {
-                        player.chips += pot;
+                        botFold(player, bot, dealer);
+                    }
+                } else {
+                    if (bot.status == "Call" || bot.status == "Small Raise" ) {
                         botStatus.setText(bot.status);
-                        reset(bot, dealer, player);
+                        smallChipRaise(bot, player);
+                        showStack(bot, player);
+//                        winner methods
+                    } else {
+                        botFold(player, bot, dealer);
                     }
                 }
             }
         });
+
+        bigRaise.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (gamestate == "flop"){
+                    if (bot.status == "Call" || bot.status == "Large Raise"){
+                        botStatus.setText(bot.status);
+                        bigChipRaise(bot, player);
+                        bigChipRaise(bot, player);
+                        displayTurn(dealer, bot);
+                        showStack(bot, player);
+                    } else {
+                        botFold(player, bot, dealer);
+                    }
+                } else if (gamestate == "turn"){
+                    if (bot.status == "Call" || bot.status == "Large Raise") {
+                        botStatus.setText(bot.status);
+                        smallChipRaise(bot, player);
+                        displayRiver(dealer, bot);
+                        showStack(bot, player);
+                    } else {
+                        botFold(player, bot, dealer);
+                    }
+                } else {
+                    if (bot.status == "Call" || bot.status == "Large Raise" ) {
+                        botStatus.setText(bot.status);
+                        smallChipRaise(bot, player);
+                        showStack(bot, player);
+//                        winner methods
+                    } else {
+                        botFold(player, bot, dealer);
+                    }
+                }
+            }
+        });
+
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -219,36 +276,58 @@ public class Game {
             System.out.print(bot.evaluator.hand.bestFiveCards.get(i).suit.name());
             System.out.println(bot.evaluator.hand.bestFiveCards.get(i).rank.name());
         }
-        System.out.println(bot.evaluator.hand.bestFiveCards.size());
+        System.out.println(bot.status);
+        System.out.println(bot.handWeight);
         System.out.println(bot.evaluator.typeOfBestHand());
     }
 
     private void displayButtons(Bot bot){
         if (bot.status == "Call") {
-            bet.setVisible(true);
+            smallRaise.setVisible(true);
+            bigRaise.setVisible(true);
             call.setVisible(true);
             call.setText("Check");
             botStatus.setText("Check");
         } else if (bot.status == "Check/Fold") {
             botStatus.setText("Check");
-            bet.setVisible(true);
+            smallRaise.setVisible(true);
             call.setVisible(true);
             call.setText("Check");
+        } else if (bot.status == "All in"){
+            call.setVisible(true);
+            checkFold.setVisible(true);
+            checkFold.setText("Fold");
+            botStatus.setText(bot.status);
+        } else if (bot.status == "Large Raise"){
+            call.setVisible(true);
+            checkFold.setVisible(true);
+            checkFold.setText("Fold");
+            botStatus.setText(bot.status);
+            bigRaise.setVisible(true);
+            bigRaise.setText("Re-raise");
         } else {
             call.setVisible(true);
             checkFold.setVisible(true);
             checkFold.setText("Fold");
             botStatus.setText(bot.status);
+            smallRaise.setVisible(true);
+            smallRaise.setText("Re-raise");
         }
     }
 
-    private void smallRaise(Bot bot, Player player){
+    private void botFold(Player player, Bot bot, Dealer dealer){
+        player.chips += pot;
+        botStatus.setText(bot.status);
+        reset(bot, dealer, player);
+    }
+
+    private void smallChipRaise(Bot bot, Player player){
         bot.chips -= 20;
         player.chips -= 20;
         pot += 40;
     }
 
-    private void bigRaise(Bot bot, Player player){
+    private void bigChipRaise(Bot bot, Player player){
         bot.chips -= 40;
         player.chips -= 40;
         pot += 80;
@@ -349,10 +428,10 @@ public class Game {
         gamestate = "preflop";
         Play.setVisible(true);
         checkFold.setText("Check/Fold");
-        bet.setText("Bet");
         call.setText("Call");
         checkFold.setVisible(false);
-        bet.setVisible(false);
+        smallRaise.setVisible(false);
+        bigRaise.setVisible(false);
         call.setVisible(false);
         bot.status = "";
         bot.evaluator = new Evaluator();
