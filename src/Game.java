@@ -285,33 +285,38 @@ public class Game {
         if (bot.status == "Call") {
             smallRaise.setVisible(true);
             bigRaise.setVisible(true);
+            bigRaise.setText("Big Raise");
             call.setVisible(true);
             call.setText("Check");
             botStatus.setText("Check");
         } else if (bot.status == "Check/Fold") {
             botStatus.setText("Check");
             smallRaise.setVisible(true);
+            smallRaise.setText("Small Raise");
             call.setVisible(true);
             call.setText("Check");
         } else if (bot.status == "All in"){
             call.setVisible(true);
+            call.setText("Call");
             checkFold.setVisible(true);
             checkFold.setText("Fold");
             botStatus.setText(bot.status);
         } else if (bot.status == "Large Raise"){
             call.setVisible(true);
+            call.setText("Call");
             checkFold.setVisible(true);
             checkFold.setText("Fold");
-            botStatus.setText(bot.status);
             bigRaise.setVisible(true);
-            bigRaise.setText("Re-raise");
+            bigRaise.setText("Big Re-raise");
+            botStatus.setText(bot.status);
         } else {
             call.setVisible(true);
+            call.setText("Call");
             checkFold.setVisible(true);
             checkFold.setText("Fold");
             botStatus.setText(bot.status);
             smallRaise.setVisible(true);
-            smallRaise.setText("Re-raise");
+            smallRaise.setText("Small Re-raise");
         }
     }
 
