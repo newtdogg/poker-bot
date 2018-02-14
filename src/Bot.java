@@ -123,6 +123,7 @@ public class Bot {
     ////////////////////
 
     public int getHandWeight() {
+//        System.out.println(this.evaluator.hand);
         passHandToEvaluator();
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
@@ -149,7 +150,6 @@ public class Bot {
     }
 
     public void respondToHand() {
-        passHandToEvaluator();
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
         if (getHandWeight() <= 21) {

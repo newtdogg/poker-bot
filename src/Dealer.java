@@ -35,7 +35,7 @@ public class Dealer {
     }
 
     public void dealFlop(Bot bot) {
-        for (int i = 3; i <= 5; i++) {
+        for (int i = 7; i <= 9; i++) {
             int index = r.nextInt(this.deck.size() - i);
             Card card = this.deck.get(index);
             this.deck.remove(card);
@@ -45,7 +45,7 @@ public class Dealer {
     }
 
     public void dealTurn(Bot bot){
-        int index = r.nextInt(this.deck.size() - 6);
+        int index = r.nextInt(this.deck.size() - 10);
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
@@ -53,7 +53,7 @@ public class Dealer {
     }
 
     public void dealRiver(Bot bot){
-        int index = r.nextInt(this.deck.size() - 7);
+        int index = r.nextInt(this.deck.size() - 11);
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);

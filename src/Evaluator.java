@@ -331,8 +331,8 @@ public class Evaluator {
     // SELECT BEST FIVE CARDS //
     ////////////////////////////
 
-
     public void selectBestFiveCards(){
+        clearBestFiveCards();
         if (typeOfBestHand() == "ROYALFLUSH"){
             royalFlushOrFlushShrink(this.hand);
         } else if (typeOfBestHand() == "STRAIGHTFLUSH") {
@@ -353,6 +353,12 @@ public class Evaluator {
             pairShrink(this.hand);
         } else if (typeOfBestHand() == "HIGHCARD") {
             highCardShrink(this.hand);
+        }
+    }
+
+    private void clearBestFiveCards() {
+        if (this.hand.bestFiveCards.size() != 0){
+            this.hand.bestFiveCards.clear();
         }
     }
 
