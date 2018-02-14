@@ -199,11 +199,18 @@ public class Game {
             bet.setVisible(true);
             call.setVisible(true);
             call.setText("Check");
+        } else if (bot.status == "All in"){
+            call.setVisible(true);
+            checkFold.setVisible(true);
+            checkFold.setText("Fold");
+            botStatus.setText(bot.status);
         } else {
             call.setVisible(true);
             checkFold.setVisible(true);
             checkFold.setText("Fold");
             botStatus.setText(bot.status);
+            bet.setVisible(true);
+            bet.setText("Re-raise");
         }
     }
 
