@@ -644,4 +644,73 @@ public class BotTest {
 
         Assert.assertEquals(false, bot.nearStraightFlush());
     }
+
+
+    @Test
+    public void bonusForNumberOfCardsBotHasInBestFiveCards() {
+
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.FIVE, Suit.DIAMOND);
+        Card card2 = new Card(Rank.TWO, Suit.SPADE);
+        Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card4 = new Card(Rank.JACK, Suit.DIAMOND);
+        Card card5 = new Card(Rank.SIX, Suit.SPADE);
+        Card card6 = new Card(Rank.ACE, Suit.DIAMOND);
+        Card card7 = new Card(Rank.THREE, Suit.DIAMOND);
+
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+
+        bot.hand.holdEm.add(card6);
+        bot.hand.holdEm.add(card2);
+
+        Assert.assertEquals(84, bot.getHandWeight());
+    }
+
+    @Test
+    public void bonusForNumberOfCardsBotHasInBestFiveCardsTWOCARDS() {
+
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.FIVE, Suit.DIAMOND);
+        Card card2 = new Card(Rank.TWO, Suit.SPADE);
+        Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card4 = new Card(Rank.JACK, Suit.DIAMOND);
+        Card card5 = new Card(Rank.SIX, Suit.SPADE);
+        Card card6 = new Card(Rank.ACE, Suit.DIAMOND);
+        Card card7 = new Card(Rank.THREE, Suit.DIAMOND);
+
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+
+        bot.hand.holdEm.add(card1);
+        bot.hand.holdEm.add(card3);
+
+        Assert.assertEquals(90, bot.getHandWeight());
+    }
 }

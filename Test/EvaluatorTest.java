@@ -638,7 +638,7 @@ public class EvaluatorTest {
     }
 
     @Test
-    public void testing() {
+    public void testingbestfivecardsresents() {
         evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
@@ -660,7 +660,5 @@ public class EvaluatorTest {
         evaluator.selectBestFiveCards();
         Assert.assertEquals(5, evaluator.hand.bestFiveCards.size());
         Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfSpades));
-
-
     }
 }
