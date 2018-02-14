@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Deck {
-    ArrayList<Card> cards = new ArrayList<Card>();
-    public ArrayList<Card> cardsArray;
+
+    ArrayList<Card> cardsArray;
 
     Deck() {
-        this.cardsArray = cards;
+        this.cardsArray = new ArrayList<Card>();
     }
     public ArrayList<Card> createDeck(){
         for(int suit = 0; suit < Suit.values().length; suit++) {

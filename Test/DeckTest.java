@@ -12,15 +12,15 @@ public class DeckTest {
     @Test public void testDeckLength() {
 
         deck.createDeck();
-        Assert.assertEquals(52, deck.cards.size());
+        Assert.assertEquals(52, deck.cardsArray.size());
     }
     @Test public void testDeckDeal() {
 
         deck.createDeck();
-        Assert.assertEquals(52, deck.cards.size());
+        Assert.assertEquals(52, deck.cardsArray.size());
     }
     @Test public void testDeckUnique() {
-        deck = new Deck();
+//        deck = new Deck();
         deck.createDeck();
         for(int i = 0; i < deck.cardsArray.size(); i++) {
             for(int x = 0; x < deck.cardsArray.size(); x++) {
