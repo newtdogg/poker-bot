@@ -1,12 +1,6 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Hashtable;
 
 public class Comparison {
-
-    ArrayList<Card> hand1, hand2;
-    String besthand1, besthand2;
     Bot bot1, bot2;
 
     Comparison(Bot bot1, Bot bot2) {
@@ -31,48 +25,16 @@ public class Comparison {
         System.out.println(bot1BestHand);
         System.out.println(bot2BestHand);
 
-        System.out.println(bot1BestHand == "HIGHCARD" && bot2BestHand == "HIGHCARD");
 
-        if (bot1BestHand == "HIGHCARD" && bot2BestHand == "HIGHCARD") {
-            if ( compareHighCard() == 1 ) {
-                return this.bot1;
-            } else if ( compareHighCard() == 2 ) {
-                return this.bot2;
-            }
+        if ( compare() == 1 ) {
+            return this.bot1;
+        } else if ( compare() == 2 ) {
+            return this.bot2;
         }
-//      else if (bot1BestHand == "PAIR" && bot2BestHand == "PAIR") {
-//            for (int i = 2; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
-//                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
-//                    return this.bot1;
-//                }
-//            }
-//            return this.bot2;
-//        } else if (bot1BestHand == "TWOPAIR" && bot2BestHand == "TWOPAIR") {
-//            for (int i = 4; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
-//                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
-//                    return this.bot1;
-//                }
-//            }
-//            return this.bot2;
-//        } else if (bot1BestHand == "THREEOFAKIND" && bot2BestHand == "THREEOFAKIND") {
-//            for (int i = 3; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
-//                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
-//                    return this.bot1;
-//                }
-//            }
-//            return this.bot2;
-//        } else if (bot1BestHand == "FOUROFAKIND" && bot2BestHand == "FOUROFAKIND") {
-//            for (int i = 4; i < bot1.evaluator.hand.bestFiveCards.size(); i++) {
-//                if (this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal() > this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal()) {
-//                    return this.bot1;
-//                }
-//            }
-//            return this.bot2;
-//        }
         return null;
     }
 
-    public int compareHighCard() {
+    private int compare() {
         for (int i = 0; i < this.bot1.evaluator.hand.bestFiveCards.size(); i++) {
             int bot1Rank = this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal();
             int bot2Rank = this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal();
@@ -84,5 +46,4 @@ public class Comparison {
         }
         return 2;
     }
-
 }
