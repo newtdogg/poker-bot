@@ -366,7 +366,7 @@ public class Evaluator {
     }
 
     private void pairShrink(Hand hand) {
-        for (int i = 0; i < hand.groupedByRank.size(); i++) {
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
             if (numberOfSameRank == 2) {
@@ -381,7 +381,7 @@ public class Evaluator {
 
     private void threeOfAKindShrink(Hand hand){
         // extract into a differnet method
-        for (int i = 0; i<hand.groupedByRank.size(); i++) {
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
             if (numberOfSameRank == 3) {
@@ -413,7 +413,7 @@ public class Evaluator {
     }
 
     private void fullHouseShrink(Hand hand){
-        for (int i = 0; i< hand.groupedByRank.size(); i++){
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i){
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
             if (numberOfSameRank == 3) {
@@ -431,7 +431,7 @@ public class Evaluator {
     }
 
     private void fourOfAKindShrink(Hand hand){
-        for (int i = 0; i< hand.groupedByRank.size(); i++){
+        for (int i = hand.groupedByRank.size()-1; i >= 0; --i){
             String key = Rank.values()[i].name();
             int numberOfSameRank = hand.groupedByRank.get(key).size();
             if (numberOfSameRank == 4) {
