@@ -40,7 +40,7 @@ public class Comparison {
             int bot2Rank = this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal();
             if ( bot1Rank > bot2Rank ) {
                 return 1;
-            } else if( i == this.bot1.evaluator.hand.bestFiveCards.size()-1 && !(bot1Rank > bot2Rank) ) {
+            } else if( i == this.bot1.evaluator.hand.bestFiveCards.size()-1 && bot1Rank == bot2Rank) {
                 return 0;
             }
         }

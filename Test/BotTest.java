@@ -292,7 +292,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(15, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(22, Math.round(bot.getHandWeight()));
     }
 
     @Test
