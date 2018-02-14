@@ -141,9 +141,11 @@ public class Bot {
 
     private void numberOfCardsInHandBonus() {
         if (cardsFromHandInBestCombo() == 1) {
-            this.handWeight += 6;
+            this.handWeight += 7;
         } else if (cardsFromHandInBestCombo() == 2) {
-            this.handWeight += 12;
+            this.handWeight += 20;
+        } else if (cardsFromHandInBestCombo() == 0) {
+            this.handWeight -= 13;
         }
     }
 

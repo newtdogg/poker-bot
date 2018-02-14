@@ -181,7 +181,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(13, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(0, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -209,7 +209,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(26, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(13, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -236,7 +236,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
-        Assert.assertEquals(48, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(35, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(100, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(87, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -292,7 +292,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(28, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(15, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -320,7 +320,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(41, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(28, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -350,7 +350,7 @@ public class BotTest {
         bot.passHandToEvaluator();
         bot.evaluator.categoriseAvailableHands();
 
-        Assert.assertEquals(75, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(62, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -378,7 +378,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(114, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(101, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -406,7 +406,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(61, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(48, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -535,7 +535,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
 
 
-        Assert.assertEquals(38, bot.getHandWeight());
+        Assert.assertEquals(25, bot.getHandWeight());
     }
 
 
@@ -561,7 +561,7 @@ public class BotTest {
         bot.hand.playableCards.add(card4);
         bot.hand.playableCards.add(card5);
 
-        Assert.assertEquals(23, bot.getHandWeight());
+        Assert.assertEquals(10, bot.getHandWeight());
     }
 
     @Test
@@ -588,7 +588,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
 
-        Assert.assertEquals(39, bot.getHandWeight());
+        Assert.assertEquals(26, bot.getHandWeight());
     }
 
     @Test public void testNearStraightFlush() {
@@ -677,7 +677,7 @@ public class BotTest {
         bot.hand.holdEm.add(card6);
         bot.hand.holdEm.add(card2);
 
-        Assert.assertEquals(84, bot.getHandWeight());
+        Assert.assertEquals(85, bot.getHandWeight());
     }
 
     @Test
@@ -711,6 +711,6 @@ public class BotTest {
         bot.hand.holdEm.add(card1);
         bot.hand.holdEm.add(card3);
 
-        Assert.assertEquals(90, bot.getHandWeight());
+        Assert.assertEquals(98, bot.getHandWeight());
     }
 }
