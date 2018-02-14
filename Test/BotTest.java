@@ -181,7 +181,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(13, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(0, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -209,7 +209,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(26, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(13, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -236,7 +236,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
-        Assert.assertEquals(48, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(35, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(100, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(87, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -292,7 +292,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(28, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(15, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -320,7 +320,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(41, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(28, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -350,7 +350,7 @@ public class BotTest {
         bot.passHandToEvaluator();
         bot.evaluator.categoriseAvailableHands();
 
-        Assert.assertEquals(75, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(62, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -378,11 +378,11 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(114, Math.round(bot.getHandWeight()));
+        Assert.assertEquals(101, Math.round(bot.getHandWeight()));
     }
 
     @Test
-    public void testStraighWeighting() {
+    public void testStraightWeighting() {
         Bot bot = new Bot();
         Dealer dealer = new Dealer();
 
@@ -406,35 +406,7 @@ public class BotTest {
         bot.hand.playableCards.add(card6);
         bot.hand.playableCards.add(card7);
 
-        Assert.assertEquals(61, Math.round(bot.getHandWeight()));
-    }
-
-    @Test
-    public void testRespondToHand() {
-        Bot bot = new Bot();
-        Dealer dealer = new Dealer();
-
-        dealer.dealHand(bot, player);
-        bot.hand.playableCards.clear();
-        bot.hand.holdEm.clear();
-
-        Card card1 = new Card(Rank.THREE, Suit.SPADE);
-        Card card2 = new Card(Rank.FIVE, Suit.SPADE);
-        Card card3 = new Card(Rank.SIX, Suit.SPADE);
-        Card card4 = new Card(Rank.TEN, Suit.DIAMOND);
-        Card card5 = new Card(Rank.EIGHT, Suit.HEART);
-        Card card6 = new Card(Rank.NINE, Suit.CLUB);
-        Card card7 = new Card(Rank.SEVEN, Suit.SPADE);
-
-        bot.hand.playableCards.add(card1);
-        bot.hand.playableCards.add(card2);
-            bot.hand.playableCards.add(card3);
-            bot.hand.playableCards.add(card4);
-        bot.hand.playableCards.add(card5);
-        bot.hand.playableCards.add(card6);
-        bot.hand.playableCards.add(card7);
-        bot.respondToHand();
-        Assert.assertEquals("Small Raise", bot.status);
+        Assert.assertEquals(48, Math.round(bot.getHandWeight()));
     }
 
     @Test
@@ -616,7 +588,7 @@ public class BotTest {
         bot.hand.playableCards.add(card5);
         bot.hand.playableCards.add(card6);
 
-        Assert.assertEquals(39, bot.getHandWeight());
+        Assert.assertEquals(26, bot.getHandWeight());
     }
 
     @Test public void testNearStraightFlush() {
@@ -671,5 +643,74 @@ public class BotTest {
         bot.hand.playableCards.add(card7);
 
         Assert.assertEquals(false, bot.nearStraightFlush());
+    }
+
+
+    @Test
+    public void bonusForNumberOfCardsBotHasInBestFiveCards() {
+
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.FIVE, Suit.DIAMOND);
+        Card card2 = new Card(Rank.TWO, Suit.SPADE);
+        Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card4 = new Card(Rank.JACK, Suit.DIAMOND);
+        Card card5 = new Card(Rank.SIX, Suit.SPADE);
+        Card card6 = new Card(Rank.ACE, Suit.DIAMOND);
+        Card card7 = new Card(Rank.THREE, Suit.DIAMOND);
+
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+
+        bot.hand.holdEm.add(card6);
+        bot.hand.holdEm.add(card2);
+
+        Assert.assertEquals(85, bot.getHandWeight());
+    }
+
+    @Test
+    public void bonusForNumberOfCardsBotHasInBestFiveCardsTWOCARDS() {
+
+        Bot bot = new Bot();
+        Dealer dealer = new Dealer();
+
+        dealer.dealHand(bot, player);
+        bot.hand.playableCards.clear();
+        bot.hand.holdEm.clear();
+
+        Card card1 = new Card(Rank.FIVE, Suit.DIAMOND);
+        Card card2 = new Card(Rank.TWO, Suit.SPADE);
+        Card card3 = new Card(Rank.FOUR, Suit.DIAMOND);
+        Card card4 = new Card(Rank.JACK, Suit.DIAMOND);
+        Card card5 = new Card(Rank.SIX, Suit.SPADE);
+        Card card6 = new Card(Rank.ACE, Suit.DIAMOND);
+        Card card7 = new Card(Rank.THREE, Suit.DIAMOND);
+
+
+        bot.hand.playableCards.add(card1);
+        bot.hand.playableCards.add(card2);
+        bot.hand.playableCards.add(card3);
+        bot.hand.playableCards.add(card4);
+        bot.hand.playableCards.add(card5);
+        bot.hand.playableCards.add(card6);
+        bot.hand.playableCards.add(card7);
+
+
+        bot.hand.holdEm.add(card1);
+        bot.hand.holdEm.add(card3);
+
+        Assert.assertEquals(98, bot.getHandWeight());
     }
 }

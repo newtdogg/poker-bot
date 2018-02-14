@@ -123,6 +123,7 @@ public class Bot {
     ////////////////////
 
     public int getHandWeight() {
+//        System.out.println(this.evaluator.hand);
         passHandToEvaluator();
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
@@ -134,7 +135,21 @@ public class Bot {
 
         handWeight = scalar *(typeOfHandValue) + valueOfHighestCard;
         nearGoodHandWeigthBonus();
+        numberOfCardsInHandBonus();
         return handWeight;
+    }
+
+    private void numberOfCardsInHandBonus() {
+        if (this.hand.playableCards.size() > 5) {
+            if (cardsFromHandInBestCombo() == 1) {
+                this.handWeight += 7;
+            } else if (cardsFromHandInBestCombo() == 2) {
+                this.handWeight += 20;
+            } else if (cardsFromHandInBestCombo() == 0) {
+                this.handWeight -= 13;
+            }
+        }
+
     }
 
     private void nearGoodHandWeigthBonus() {
@@ -149,10 +164,9 @@ public class Bot {
     }
 
     public void respondToHand() {
-        passHandToEvaluator();
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        if (getHandWeight() <= 21) {
+        if (getHandWeight() <= 18) {
             this.status = "Check/Fold";
         } else if (getHandWeight() < 40) {
             this.status =  "Call";

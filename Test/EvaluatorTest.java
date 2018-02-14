@@ -636,4 +636,29 @@ public class EvaluatorTest {
         evaluator.selectBestFiveCards();
         Assert.assertEquals(false, evaluator.hand.bestFiveCards.contains(TwoOfClubs));
     }
+
+    @Test
+    public void testingbestfivecardsresents() {
+        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        cards.add(TwoOfClubs);
+        cards.add(FiveOfDiamonds);
+        cards.add(AceOfHearts);
+        cards.add(KingOfHearts);
+        cards.add(FiveOfHearts);
+        cards.add(FiveOfClubs);
+        cards.add(TenOfHearts);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards();
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size());
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfDiamonds));
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfClubs));
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfHearts));
+        cards.add(FiveOfSpades);
+        evaluator.hand.playableCards = cards;
+        evaluator.categoriseAvailableHands();
+        evaluator.selectBestFiveCards();
+        Assert.assertEquals(5, evaluator.hand.bestFiveCards.size());
+        Assert.assertEquals(true, evaluator.hand.bestFiveCards.contains(FiveOfSpades));
+    }
 }
