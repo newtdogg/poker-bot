@@ -1,23 +1,17 @@
 import java.util.ArrayList;
 
 public class Comparison {
-    Bot bot1, bot2;
+    Bot bot1;
+    Player bot2;
 
-    Comparison(Bot bot1, Bot bot2) {
+    Comparison(Bot bot1, Player bot2) {
         this.bot1 = bot1;
         this.bot2 = bot2;
     }
 
     public String compareHands() {
 
-        this.bot1.passHandToEvaluator();
-        this.bot2.passHandToEvaluator();
-
-        this.bot1.evaluator.categoriseAvailableHands();
-        this.bot2.evaluator.categoriseAvailableHands();
-
-        this.bot1.evaluator.selectBestFiveCards();
-        this.bot2.evaluator.selectBestFiveCards();
+        bot2.getBestFive();
 
         String bot1BestHand = this.bot1.evaluator.typeOfBestHand();
         String bot2BestHand = this.bot2.evaluator.typeOfBestHand();
