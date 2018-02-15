@@ -4,25 +4,38 @@ import java.util.Hashtable;
 
 public class Hand {
 
-    public ArrayList<Card> holdEm;
-    public ArrayList<Card> holdEmArray = new ArrayList<Card>();
-    public ArrayList<Card> playableCards;
-    public ArrayList<Card> playableCardsArray = new ArrayList<Card>();
+    private ArrayList<Card> holdEm;
+    private ArrayList<Card> playableCards;
     public ArrayList<Card> sortedHighToLow;
-    public ArrayList<Card> bestFiveCardsArray = new ArrayList<Card>();
-    public ArrayList<Card> bestFiveCards;
+    private ArrayList<Card> bestFiveCards;
     public Hashtable<String, ArrayList<Card>> groupedByRank;
     public Hashtable<String, ArrayList<Card>> groupedBySuit;
 
 
     public Hand(Card card1, Card card2){
-        this.holdEm = holdEmArray;
-        this.playableCards = playableCardsArray;
-        this.bestFiveCards = bestFiveCardsArray;
+        this.holdEm = new ArrayList<Card>();
+        this.playableCards = new ArrayList<Card>();
+        this.bestFiveCards = new ArrayList<Card>();;
         playableCards.add(card1);
         playableCards.add(card2);
         holdEm.add(card1);
         holdEm.add(card2);
+    }
+
+    public ArrayList<Card> getHoldEm() {
+        return this.holdEm;
+    }
+
+    public ArrayList<Card> getPlayableCards() {
+        return this.playableCards;
+    }
+
+    public void setPlayableCards(ArrayList<Card> cards) {
+        this.playableCards = cards;
+    }
+
+    public ArrayList<Card> getBestFiveCards() {
+        return this.bestFiveCards;
     }
 
     public ArrayList<Card> sortHand() {

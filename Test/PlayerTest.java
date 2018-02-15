@@ -10,17 +10,17 @@ public class PlayerTest extends DeckHelper {
         Dealer dealer = new Dealer();
         Player player = new Player();
         dealer.dealHand(bot, player);
-        bot.hand.playableCards.clear();
-        bot.hand.holdEm.clear();
-        player.getHand().playableCards.add(ThreeOfSpades);
-        player.getHand().playableCards.add(KingOfDiamonds);
-        player.getHand().playableCards.add(FourOfHearts);
-        player.getHand().playableCards.add(JackOfHearts);
-        player.getHand().playableCards.add(EightOfHearts);
-        player.getHand().playableCards.add(TwoOfHearts);
-        player.getHand().playableCards.add(AceOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        player.getHand().getPlayableCards().add(ThreeOfSpades);
+        player.getHand().getPlayableCards().add(KingOfDiamonds);
+        player.getHand().getPlayableCards().add(FourOfHearts);
+        player.getHand().getPlayableCards().add(JackOfHearts);
+        player.getHand().getPlayableCards().add(EightOfHearts);
+        player.getHand().getPlayableCards().add(TwoOfHearts);
+        player.getHand().getPlayableCards().add(AceOfHearts);
         player.passHandToEvaluator();
         player.getBestFive();
-        Assert.assertEquals(5, player.getHand().bestFiveCards.size());
+        Assert.assertEquals(5, player.getHand().getBestFiveCards().size());
     }
 }
