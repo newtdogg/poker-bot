@@ -362,8 +362,6 @@ public class Game {
         player1suit.setText(dealer.suitSymbol.get(key1suitPlayer).toString());
         player2rank.setText(dealer.rankSymbol.get(key2rankPlayer).toString());
         player2suit.setText(dealer.suitSymbol.get(key2suitPlayer).toString());
-        bot1.setBackground(Color.white);
-        bot2.setBackground(Color.white);
     }
 
     private void displayFlop(Dealer dealer, Bot bot) {
@@ -380,10 +378,6 @@ public class Game {
         flop2suit.setText(dealer.suitSymbol.get(key4suit).toString());
         flop3rank.setText(dealer.rankSymbol.get(key5rank).toString());
         flop3suit.setText(dealer.suitSymbol.get(key5suit).toString());
-        flop1.setBackground(Color.white);
-        flop2.setBackground(Color.white);
-        flop3.setBackground(Color.white);
-        flop1.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         gamestate = "flop";
         botAnalyse(bot);
     }
