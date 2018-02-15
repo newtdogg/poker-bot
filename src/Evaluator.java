@@ -7,7 +7,7 @@ public class Evaluator {
 
     public Hashtable<String, ArrayList<Card>> allAvailableHands;
     private Hand hand;
-    int highestCardOrdinalForStraight;
+    private int highestCardOrdinalForStraight;
 
     public Evaluator(){
         this.hand = null;
@@ -35,7 +35,7 @@ public class Evaluator {
         return hand.playableCards.get(0);
     }
 
-    public boolean highCardHand(Hand hand){ ;
+    private boolean highCardHand(Hand hand){ ;
         return true;
     }
 
