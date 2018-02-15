@@ -22,6 +22,10 @@ public class Evaluator {
         return this.hand;
     }
 
+    public void setHand(Hand newHand) {
+        this.hand = newHand;
+    }
+
     //////////////////////////////////////
     // CHECKING HAND HAS WINNING TRICKS //
     //////////////////////////////////////

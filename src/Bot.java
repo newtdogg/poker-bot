@@ -39,7 +39,7 @@ public class Bot {
     }
 
     public void passHandToEvaluator() {
-        this.evaluator.getHand() = this.hand;
+        this.evaluator.hand = this.hand;
     }
 
     public int cardsFromHandInBestCombo() {

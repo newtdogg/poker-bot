@@ -20,7 +20,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void highCardOnePlayer() {
-        evaluator.hand = new Hand(JackOfHearts, FourOfHearts);
+        evaluator.setHand(new Hand(JackOfHearts, FourOfHearts));
         cards.add(JackOfHearts);
         cards.add(FourOfHearts);
         cards.add(FiveOfSpades);
@@ -32,8 +32,16 @@ public class EvaluatorTest extends DeckHelper {
     }
 
     @Test
+    public void setHandMethod() {
+        Hand firstHand = new Hand(KingOfDiamonds, FourOfHearts);
+        evaluator.hand = firstHand;
+        evaluator.setHand(new Hand(JackOfHearts, FourOfSpades));
+        Assert.assertEquals(true , evaluator.getHand().playableCards.contains(JackOfHearts));
+    }
+
+    @Test
     public void testIsThereIsAPair() {
-        evaluator.hand = new Hand(KingOfDiamonds, FourOfHearts);
+        evaluator.setHand(new Hand(KingOfDiamonds, FourOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(JackOfHearts);
@@ -46,7 +54,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testIsThereIsThreeOfKind() {
-        evaluator.hand = new Hand(TwoOfClubs, ThreeOfSpades);
+        evaluator.setHand(new Hand(TwoOfClubs, ThreeOfSpades));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(SixOfClubs);
@@ -58,7 +66,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testIsThereIsFourOfKind() {
-        evaluator.hand = new Hand(KingOfClubs, AceOfSpades);
+        evaluator.setHand(new Hand(KingOfClubs, AceOfSpades));
         cards.add(SixOfClubs);
         cards.add(SixOfSpades);
         cards.add(SixOfHearts);
@@ -70,7 +78,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void threeOfKindFailsIfFourOfKind() {
-        evaluator.hand = new Hand(SevenOfClubs, JackOfHearts);
+        evaluator.setHand(new Hand(SevenOfClubs, JackOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(SixOfClubs);
@@ -82,7 +90,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void checkThereisFullHouse() {
-        evaluator.hand = new Hand(SevenOfClubs, JackOfHearts);
+        evaluator.setHand(new Hand(SevenOfClubs, JackOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(SixOfClubs);
@@ -94,7 +102,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void checkThereisNotFullHouse() {
-        evaluator.hand = new Hand(SevenOfClubs, JackOfHearts);
+        evaluator.setHand(new Hand(SevenOfClubs, JackOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(SixOfClubs);
@@ -106,7 +114,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void checkTwoPair() {
-        evaluator.hand = new Hand(SevenOfClubs, JackOfHearts);
+        evaluator.setHand(new Hand(SevenOfClubs, JackOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(TwoOfClubs);
@@ -118,7 +126,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void checkHandIsFlush() {
-        evaluator.hand = new Hand(AceOfDiamonds, FourOfHearts);
+        evaluator.setHand(new Hand(AceOfDiamonds, FourOfHearts));
         cards.add(SixOfHearts);
         cards.add(SevenOfHearts);
         cards.add(JackOfHearts);
@@ -130,7 +138,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void checkHandIsRoyalFlush() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(AceOfHearts);
         cards.add(KingOfHearts);
         cards.add(QueenOfHearts);
@@ -142,7 +150,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void checkHandIsStraightFlush() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(NineOfHearts);
         cards.add(KingOfHearts);
         cards.add(QueenOfHearts);
@@ -154,7 +162,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testStraight() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(NineOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(QueenOfHearts);
@@ -168,7 +176,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testStraightAce() {
-        evaluator.hand = new Hand(SevenOfClubs, QueenOfDiamonds);
+        evaluator.setHand(new Hand(SevenOfClubs, QueenOfDiamonds));
         cards.add(AceOfHearts);
         cards.add(TwoOfHearts);
         cards.add(ThreeOfSpades);
@@ -180,7 +188,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingPairToAllAvailableHands() {
-        evaluator.hand = new Hand(KingOfDiamonds, FourOfHearts);
+        evaluator.setHand(new Hand(KingOfDiamonds, FourOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(JackOfHearts);
@@ -195,7 +203,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingThreeOfAKindToAllAvailableHands() {
-        evaluator.hand = new Hand(TwoOfClubs, ThreeOfSpades);
+        evaluator.setHand(new Hand(TwoOfClubs, ThreeOfSpades));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(SixOfClubs);
@@ -212,7 +220,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingFourOfAKindToAllAvailableHands() {
-        evaluator.hand = new Hand(SevenOfClubs, JackOfHearts);
+        evaluator.setHand(new Hand(SevenOfClubs, JackOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(SixOfClubs);
@@ -227,7 +235,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingTwoPairToAllAvailableHands() {
-        evaluator.hand = new Hand(SevenOfClubs, JackOfHearts);
+        evaluator.setHand(new Hand(SevenOfClubs, JackOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(TwoOfClubs);
@@ -243,7 +251,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingFlushToAllAvailableHands() {
-        evaluator.hand = new Hand(AceOfDiamonds, FourOfHearts);
+        evaluator.setHand(new Hand(AceOfDiamonds, FourOfHearts));
         cards.add(SixOfHearts);
         cards.add(SevenOfHearts);
         cards.add(JackOfHearts);
@@ -258,7 +266,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingStraightToAllAvailableHands() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(NineOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(QueenOfHearts);
@@ -273,7 +281,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addingStraightFlushToAllAvailableHandsMeansHandIsAddedToStraightAndFlush() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(NineOfHearts);
         cards.add(KingOfHearts);
         cards.add(QueenOfHearts);
@@ -290,7 +298,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void returningTheBestHandofTwoHands() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(NineOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(QueenOfHearts);
@@ -305,7 +313,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void returningTheBestHandofTwoHandsSecondTest() {
-        evaluator.hand = new Hand(KingOfDiamonds, FourOfHearts);
+        evaluator.setHand(new Hand(KingOfDiamonds, FourOfHearts));
         cards.add(SixOfHearts);
         cards.add(SixOfSpades);
         cards.add(JackOfHearts);
@@ -320,7 +328,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void accessBestFiveCardsInRoyalFlushArrayAndReturnArrayList() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(AceOfHearts);
         cards.add(KingOfHearts);
         cards.add(QueenOfHearts);
@@ -334,7 +342,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testHighShrink() {
-        evaluator.hand = new Hand(TwoOfClubs, KingOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, KingOfDiamonds));
         cards.add(TwoOfClubs);
         cards.add(KingOfDiamonds);
         cards.add(FourOfHearts);
@@ -352,7 +360,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testPairShrink() {
-        evaluator.hand = new Hand(TwoOfClubs, KingOfHearts);
+        evaluator.setHand(new Hand(TwoOfClubs, KingOfHearts));
         cards.add(TwoOfClubs);
         cards.add(ThreeOfSpades);
         cards.add(KingOfClubs);
@@ -370,7 +378,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testTwoPairShrink() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
         cards.add(AceOfHearts);
@@ -390,7 +398,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testThreeOfAKindShrink() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
         cards.add(AceOfHearts);
@@ -410,7 +418,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testFullHouseShrink() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
         cards.add(KingOfDiamonds);
@@ -432,7 +440,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testFourOfAKindShrink() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
         cards.add(FiveOfClubs);
@@ -454,7 +462,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void accessBestFiveCardsInStraightArrayAndReturnArrayList() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TenOfHearts);
         cards.add(NineOfDiamonds);
         cards.add(EightOfClubs);
@@ -471,7 +479,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void accessBestFiveCardsInAceLowStraightArrayAndReturnArrayList() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(AceOfHearts);
         cards.add(KingOfClubs);
         cards.add(SevenOfHearts);
@@ -488,7 +496,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void accessBestFiveCardsInAceLowStraightArrayAndReturnArrayListtwo() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(AceOfHearts);
         cards.add(AceOfClubs);
         cards.add(SevenOfHearts);
@@ -505,7 +513,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void addNextBestCardsUpTo5() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TenOfHearts);
         cards.add(NineOfHearts);
         cards.add(EightOfHearts);
@@ -522,7 +530,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testingSelectBestFiveCardsHighCard() {
-        evaluator.hand = new Hand(TwoOfClubs, ThreeOfSpades);
+        evaluator.setHand(new Hand(TwoOfClubs, ThreeOfSpades));
         cards.add(FiveOfDiamonds);
         cards.add(SixOfHearts);
         cards.add(NineOfHearts);
@@ -535,7 +543,7 @@ public class EvaluatorTest extends DeckHelper {
 
     @Test
     public void testingbestfivecardsresents() {
-        evaluator.hand = new Hand(TwoOfClubs, FiveOfDiamonds);
+        evaluator.setHand(new Hand(TwoOfClubs, FiveOfDiamonds));
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
         cards.add(AceOfHearts);
