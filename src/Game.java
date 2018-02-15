@@ -342,10 +342,15 @@ public class Game {
         String key2rankPlayer = player.getHand().holdEm.get(1).rank.name();
         String key1suitPlayer = player.getHand().holdEm.get(0).suit.name();
         String key2suitPlayer = player.getHand().holdEm.get(1).suit.name();
+        colourCards(player1rank, key1suitPlayer);
+        colourCards(player2rank, key2suitPlayer);
+        colourCards(player1suit, key1suitPlayer);
+        colourCards(player2suit, key2suitPlayer);
         player1rank.setText(dealer.rankSymbol.get(key1rankPlayer).toString());
         player1suit.setText(dealer.suitSymbol.get(key1suitPlayer).toString());
         player2rank.setText(dealer.rankSymbol.get(key2rankPlayer).toString());
         player2suit.setText(dealer.suitSymbol.get(key2suitPlayer).toString());
+
     }
 
     private void displayFlop(Dealer dealer, Bot bot, Player player) {
@@ -356,6 +361,12 @@ public class Game {
         String key3suit = bot.hand.playableCards.get(2).suit.name();
         String key4suit = bot.hand.playableCards.get(3).suit.name();
         String key5suit = bot.hand.playableCards.get(4).suit.name();
+        colourCards(flop1rank, key3suit);
+        colourCards(flop1suit, key3suit);
+        colourCards(flop2rank, key4suit);
+        colourCards(flop2suit, key4suit);
+        colourCards(flop3rank, key5suit);
+        colourCards(flop3suit, key5suit);
         flop1rank.setText(dealer.rankSymbol.get(key3rank).toString());
         flop1suit.setText(dealer.suitSymbol.get(key3suit).toString());
         flop2rank.setText(dealer.rankSymbol.get(key4rank).toString());
@@ -371,6 +382,8 @@ public class Game {
         dealer.dealTurn(bot, player);
         String turnRankInt = dealer.board.get(3).rank.name();
         String turnSuitInt = dealer.board.get(3).suit.name();
+        colourCards(turnrank, turnSuitInt);
+        colourCards(turnsuit, turnSuitInt);
         turnrank.setText(dealer.rankSymbol.get(turnRankInt).toString());
         turnsuit.setText(dealer.suitSymbol.get(turnSuitInt).toString());
         turnsuit.setBackground(Color.white);
@@ -383,6 +396,8 @@ public class Game {
         dealer.dealRiver(bot, player);
         String riverRankInt = dealer.board.get(4).rank.name();
         String riverSuitInt = dealer.board.get(4).suit.name();
+        colourCards(riverrank, riverSuitInt);
+        colourCards(riversuit, riverSuitInt);
         riverrank.setText(dealer.rankSymbol.get(riverRankInt).toString());
         riversuit.setText(dealer.suitSymbol.get(riverSuitInt).toString());
         turnsuit.setBackground(Color.white);
@@ -410,6 +425,10 @@ public class Game {
         String key2rankBot = bot.hand.holdEm.get(1).rank.name();
         String key1suitBot = bot.hand.holdEm.get(0).suit.name();
         String key2suitBot = bot.hand.holdEm.get(1).suit.name();
+        colourCards(bot1rank, key1suitBot);
+        colourCards(bot1suit, key1suitBot);
+        colourCards(bot2rank, key2suitBot);
+        colourCards(bot2suit, key2suitBot);
         bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
         bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
         bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
@@ -466,5 +485,13 @@ public class Game {
         potText.setText((Integer.toString(pot)));
         botChips.setText((Integer.toString(bot.chips)));
         playerChips.setText((Integer.toString(player.chips)));
+    }
+
+    private void colourCards(JLabel label, String labelText){
+        if (labelText == "HEART" || labelText == "DIAMOND"){
+            label.setForeground(Color.red);
+        } else {
+            label.setForeground(Color.black);
+        }
     }
 }
