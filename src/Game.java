@@ -283,6 +283,8 @@ public class Game {
         } else if (bot.status == "All in"){
             call.setVisible(true);
             call.setText("Call");
+            smallRaise.setVisible(false);
+            bigRaise.setVisible(false);
             checkFold.setVisible(true);
             checkFold.setText("Fold");
             botStatus.setText(bot.status);
