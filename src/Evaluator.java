@@ -6,12 +6,24 @@ import java.util.Hashtable;
 public class Evaluator {
 
     public Hashtable<String, ArrayList<Card>> allAvailableHands;
-    public Hand hand;
-    int highestCardOrdinalForStraight;
+    private Hand hand;
+    private int highestCardOrdinalForStraight;
 
     public Evaluator(){
         this.hand = null;
         this.highestCardOrdinalForStraight = 0;
+    }
+
+    /////////////////////////
+    // Getters and setters //
+    /////////////////////////
+
+    public Hand getHand() {
+        return this.hand;
+    }
+
+    public void setHand(Hand newHand) {
+        this.hand = newHand;
     }
 
     //////////////////////////////////////
@@ -23,7 +35,7 @@ public class Evaluator {
         return hand.playableCards.get(0);
     }
 
-    public boolean highCardHand(Hand hand){ ;
+    private boolean highCardHand(Hand hand){ ;
         return true;
     }
 

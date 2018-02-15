@@ -1,19 +1,28 @@
 import java.util.ArrayList;
 
 public class Player {
-    public Hand hand;
+    private Hand hand;
     int chips;
     public Evaluator evaluator;
 
     public Player() {
 
         this.hand = null;
-        this.chips = 100;
+        this.chips = 1000;
         this.evaluator = new Evaluator();
     }
 
+    public Hand getHand() {
+        return this.hand;
+    }
+
+    public void setHand(Hand newHand) {
+        this.hand = newHand;
+    }
+
     public void passHandToEvaluator() {
-        this.evaluator.hand = this.hand;
+        this.evaluator.setHand(this.hand);
+//        this.evaluator.hand = this.hand;
     }
 
     public void getBestFive() {

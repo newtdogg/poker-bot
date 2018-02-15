@@ -79,12 +79,12 @@ public class Comparison {
         String win2 = "Bot 2 wins!";
         String draw = "It's a draw!";
 
-        for (int i = 0; i < this.bot1.evaluator.hand.bestFiveCards.size(); i++) {
-            int bot1Rank = this.bot1.evaluator.hand.bestFiveCards.get(i).rank.ordinal();
-            int bot2Rank = this.bot2.evaluator.hand.bestFiveCards.get(i).rank.ordinal();
+        for (int i = 0; i < this.bot1.evaluator.getHand().bestFiveCards.size(); i++) {
+            int bot1Rank = this.bot1.evaluator.getHand().bestFiveCards.get(i).rank.ordinal();
+            int bot2Rank = this.bot2.evaluator.getHand().bestFiveCards.get(i).rank.ordinal();
             if ( bot1Rank > bot2Rank ) {
                 return win1;
-            } else if( i == this.bot1.evaluator.hand.bestFiveCards.size()-1 && bot1Rank == bot2Rank) {
+            } else if( i == this.bot1.evaluator.getHand().bestFiveCards.size()-1 && bot1Rank == bot2Rank) {
                 return draw;
             }
         }

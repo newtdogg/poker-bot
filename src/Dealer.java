@@ -33,7 +33,7 @@ public class Dealer {
         Hand handa = new Hand(card1, card2);
         Hand handb = new Hand(card3, card4);
         bot.hand = handa;
-        player.hand = handb;
+        player.setHand(handb);
     }
 
     public void dealFlop(Bot bot) {
