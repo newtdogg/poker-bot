@@ -266,15 +266,15 @@ public class Game {
         displayButtons(bot);
         System.out.println(bot.status);
         System.out.println("    ******************:PLAYABLECARDS******************:       ");
-        for (int i = 0; i < bot.evaluator.hand.playableCards.size(); i++) {
-            System.out.print(bot.evaluator.hand.playableCards.get(i).suit.name());
-            System.out.println(bot.evaluator.hand.playableCards.get(i).rank.name());
+        for (int i = 0; i < bot.evaluator.getHand().playableCards.size(); i++) {
+            System.out.print(bot.evaluator.getHand().playableCards.get(i).suit.name());
+            System.out.println(bot.evaluator.getHand().playableCards.get(i).rank.name());
         }
-        System.out.println(bot.evaluator.hand.playableCards);
+        System.out.println(bot.evaluator.getHand().playableCards);
         System.out.println("    ******************:BESTFIVECARDS******************   ");
-        for (int i = 0; i < bot.evaluator.hand.bestFiveCards.size(); i++) {
-            System.out.print(bot.evaluator.hand.bestFiveCards.get(i).suit.name());
-            System.out.println(bot.evaluator.hand.bestFiveCards.get(i).rank.name());
+        for (int i = 0; i < bot.evaluator.getHand().bestFiveCards.size(); i++) {
+            System.out.print(bot.evaluator.getHand().bestFiveCards.get(i).suit.name());
+            System.out.println(bot.evaluator.getHand().bestFiveCards.get(i).rank.name());
         }
         System.out.println(bot.status);
         System.out.println(bot.handWeight);

@@ -13,7 +13,8 @@ public class Player {
     }
 
     public void passHandToEvaluator() {
-        this.evaluator.hand = this.hand;
+        this.evaluator.setHand(this.hand);
+//        this.evaluator.hand = this.hand;
     }
 
     public void getBestFive() {

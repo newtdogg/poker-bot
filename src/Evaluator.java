@@ -6,7 +6,7 @@ import java.util.Hashtable;
 public class Evaluator {
 
     public Hashtable<String, ArrayList<Card>> allAvailableHands;
-    public Hand hand;
+    private Hand hand;
     int highestCardOrdinalForStraight;
 
     public Evaluator(){
