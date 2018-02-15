@@ -121,6 +121,8 @@ public class Game {
                     } else if (bot.status == "All in"){
                         allIn(bot, player);
                         displayTurn(dealer, bot, player);
+                        displayRiver(dealer, bot, player);
+                        endRound(bot, dealer, player);
                     }
                 } else if (gamestate == "turn"){
                     if (bot.status == "Check/Fold" || bot.status == "Call"){
@@ -134,6 +136,7 @@ public class Game {
                     } else if (bot.status == "All in"){
                         allIn(bot, player);
                         displayRiver(dealer, bot, player);
+                        endRound(bot, dealer, player);
                     }
                 } else {
                     if (bot.status == "Check/Fold" || bot.status == "Call") {
