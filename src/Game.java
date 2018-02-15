@@ -350,12 +350,12 @@ public class Game {
 
     private void displayFlop(Dealer dealer, Bot bot, Player player) {
         dealer.dealFlop(bot, player);
-        String key3rank = bot.hand.getPlayableCards().get(2).rank.name();
-        String key4rank = bot.hand.getPlayableCards().get(3).rank.name();
-        String key5rank = bot.hand.getPlayableCards().get(4).rank.name();
-        String key3suit = bot.hand.getPlayableCards().get(2).suit.name();
-        String key4suit = bot.hand.getPlayableCards().get(3).suit.name();
-        String key5suit = bot.hand.getPlayableCards().get(4).suit.name();
+        String key3rank = bot.getHand().getPlayableCards().get(2).rank.name();
+        String key4rank = bot.getHand().getPlayableCards().get(3).rank.name();
+        String key5rank = bot.getHand().getPlayableCards().get(4).rank.name();
+        String key3suit = bot.getHand().getPlayableCards().get(2).suit.name();
+        String key4suit = bot.getHand().getPlayableCards().get(3).suit.name();
+        String key5suit = bot.getHand().getPlayableCards().get(4).suit.name();
         flop1rank.setText(dealer.rankSymbol.get(key3rank).toString());
         flop1suit.setText(dealer.suitSymbol.get(key3suit).toString());
         flop2rank.setText(dealer.rankSymbol.get(key4rank).toString());
@@ -406,10 +406,10 @@ public class Game {
             player.chips += pot/2;
         }
         updatePot(bot, player);
-        String key1rankBot = bot.hand.getHoldEm().get(0).rank.name();
-        String key2rankBot = bot.hand.getHoldEm().get(1).rank.name();
-        String key1suitBot = bot.hand.getHoldEm().get(0).suit.name();
-        String key2suitBot = bot.hand.getHoldEm().get(1).suit.name();
+        String key1rankBot = bot.getHand().getHoldEm().get(0).rank.name();
+        String key2rankBot = bot.getHand().getHoldEm().get(1).rank.name();
+        String key1suitBot = bot.getHand().getHoldEm().get(0).suit.name();
+        String key2suitBot = bot.getHand().getHoldEm().get(1).suit.name();
         bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
         bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
         bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
@@ -449,7 +449,7 @@ public class Game {
         bot.status = "";
         bot.evaluator = new Evaluator();
         botStatus.setText("");
-        bot.hand = null;
+        bot.setHand(null);
         bot.handWeight = 0;
         dealer.deck = new Deck().createDeck();
         dealer.board = new ArrayList<Card>();

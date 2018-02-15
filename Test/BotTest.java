@@ -28,54 +28,54 @@ public class BotTest extends DeckHelper {
     @Test
     public void botCanHoldTwoCards() {
         dealer.dealHand(bot, player);
-        Assert.assertEquals(2, bot.hand.getHoldEm().size());
+        Assert.assertEquals(2, bot.getHand().getHoldEm().size());
     }
     @Test
     public void calculatingStartingHandWeight() {
         Hand hand = new Hand(TwoOfSpades, ThreeOfClubs);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(10, bot.handWeight);
     }
     @Test
     public void weighingTwoHighCards() {
         Hand hand = new Hand(AceOfSpades, TenOfClubs);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(40, bot.handWeight);
     }
     @Test
     public void comparingTwoConsecutiveCards() {
         Hand hand = new Hand(EightOfSpades, NineOfClubs);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(22, bot.handWeight);
     }
     @Test
     public void comparingLowPocketPair() {
         Hand hand = new Hand(NineOfClubs, NineOfSpades);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(36, bot.handWeight);
     }
     @Test
     public void comparingHighPocketPair() {
         Hand hand = new Hand(AceOfSpades, AceOfClubs);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(70, bot.handWeight);
     }
     @Test
     public void comparingSemiConnectedCards() {
         Hand hand = new Hand(TwoOfSpades, FourOfClubs);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(8, bot.handWeight);
     }
     @Test
     public void comparingSuitedCards() {
         Hand hand = new Hand(TwoOfSpades, FourOfSpades);
-        bot.hand = hand;
+        bot.setHand(hand);
         bot.weighHoldEm();
         Assert.assertEquals(16, bot.handWeight);
     }
@@ -83,121 +83,121 @@ public class BotTest extends DeckHelper {
     public void addFlopToHand() {
         dealer.dealHand(bot, player);
         dealer.dealFlop(bot, player);
-        Assert.assertEquals(5, bot.hand.getPlayableCards().size());
+        Assert.assertEquals(5, bot.getHand().getPlayableCards().size());
     }
     @Test
     public void addRiverToHand() {
         dealer.dealHand(bot, player);
         dealer.dealRiver(bot, player);
-        Assert.assertEquals(3, bot.hand.getPlayableCards().size());
+        Assert.assertEquals(3, bot.getHand().getPlayableCards().size());
     }
     @Test
     public void originalDeltCardsAreAddedToPlayableHand() {
         dealer.dealHand(bot, player);
-        Assert.assertEquals(2, bot.hand.getPlayableCards().size());
+        Assert.assertEquals(2, bot.getHand().getPlayableCards().size());
     }
 
     @Test
     public void numberOfHoldEmInBestCombo() {
         dealer.dealHand(bot, player);
-        bot.hand.getHoldEm().clear();
-        bot.hand.getHoldEm().add(FourOfSpades);
-        bot.hand.getHoldEm().add(FiveOfHearts);
-        bot.hand.getBestFiveCards().add(FourOfSpades);
-        bot.hand.getBestFiveCards().add(FiveOfHearts);
-        bot.hand.getBestFiveCards().add(ThreeOfHearts);
-        bot.hand.getBestFiveCards().add(SixOfHearts);
-        bot.hand.getBestFiveCards().add(SevenOfHearts);
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getHoldEm().add(FourOfSpades);
+        bot.getHand().getHoldEm().add(FiveOfHearts);
+        bot.getHand().getBestFiveCards().add(FourOfSpades);
+        bot.getHand().getBestFiveCards().add(FiveOfHearts);
+        bot.getHand().getBestFiveCards().add(ThreeOfHearts);
+        bot.getHand().getBestFiveCards().add(SixOfHearts);
+        bot.getHand().getBestFiveCards().add(SevenOfHearts);
         Assert.assertEquals(2, bot.cardsFromHandInBestCombo());
     }
 
     @Test
     public void testHighCardWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfHearts);
-        bot.hand.getPlayableCards().add(AceOfHearts);
-        bot.hand.getPlayableCards().add(FiveOfClubs);
-        bot.hand.getPlayableCards().add(NineOfDiamonds);
-        bot.hand.getPlayableCards().add(EightOfSpades);
-        bot.hand.getPlayableCards().add(TenOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfHearts);
+        bot.getHand().getPlayableCards().add(AceOfHearts);
+        bot.getHand().getPlayableCards().add(FiveOfClubs);
+        bot.getHand().getPlayableCards().add(NineOfDiamonds);
+        bot.getHand().getPlayableCards().add(EightOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfHearts);
         Assert.assertEquals(0, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testPairWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfHearts);
-        bot.hand.getPlayableCards().add(AceOfHearts);
-        bot.hand.getPlayableCards().add(AceOfClubs);
-        bot.hand.getPlayableCards().add(NineOfDiamonds);
-        bot.hand.getPlayableCards().add(EightOfSpades);
-        bot.hand.getPlayableCards().add(TenOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfHearts);
+        bot.getHand().getPlayableCards().add(AceOfHearts);
+        bot.getHand().getPlayableCards().add(AceOfClubs);
+        bot.getHand().getPlayableCards().add(NineOfDiamonds);
+        bot.getHand().getPlayableCards().add(EightOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfHearts);
         Assert.assertEquals(13, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testThreeOfKindWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfHearts);
-        bot.hand.getPlayableCards().add(AceOfHearts);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(NineOfSpades);
-        bot.hand.getPlayableCards().add(TenOfSpades);
-        bot.hand.getPlayableCards().add(TenOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfHearts);
+        bot.getHand().getPlayableCards().add(AceOfHearts);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(NineOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfHearts);
         Assert.assertEquals(35, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testFourOfKindWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfHearts);
-        bot.hand.getPlayableCards().add(AceOfHearts);
-        bot.hand.getPlayableCards().add(TenOfHearts);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(TenOfClubs);
-        bot.hand.getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfHearts);
+        bot.getHand().getPlayableCards().add(AceOfHearts);
+        bot.getHand().getPlayableCards().add(TenOfHearts);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(TenOfClubs);
+        bot.getHand().getPlayableCards().add(TenOfSpades);
         Assert.assertEquals(87, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testTwoPairWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfHearts);
-        bot.hand.getPlayableCards().add(AceOfHearts);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(ThreeOfClubs);
-        bot.hand.getPlayableCards().add(SevenOfSpades);
-        bot.hand.getPlayableCards().add(TenOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfHearts);
+        bot.getHand().getPlayableCards().add(AceOfHearts);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(ThreeOfClubs);
+        bot.getHand().getPlayableCards().add(SevenOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfHearts);
         Assert.assertEquals(22, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testThreeOfAKindWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfHearts);
-        bot.hand.getPlayableCards().add(JackOfHearts);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(EightOfClubs);
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfHearts);
+        bot.getHand().getPlayableCards().add(JackOfHearts);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(EightOfClubs);
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfHearts);
 
         Assert.assertEquals(28, Math.round(bot.getHandWeight()));
     }
@@ -205,15 +205,15 @@ public class BotTest extends DeckHelper {
     @Test
     public void testFlushWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(EightOfClubs);
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(EightOfClubs);
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfSpades);
         bot.passHandToEvaluator();
         bot.evaluator.categoriseAvailableHands();
         Assert.assertEquals(62, Math.round(bot.getHandWeight()));
@@ -222,98 +222,98 @@ public class BotTest extends DeckHelper {
     @Test
     public void testStraightFlushWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(TenOfSpades);
-        bot.hand.getPlayableCards().add(EightOfSpades);
-        bot.hand.getPlayableCards().add(NineOfSpades);
-        bot.hand.getPlayableCards().add(SevenOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().add(EightOfSpades);
+        bot.getHand().getPlayableCards().add(NineOfSpades);
+        bot.getHand().getPlayableCards().add(SevenOfSpades);
         Assert.assertEquals(101, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testStraightWeighting() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(SixOfSpades);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(EightOfHearts);
-        bot.hand.getPlayableCards().add(NineOfClubs);
-        bot.hand.getPlayableCards().add(SevenOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(SixOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(EightOfHearts);
+        bot.getHand().getPlayableCards().add(NineOfClubs);
+        bot.getHand().getPlayableCards().add(SevenOfSpades);
         Assert.assertEquals(48, Math.round(bot.getHandWeight()));
     }
 
     @Test
     public void testAlmostFlushPreTurn() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(KingOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(KingOfHearts);
         Assert.assertEquals(true, bot.nearFlush());
     }
 
     @Test
     public void testAlmostFullHouse() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(ThreeOfDiamonds);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(JackOfHearts);
-        bot.hand.getPlayableCards().add(KingOfHearts);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(ThreeOfDiamonds);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(JackOfHearts);
+        bot.getHand().getPlayableCards().add(KingOfHearts);
         Assert.assertEquals(true, bot.nearFullHouse());
     }
 
 
     @Test public void testNearStraight() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(QueenOfSpades);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(EightOfHearts);
-        bot.hand.getPlayableCards().add(NineOfClubs);
-        bot.hand.getPlayableCards().add(SevenOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(QueenOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(EightOfHearts);
+        bot.getHand().getPlayableCards().add(NineOfClubs);
+        bot.getHand().getPlayableCards().add(SevenOfSpades);
         Assert.assertEquals(true, bot.nearStraight());
     }
 
     @Test public void testNotNearStraight() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(QueenOfSpades);
-        bot.hand.getPlayableCards().add(TenOfDiamonds);
-        bot.hand.getPlayableCards().add(TwoOfHearts);
-        bot.hand.getPlayableCards().add(NineOfClubs);
-        bot.hand.getPlayableCards().add(SevenOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(QueenOfSpades);
+        bot.getHand().getPlayableCards().add(TenOfDiamonds);
+        bot.getHand().getPlayableCards().add(TwoOfHearts);
+        bot.getHand().getPlayableCards().add(NineOfClubs);
+        bot.getHand().getPlayableCards().add(SevenOfSpades);
         Assert.assertEquals(false, bot.nearStraight());
     }
 
     @Test
     public void testNearFlushBonus() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TenOfSpades);
-        bot.hand.getPlayableCards().add(SixOfSpades);
-        bot.hand.getPlayableCards().add(EightOfSpades);
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(KingOfDiamonds);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().add(SixOfSpades);
+        bot.getHand().getPlayableCards().add(EightOfSpades);
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(KingOfDiamonds);
         Assert.assertEquals(38, bot.getHandWeight());
     }
 
@@ -321,55 +321,55 @@ public class BotTest extends DeckHelper {
     @Test
     public void testNearStraightBonus() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(FiveOfClubs);
-        bot.hand.getPlayableCards().add(ThreeOfSpades);
-        bot.hand.getPlayableCards().add(FourOfDiamonds);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(SixOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(FiveOfClubs);
+        bot.getHand().getPlayableCards().add(ThreeOfSpades);
+        bot.getHand().getPlayableCards().add(FourOfDiamonds);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(SixOfSpades);
         Assert.assertEquals(23, bot.getHandWeight());
     }
 
     @Test
     public void nearBonusShouldApplyAfterTurn() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(FiveOfDiamonds);
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(FourOfDiamonds);
-        bot.hand.getPlayableCards().add(JackOfDiamonds);
-        bot.hand.getPlayableCards().add(SixOfSpades);
-        bot.hand.getPlayableCards().add(AceOfDiamonds);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(FiveOfDiamonds);
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(FourOfDiamonds);
+        bot.getHand().getPlayableCards().add(JackOfDiamonds);
+        bot.getHand().getPlayableCards().add(SixOfSpades);
+        bot.getHand().getPlayableCards().add(AceOfDiamonds);
         Assert.assertEquals(26, bot.getHandWeight());
     }
 
     @Test public void testNearStraightFlush() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TenOfSpades);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(EightOfSpades);
-        bot.hand.getPlayableCards().add(NineOfSpades);
-        bot.hand.getPlayableCards().add(KingOfSpades);
-        bot.hand.getPlayableCards().add(AceOfSpades);
-        bot.hand.getPlayableCards().add(SevenOfClubs);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(EightOfSpades);
+        bot.getHand().getPlayableCards().add(NineOfSpades);
+        bot.getHand().getPlayableCards().add(KingOfSpades);
+        bot.getHand().getPlayableCards().add(AceOfSpades);
+        bot.getHand().getPlayableCards().add(SevenOfClubs);
         Assert.assertEquals(true, bot.nearStraightFlush());
     }
 
     @Test public void testNotNearStraightFlush() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(TenOfSpades);
-        bot.hand.getPlayableCards().add(JackOfSpades);
-        bot.hand.getPlayableCards().add(FiveOfSpades);
-        bot.hand.getPlayableCards().add(NineOfSpades);
-        bot.hand.getPlayableCards().add(TwoOfHearts);
-        bot.hand.getPlayableCards().add(FourOfDiamonds);
-        bot.hand.getPlayableCards().add(SevenOfClubs);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(TenOfSpades);
+        bot.getHand().getPlayableCards().add(JackOfSpades);
+        bot.getHand().getPlayableCards().add(FiveOfSpades);
+        bot.getHand().getPlayableCards().add(NineOfSpades);
+        bot.getHand().getPlayableCards().add(TwoOfHearts);
+        bot.getHand().getPlayableCards().add(FourOfDiamonds);
+        bot.getHand().getPlayableCards().add(SevenOfClubs);
         Assert.assertEquals(false, bot.nearStraightFlush());
     }
 
@@ -377,34 +377,34 @@ public class BotTest extends DeckHelper {
     @Test
     public void bonusForNumberOfCardsBotHasInBestFiveCards() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(FiveOfDiamonds);
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(FourOfDiamonds);
-        bot.hand.getPlayableCards().add(JackOfDiamonds);
-        bot.hand.getPlayableCards().add(SixOfSpades);
-        bot.hand.getPlayableCards().add(AceOfDiamonds);
-        bot.hand.getPlayableCards().add(ThreeOfDiamonds);
-        bot.hand.getHoldEm().add(AceOfDiamonds);
-        bot.hand.getHoldEm().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(FiveOfDiamonds);
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(FourOfDiamonds);
+        bot.getHand().getPlayableCards().add(JackOfDiamonds);
+        bot.getHand().getPlayableCards().add(SixOfSpades);
+        bot.getHand().getPlayableCards().add(AceOfDiamonds);
+        bot.getHand().getPlayableCards().add(ThreeOfDiamonds);
+        bot.getHand().getHoldEm().add(AceOfDiamonds);
+        bot.getHand().getHoldEm().add(TwoOfSpades);
         Assert.assertEquals(85, bot.getHandWeight());
     }
 
     @Test
     public void bonusForNumberOfCardsBotHasInBestFiveCardsTWOCARDS() {
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
-        bot.hand.getPlayableCards().add(FiveOfDiamonds);
-        bot.hand.getPlayableCards().add(TwoOfSpades);
-        bot.hand.getPlayableCards().add(FourOfDiamonds);
-        bot.hand.getPlayableCards().add(JackOfDiamonds);
-        bot.hand.getPlayableCards().add(SixOfSpades);
-        bot.hand.getPlayableCards().add(AceOfDiamonds);
-        bot.hand.getPlayableCards().add(ThreeOfDiamonds);
-        bot.hand.getHoldEm().add(FiveOfDiamonds);
-        bot.hand.getHoldEm().add(FourOfDiamonds);
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
+        bot.getHand().getPlayableCards().add(FiveOfDiamonds);
+        bot.getHand().getPlayableCards().add(TwoOfSpades);
+        bot.getHand().getPlayableCards().add(FourOfDiamonds);
+        bot.getHand().getPlayableCards().add(JackOfDiamonds);
+        bot.getHand().getPlayableCards().add(SixOfSpades);
+        bot.getHand().getPlayableCards().add(AceOfDiamonds);
+        bot.getHand().getPlayableCards().add(ThreeOfDiamonds);
+        bot.getHand().getHoldEm().add(FiveOfDiamonds);
+        bot.getHand().getHoldEm().add(FourOfDiamonds);
         Assert.assertEquals(98, bot.getHandWeight());
     }
 }

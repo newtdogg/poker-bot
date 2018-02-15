@@ -10,8 +10,8 @@ public class PlayerTest extends DeckHelper {
         Dealer dealer = new Dealer();
         Player player = new Player();
         dealer.dealHand(bot, player);
-        bot.hand.getPlayableCards().clear();
-        bot.hand.getHoldEm().clear();
+        bot.getHand().getPlayableCards().clear();
+        bot.getHand().getHoldEm().clear();
         player.getHand().getPlayableCards().add(ThreeOfSpades);
         player.getHand().getPlayableCards().add(KingOfDiamonds);
         player.getHand().getPlayableCards().add(FourOfHearts);

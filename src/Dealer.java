@@ -32,7 +32,7 @@ public class Dealer extends Symbols {
         this.deck.remove(card4);
         Hand handa = new Hand(card1, card2);
         Hand handb = new Hand(card3, card4);
-        bot.hand = handa;
+        bot.setHand(handa);
         player.setHand(handb);
     }
 
@@ -42,7 +42,7 @@ public class Dealer extends Symbols {
             Card card = this.deck.get(index);
             this.deck.remove(card);
             this.board.add(card);
-            bot.hand.getPlayableCards().add(card);
+            bot.getHand().getPlayableCards().add(card);
             player.getHand().getPlayableCards().add(card);
         }
     }
@@ -52,7 +52,7 @@ public class Dealer extends Symbols {
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
-        bot.hand.getPlayableCards().add(card);
+        bot.getHand().getPlayableCards().add(card);
         player.getHand().getPlayableCards().add(card);
     }
 
@@ -61,7 +61,7 @@ public class Dealer extends Symbols {
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
-        bot.hand.getPlayableCards().add(card);
+        bot.getHand().getPlayableCards().add(card);
         player.getHand().getPlayableCards().add(card);
     }
 }

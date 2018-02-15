@@ -1,11 +1,12 @@
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class Bot {
     public String status;
-    public Hand hand;
+    private Hand hand;
     public Evaluator evaluator;
     public int handWeight;
     public Card card1;
@@ -25,6 +26,18 @@ public class Bot {
         this.chips = 1000;
         this.evaluator = new Evaluator();
         this.status = "";
+    }
+
+    //////////////////////////
+    //  Getters and Setters //
+    //////////////////////////
+
+    public Hand getHand() {
+        return this.hand;
+    }
+
+    public void setHand(Hand newHand) {
+        this.hand = newHand;
     }
 
     ///////////////////
