@@ -4,7 +4,6 @@ public class Symbols {
     public Hashtable<String, String> newRankSymbol = new Hashtable<String, String>();
     public Hashtable<String, Character> newSuitSymbol = new Hashtable<String, Character>();
 
-
     public void generateSuitSymbols() {
         newSuitSymbol.put("HEART", '\u2665');
         newSuitSymbol.put("DIAMOND", '\u2666');
