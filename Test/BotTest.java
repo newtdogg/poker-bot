@@ -30,13 +30,13 @@ public class BotTest extends DeckHelper {
     @Test
     public void dealCardsTestMockito() {
 
-        Dealer test = mock(Dealer.class);
-
-        doNothing().when(test).dealHand(bot, player);
-
-        test.dealHand(bot, player);
-
-        verify(test, times(1)).dealHand(bot, player);
+//        Dealer test = mock(Dealer.class);
+//
+//        doNothing().when(test).dealHand(bot, player);
+//
+//        test.dealHand(bot, player);
+//
+//        verify(test, times(1)).dealHand(bot, player);
 
     }
 
@@ -97,13 +97,14 @@ public class BotTest extends DeckHelper {
     @Test
     public void addFlopToHand() {
         dealer.dealHand(bot, player);
-        dealer.dealFlop(bot);
+        dealer.dealFlop(bot, player);
         Assert.assertEquals(5, bot.getHand().getPlayableCards().size());
+
     }
     @Test
     public void addRiverToHand() {
         dealer.dealHand(bot, player);
-        dealer.dealRiver(bot);
+        dealer.dealRiver(bot, player);
         Assert.assertEquals(3, bot.getHand().getPlayableCards().size());
     }
     @Test
