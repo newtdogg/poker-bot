@@ -26,22 +26,22 @@ public class DealerTest {
 
     @Test
     public void dealFlop(){
-        dealer.dealFlop(bot);
+        dealer.dealFlop(bot, player);
         Assert.assertEquals(3, dealer.board.size());
     }
 
     @Test
     public void dealTurn(){
-        dealer.dealFlop(bot);
-        dealer.dealTurn(bot);
+        dealer.dealFlop(bot, player);
+        dealer.dealTurn(bot, player);
         Assert.assertEquals(4, dealer.board.size());
     }
 
     @Test
     public void dealRiver(){
-        dealer.dealFlop(bot);
-        dealer.dealTurn(bot);
-        dealer.dealRiver(bot);
+        dealer.dealFlop(bot, player);
+        dealer.dealTurn(bot, player);
+        dealer.dealRiver(bot, player);
 
         Assert.assertEquals(5, dealer.board.size());
     }

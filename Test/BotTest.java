@@ -82,13 +82,13 @@ public class BotTest extends DeckHelper {
     @Test
     public void addFlopToHand() {
         dealer.dealHand(bot, player);
-        dealer.dealFlop(bot);
+        dealer.dealFlop(bot, player);
         Assert.assertEquals(5, bot.hand.playableCards.size());
     }
     @Test
     public void addRiverToHand() {
         dealer.dealHand(bot, player);
-        dealer.dealRiver(bot);
+        dealer.dealRiver(bot, player);
         Assert.assertEquals(3, bot.hand.playableCards.size());
     }
     @Test

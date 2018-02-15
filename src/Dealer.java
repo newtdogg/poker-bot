@@ -36,30 +36,33 @@ public class Dealer {
         player.setHand(handb);
     }
 
-    public void dealFlop(Bot bot) {
+    public void dealFlop(Bot bot, Player player) {
         for (int i = 7; i <= 9; i++) {
             int index = r.nextInt(this.deck.size() - i);
             Card card = this.deck.get(index);
             this.deck.remove(card);
             this.board.add(card);
             bot.hand.playableCards.add(card);
+            player.getHand().playableCards.add(card);
         }
     }
 
-    public void dealTurn(Bot bot){
+    public void dealTurn(Bot bot, Player player){
         int index = r.nextInt(this.deck.size() - 10);
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
         bot.hand.playableCards.add(card);
+        player.getHand().playableCards.add(card);
     }
 
-    public void dealRiver(Bot bot){
+    public void dealRiver(Bot bot, Player player){
         int index = r.nextInt(this.deck.size() - 11);
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
         bot.hand.playableCards.add(card);
+        player.getHand().playableCards.add(card);
     }
 
 

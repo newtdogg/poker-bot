@@ -48,6 +48,8 @@ public class Game {
     private JLabel potText;
     private JButton bigRaise;
     private JButton nextRoundButton;
+    private JLabel winningHand;
+    private JLabel winningPlayer;
     public int pot;
     public String gamestate;
 
@@ -344,7 +346,7 @@ public class Game {
     }
 
     private void displayFlop(Dealer dealer, Bot bot, Player player) {
-        dealer.dealFlop(bot);
+        dealer.dealFlop(bot, player);
         String key3rank = bot.hand.playableCards.get(2).rank.name();
         String key4rank = bot.hand.playableCards.get(3).rank.name();
         String key5rank = bot.hand.playableCards.get(4).rank.name();
@@ -363,7 +365,7 @@ public class Game {
     }
 
     private void displayTurn(Dealer dealer, Bot bot, Player player){
-        dealer.dealTurn(bot);
+        dealer.dealTurn(bot, player);
         String turnRankInt = dealer.board.get(3).rank.name();
         String turnSuitInt = dealer.board.get(3).suit.name();
         turnrank.setText(dealer.rankSymbol.get(turnRankInt).toString());
@@ -375,7 +377,7 @@ public class Game {
     }
 
     private void displayRiver(Dealer dealer, Bot bot, Player player){
-        dealer.dealRiver(bot);
+        dealer.dealRiver(bot, player);
         String riverRankInt = dealer.board.get(4).rank.name();
         String riverSuitInt = dealer.board.get(4).suit.name();
         riverrank.setText(dealer.rankSymbol.get(riverRankInt).toString());
@@ -390,12 +392,17 @@ public class Game {
         Comparison compareWinner = new Comparison(bot, player);
         if (compareWinner.compareHands() == "Bot 1 wins!"){
             bot.chips += pot;
+            winningPlayer.setText("Big Brain wins with");
+            winningHand.setText(bot.evaluator.typeOfBestHand());
         } else if (compareWinner.compareHands() == "Bot 2 wins!"){
             player.chips += pot;
+            winningPlayer.setText("Player wins with");
+            winningHand.setText(player.evaluator.typeOfBestHand());
         } else {
             bot.chips += pot/2;
             player.chips += pot/2;
         }
+        updatePot(bot, player);
         String key1rankBot = bot.hand.holdEm.get(0).rank.name();
         String key2rankBot = bot.hand.holdEm.get(1).rank.name();
         String key1suitBot = bot.hand.holdEm.get(0).suit.name();
@@ -404,6 +411,8 @@ public class Game {
         bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
         bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
         bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
+        bot1.setBackground(Color.white);
+        bot2.setBackground(Color.white);
         nextRoundButton.setVisible(true);
     }
 
@@ -443,7 +452,11 @@ public class Game {
         dealer.board = new ArrayList<Card>();
         player.setHand(null);
         pot = 0;
+        winningHand.setText("");
+        winningPlayer.setText("");
         updatePot(bot, player);
+        bot1.setBackground(new Color(62,101,98));
+        bot2.setBackground(new Color(62,101,98));
     }
 
     private void updatePot(Bot bot, Player player){
