@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.mockito.Mockito.*;
+
 public class BotTest extends DeckHelper {
     Deck deck;
 
@@ -23,6 +25,19 @@ public class BotTest extends DeckHelper {
         player = new Player();
         bot = new Bot();
         dealer = new Dealer();
+    }
+
+    @Test
+    public void dealCardsTestMockito() {
+
+        Dealer test = mock(Dealer.class);
+
+        doNothing().when(test).dealHand(bot, player);
+
+        test.dealHand(bot, player);
+
+        verify(test, times(1)).dealHand(bot, player);
+
     }
 
     @Test
