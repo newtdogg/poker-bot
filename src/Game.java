@@ -47,6 +47,7 @@ public class Game {
     private JLabel playerChips;
     private JLabel potText;
     private JButton bigRaise;
+    private JButton nextRoundButton;
     public int pot;
     public String gamestate;
 
@@ -72,6 +73,7 @@ public class Game {
         bigRaise.setVisible(false);
         botChips.setText(Integer.toString(bot.chips));
         playerChips.setText(Integer.toString(player.chips));
+        nextRoundButton.setVisible(false);
 
         Play.addActionListener(new ActionListener() {
             @Override
@@ -98,46 +100,38 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if (gamestate == "preflop") {
                     if (bot.status == "Check/Fold" || bot.status == "Call") {
-                        displayFlop(dealer, bot);
-                        showStack(bot, player);
+                        displayFlop(dealer, bot, player);
                     } else if (bot.status == "Raise") {
-                        displayFlop(dealer, bot);
+                        displayFlop(dealer, bot, player);
                         bot.chips -= 20;
                         player.chips -= 20;
                         pot += 40;
                     }
                 } else if (gamestate == "flop"){
                     if (bot.status == "Check/Fold" || bot.status == "Call"){
-                        displayTurn(dealer, bot);
-                        showStack(bot, player);
+                        displayTurn(dealer, bot, player);
                     } else if (bot.status == "Small Raise"){
                         smallChipRaise(bot, player);
-                        displayTurn(dealer, bot);
-                        showStack(bot, player);
+                        displayTurn(dealer, bot, player);
                     } else if (bot.status == "Large Raise"){
                         bigChipRaise(bot, player);
-                        displayTurn(dealer, bot);
-                        showStack(bot, player);
+                        displayTurn(dealer, bot, player);
                     } else if (bot.status == "All in"){
                         allIn(bot, player);
-                        displayTurn(dealer, bot);
-                        showStack(bot, player);
+                        displayTurn(dealer, bot, player);
                     }
                 } else if (gamestate == "turn"){
                     if (bot.status == "Check/Fold" || bot.status == "Call"){
-                        displayRiver(dealer, bot);
+                        displayRiver(dealer, bot, player);
                     } else if (bot.status == "Small Raise"){
                         smallChipRaise(bot, player);
-                        displayRiver(dealer, bot);
-                        showStack(bot, player);
+                        displayRiver(dealer, bot, player);
                     } else if (bot.status == "Large Raise"){
                         smallChipRaise(bot, player);
-                        displayRiver(dealer, bot);
-                        showStack(bot, player);
+                        displayRiver(dealer, bot, player);
                     } else if (bot.status == "All in"){
                         allIn(bot, player);
-                        displayRiver(dealer, bot);
-                        showStack(bot, player);
+                        displayRiver(dealer, bot, player);
                     }
                 } else {
                     if (bot.status == "Check/Fold" || bot.status == "Call") {
@@ -145,15 +139,12 @@ public class Game {
                     } else if (bot.status == "Small Raise"){
                         smallChipRaise(bot, player);
                         endRound(bot, dealer, player);
-                        showStack(bot, player);
                     } else if (bot.status == "Large Raise"){
                         smallChipRaise(bot, player);
                         endRound(bot, dealer, player);
-                        showStack(bot, player);
                     } else if (bot.status == "All in"){
                         allIn(bot, player);
                         endRound(bot, dealer, player);
-                        showStack(bot, player);
                     }
                 }
             }
@@ -166,8 +157,7 @@ public class Game {
                     if (bot.status == "Call" || bot.status == "Raise") {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
-                        displayFlop(dealer, bot);
-                        showStack(bot, player);
+                        displayFlop(dealer, bot, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -175,8 +165,7 @@ public class Game {
                     if (bot.status == "Call" || bot.status == "Small Raise") {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
-                        displayTurn(dealer, bot);
-                        showStack(bot, player);
+                        displayTurn(dealer, bot, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -184,8 +173,7 @@ public class Game {
                     if (bot.status == "Call" || bot.status == "Small Raise" ) {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
-                        displayRiver(dealer, bot);
-                        showStack(bot, player);
+                        displayRiver(dealer, bot, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -193,7 +181,6 @@ public class Game {
                     if (bot.status == "Call" || bot.status == "Small Raise" ) {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
-                        showStack(bot, player);
                         endRound(bot, dealer, player);
                     } else {
                         botFold(player, bot, dealer);
@@ -210,8 +197,7 @@ public class Game {
                         botStatus.setText(bot.status);
                         bigChipRaise(bot, player);
                         bigChipRaise(bot, player);
-                        displayTurn(dealer, bot);
-                        showStack(bot, player);
+                        displayTurn(dealer, bot, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -219,8 +205,7 @@ public class Game {
                     if (bot.status == "Call" || bot.status == "Large Raise") {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
-                        displayRiver(dealer, bot);
-                        showStack(bot, player);
+                        displayRiver(dealer, bot, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -228,7 +213,6 @@ public class Game {
                     if (bot.status == "Call" || bot.status == "Large Raise" ) {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
-                        showStack(bot, player);
                         endRound(bot, dealer, player);
                     } else {
                         botFold(player, bot, dealer);
@@ -237,10 +221,11 @@ public class Game {
             }
         });
 
-        resetButton.addActionListener(new ActionListener() {
+        nextRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 reset(bot, dealer, player);
+                nextRoundButton.setVisible(false);
             }
         });
     }
@@ -252,13 +237,12 @@ public class Game {
         player.chips -= 10;
         pot += 20;
         potText.setText(Integer.toString(pot));
-        showStack(bot, player);
     }
 
-    private void showStack(Bot bot, Player player) {
-        botChips.setText(Integer.toString(bot.chips));
-        playerChips.setText(Integer.toString(player.chips));
-    }
+//    private void showStack(Bot bot, Player player) {
+//        botChips.setText(Integer.toString(bot.chips));
+//        playerChips.setText(Integer.toString(player.chips));
+//    }
 
     public void botAnalyse(Bot bot) {
         bot.getHandWeight();
@@ -286,6 +270,7 @@ public class Game {
             smallRaise.setVisible(true);
             bigRaise.setVisible(true);
             bigRaise.setText("Big Raise");
+            smallRaise.setText("Small Raise");
             call.setVisible(true);
             call.setText("Check");
             botStatus.setText("Check");
@@ -346,27 +331,17 @@ public class Game {
 
     private void dealHands(Bot bot, Player player, Dealer dealer){
         dealer.dealHand(bot, player);
-        String key1rankBot = bot.hand.holdEm.get(0).rank.name();
-        String key2rankBot = bot.hand.holdEm.get(1).rank.name();
-        String key1suitBot = bot.hand.holdEm.get(0).suit.name();
-        String key2suitBot = bot.hand.holdEm.get(1).suit.name();
         String key1rankPlayer = player.getHand().holdEm.get(0).rank.name();
         String key2rankPlayer = player.getHand().holdEm.get(1).rank.name();
         String key1suitPlayer = player.getHand().holdEm.get(0).suit.name();
         String key2suitPlayer = player.getHand().holdEm.get(1).suit.name();
-        bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
-        bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
-        bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
-        bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
         player1rank.setText(dealer.rankSymbol.get(key1rankPlayer).toString());
         player1suit.setText(dealer.suitSymbol.get(key1suitPlayer).toString());
         player2rank.setText(dealer.rankSymbol.get(key2rankPlayer).toString());
         player2suit.setText(dealer.suitSymbol.get(key2suitPlayer).toString());
-        bot1.setBackground(Color.white);
-        bot2.setBackground(Color.white);
     }
 
-    private void displayFlop(Dealer dealer, Bot bot) {
+    private void displayFlop(Dealer dealer, Bot bot, Player player) {
         dealer.dealFlop(bot);
         String key3rank = bot.hand.playableCards.get(2).rank.name();
         String key4rank = bot.hand.playableCards.get(3).rank.name();
@@ -380,15 +355,12 @@ public class Game {
         flop2suit.setText(dealer.suitSymbol.get(key4suit).toString());
         flop3rank.setText(dealer.rankSymbol.get(key5rank).toString());
         flop3suit.setText(dealer.suitSymbol.get(key5suit).toString());
-        flop1.setBackground(Color.white);
-        flop2.setBackground(Color.white);
-        flop3.setBackground(Color.white);
-        flop1.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        updatePot(bot, player);
         gamestate = "flop";
         botAnalyse(bot);
     }
 
-    private void displayTurn(Dealer dealer, Bot bot){
+    private void displayTurn(Dealer dealer, Bot bot, Player player){
         dealer.dealTurn(bot);
         String turnRankInt = dealer.board.get(3).rank.name();
         String turnSuitInt = dealer.board.get(3).suit.name();
@@ -396,10 +368,11 @@ public class Game {
         turnsuit.setText(dealer.suitSymbol.get(turnSuitInt).toString());
         turnsuit.setBackground(Color.white);
         gamestate = "turn";
+        updatePot(bot, player);
         botAnalyse(bot);
     }
 
-    private void displayRiver(Dealer dealer, Bot bot){
+    private void displayRiver(Dealer dealer, Bot bot, Player player){
         dealer.dealRiver(bot);
         String riverRankInt = dealer.board.get(4).rank.name();
         String riverSuitInt = dealer.board.get(4).suit.name();
@@ -407,6 +380,7 @@ public class Game {
         riversuit.setText(dealer.suitSymbol.get(riverSuitInt).toString());
         turnsuit.setBackground(Color.white);
         gamestate = "river";
+        updatePot(bot, player);
         botAnalyse(bot);
     }
 
@@ -420,7 +394,15 @@ public class Game {
             bot.chips += pot/2;
             player.chips += pot/2;
         }
-        reset(bot, dealer, player);
+        String key1rankBot = bot.hand.holdEm.get(0).rank.name();
+        String key2rankBot = bot.hand.holdEm.get(1).rank.name();
+        String key1suitBot = bot.hand.holdEm.get(0).suit.name();
+        String key2suitBot = bot.hand.holdEm.get(1).suit.name();
+        bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
+        bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
+        bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
+        bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
+        nextRoundButton.setVisible(true);
     }
 
     public void reset(Bot bot, Dealer dealer, Player player) {
@@ -458,7 +440,13 @@ public class Game {
         dealer.deck = new Deck().createDeck();
         dealer.board = new ArrayList<Card>();
         player.setHand(null);
-        showStack(bot, player);
         pot = 0;
+        updatePot(bot, player);
+    }
+
+    private void updatePot(Bot bot, Player player){
+        potText.setText((Integer.toString(pot)));
+        botChips.setText((Integer.toString(bot.chips)));
+        playerChips.setText((Integer.toString(player.chips)));
     }
 }

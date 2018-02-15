@@ -8,7 +8,7 @@ public class Player {
     public Player() {
 
         this.hand = null;
-        this.chips = 100;
+        this.chips = 1000;
         this.evaluator = new Evaluator();
     }
 
