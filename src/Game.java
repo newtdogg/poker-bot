@@ -47,6 +47,7 @@ public class Game {
     private JLabel playerChips;
     private JLabel potText;
     private JButton bigRaise;
+    private JButton nextRoundButton;
     public int pot;
     public String gamestate;
 
@@ -72,6 +73,7 @@ public class Game {
         bigRaise.setVisible(false);
         botChips.setText(Integer.toString(bot.chips));
         playerChips.setText(Integer.toString(player.chips));
+        nextRoundButton.setVisible(false);
 
         Play.addActionListener(new ActionListener() {
             @Override
@@ -237,10 +239,11 @@ public class Game {
             }
         });
 
-        resetButton.addActionListener(new ActionListener() {
+        nextRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 reset(bot, dealer, player);
+                nextRoundButton.setVisible(false);
             }
         });
     }
@@ -286,6 +289,7 @@ public class Game {
             smallRaise.setVisible(true);
             bigRaise.setVisible(true);
             bigRaise.setText("Big Raise");
+            smallRaise.setText("Small Raise");
             call.setVisible(true);
             call.setText("Check");
             botStatus.setText("Check");
@@ -346,18 +350,10 @@ public class Game {
 
     private void dealHands(Bot bot, Player player, Dealer dealer){
         dealer.dealHand(bot, player);
-        String key1rankBot = bot.hand.holdEm.get(0).rank.name();
-        String key2rankBot = bot.hand.holdEm.get(1).rank.name();
-        String key1suitBot = bot.hand.holdEm.get(0).suit.name();
-        String key2suitBot = bot.hand.holdEm.get(1).suit.name();
         String key1rankPlayer = player.hand.holdEm.get(0).rank.name();
         String key2rankPlayer = player.hand.holdEm.get(1).rank.name();
         String key1suitPlayer = player.hand.holdEm.get(0).suit.name();
         String key2suitPlayer = player.hand.holdEm.get(1).suit.name();
-        bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
-        bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
-        bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
-        bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
         player1rank.setText(dealer.rankSymbol.get(key1rankPlayer).toString());
         player1suit.setText(dealer.suitSymbol.get(key1suitPlayer).toString());
         player2rank.setText(dealer.rankSymbol.get(key2rankPlayer).toString());
@@ -414,7 +410,15 @@ public class Game {
             bot.chips += pot/2;
             player.chips += pot/2;
         }
-        reset(bot, dealer, player);
+        String key1rankBot = bot.hand.holdEm.get(0).rank.name();
+        String key2rankBot = bot.hand.holdEm.get(1).rank.name();
+        String key1suitBot = bot.hand.holdEm.get(0).suit.name();
+        String key2suitBot = bot.hand.holdEm.get(1).suit.name();
+        bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
+        bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
+        bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
+        bot2suit.setText(dealer.suitSymbol.get(key2suitBot).toString());
+        nextRoundButton.setVisible(true);
     }
 
     public void reset(Bot bot, Dealer dealer, Player player) {

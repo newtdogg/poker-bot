@@ -22,7 +22,7 @@ public class Bot {
         this.card2 = null;
         this.card1rank = 0;
         this.card2rank = 0;
-        this.chips = 100;
+        this.chips = 1000;
         this.evaluator = new Evaluator();
         this.status = "";
     }
