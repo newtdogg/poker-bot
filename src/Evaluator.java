@@ -14,6 +14,14 @@ public class Evaluator {
         this.highestCardOrdinalForStraight = 0;
     }
 
+    /////////////////////////
+    // Getters and setters //
+    /////////////////////////
+
+    public Hand getHand() {
+        return this.hand;
+    }
+
     //////////////////////////////////////
     // CHECKING HAND HAS WINNING TRICKS //
     //////////////////////////////////////

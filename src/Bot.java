@@ -39,7 +39,7 @@ public class Bot {
     }
 
     public void passHandToEvaluator() {
-        this.evaluator.hand = this.hand;
+        this.evaluator.getHand() = this.hand;
     }
 
     public int cardsFromHandInBestCombo() {
@@ -123,7 +123,6 @@ public class Bot {
     ////////////////////
 
     public int getHandWeight() {
-//        System.out.println(this.evaluator.hand);
         passHandToEvaluator();
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
@@ -131,7 +130,7 @@ public class Bot {
         int scalar = Rank.values().length;
         String typeOfWinningHand = this.evaluator.typeOfBestHand();
         int typeOfHandValue = WinningHands.valueOf(typeOfWinningHand).ordinal();
-        int valueOfHighestCard = this.evaluator.hand.bestFiveCards.get(0).rank.ordinal() + 1;
+        int valueOfHighestCard = this.evaluator.getHand().bestFiveCards.get(0).rank.ordinal() + 1;
 
         handWeight = scalar *(typeOfHandValue) + valueOfHighestCard;
         nearGoodHandWeigthBonus();
@@ -184,10 +183,10 @@ public class Bot {
         evaluator.categoriseAvailableHands();
         String key = this.evaluator.typeOfBestHand();
         if (WinningHands.valueOf(key).ordinal() < WinningHands.valueOf("THREEOFAKIND").ordinal()) {
-            this.evaluator.hand.groupBySuit(this.hand.playableCards);
-            for (int i = 0; i < this.evaluator.hand.groupedBySuit.size(); i++){
+            this.evaluator.getHand().groupBySuit(this.hand.playableCards);
+            for (int i = 0; i < this.evaluator.getHand().groupedBySuit.size(); i++){
                 String suitKey = Suit.values()[i].name();
-                if (this.evaluator.hand.groupedBySuit.get(suitKey).size() == 4) {
+                if (this.evaluator.getHand().groupedBySuit.get(suitKey).size() == 4) {
                     return true;
                 }
             }
