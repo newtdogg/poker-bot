@@ -21,9 +21,9 @@ public class HandTest {
 
         Hand hand = new Hand(card1, card3);
 
-        hand.playableCards = cards;
+        hand.setPlayableCards(cards);
 
-        Hashtable<String, ArrayList<Card>> groupByRankTest = hand.groupByRank(hand.playableCards);
+        Hashtable<String, ArrayList<Card>> groupByRankTest = hand.groupByRank(hand.getPlayableCards());
 
         Assert.assertEquals(card1, groupByRankTest.get(Rank.JACK.name()).get(0));
         Assert.assertEquals(card4, groupByRankTest.get(Rank.SIX.name()).get(0));
@@ -45,9 +45,9 @@ public class HandTest {
 
         Hand hand = new Hand(card1, card3);
 
-        hand.playableCards = cards;
+        hand.setPlayableCards(cards);
 
-        Hashtable<String, ArrayList<Card>> groupBySuitTest = hand.groupBySuit(hand.playableCards);
+        Hashtable<String, ArrayList<Card>> groupBySuitTest = hand.groupBySuit(hand.getPlayableCards());
 
         Assert.assertEquals(card4, groupBySuitTest.get(Suit.HEART.name()).get(0));
         Assert.assertEquals(card1, groupBySuitTest.get(Suit.HEART.name()).get(1));

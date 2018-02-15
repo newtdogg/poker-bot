@@ -21,7 +21,7 @@ public class DealerTest {
     @Test
     public void dealCardsTest(){
 
-        Assert.assertEquals(2, bot.hand.holdEm.size());
+        Assert.assertEquals(2, bot.hand.getHoldEm().size());
     }
 
     @Test

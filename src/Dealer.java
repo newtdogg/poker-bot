@@ -42,8 +42,8 @@ public class Dealer extends Symbols {
             Card card = this.deck.get(index);
             this.deck.remove(card);
             this.board.add(card);
-            bot.hand.playableCards.add(card);
-            player.getHand().playableCards.add(card);
+            bot.hand.getPlayableCards().add(card);
+            player.getHand().getPlayableCards().add(card);
         }
     }
 
@@ -52,8 +52,8 @@ public class Dealer extends Symbols {
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
-        bot.hand.playableCards.add(card);
-        player.getHand().playableCards.add(card);
+        bot.hand.getPlayableCards().add(card);
+        player.getHand().getPlayableCards().add(card);
     }
 
     public void dealRiver(Bot bot, Player player){
@@ -61,7 +61,7 @@ public class Dealer extends Symbols {
         Card card = this.deck.get(index);
         this.deck.remove(card);
         this.board.add(card);
-        bot.hand.playableCards.add(card);
-        player.getHand().playableCards.add(card);
+        bot.hand.getPlayableCards().add(card);
+        player.getHand().getPlayableCards().add(card);
     }
 }

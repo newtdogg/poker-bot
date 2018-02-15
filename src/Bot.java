@@ -32,8 +32,8 @@ public class Bot {
     ///////////////////
 
     private void assignCards() {
-        this.card1 = this.hand.holdEm.get(0);
-        this.card2 = this.hand.holdEm.get(1);
+        this.card1 = this.hand.getHoldEm().get(0);
+        this.card2 = this.hand.getHoldEm().get(1);
         this.card1rank = this.card1.rank.ordinal();
         this.card2rank = this.card2.rank.ordinal();
     }
@@ -45,8 +45,8 @@ public class Bot {
 
     public int cardsFromHandInBestCombo() {
         int cardsFromHand = 0;
-        for (int i = 0; i < this.hand.holdEm.size(); i++) {
-            if (hand.bestFiveCards.contains(this.hand.holdEm.get(i))) {
+        for (int i = 0; i < this.hand.getHoldEm().size(); i++) {
+            if (hand.getBestFiveCards().contains(this.hand.getHoldEm().get(i))) {
                 cardsFromHand += 1;
             }
         }
@@ -131,7 +131,7 @@ public class Bot {
         int scalar = Rank.values().length;
         String typeOfWinningHand = this.evaluator.typeOfBestHand();
         int typeOfHandValue = WinningHands.valueOf(typeOfWinningHand).ordinal();
-        int valueOfHighestCard = this.evaluator.getHand().bestFiveCards.get(0).rank.ordinal() + 1;
+        int valueOfHighestCard = this.evaluator.getHand().getBestFiveCards().get(0).rank.ordinal() + 1;
 
         handWeight = scalar *(typeOfHandValue) + valueOfHighestCard;
         nearGoodHandWeigthBonus();
@@ -140,7 +140,7 @@ public class Bot {
     }
 
     private void numberOfCardsInHandBonus() {
-        if (this.hand.playableCards.size() > 5) {
+        if (this.hand.getPlayableCards().size() > 5) {
             if (cardsFromHandInBestCombo() == 1) {
                 this.handWeight += 7;
             } else if (cardsFromHandInBestCombo() == 2) {
@@ -153,7 +153,7 @@ public class Bot {
     }
 
     private void nearGoodHandWeigthBonus() {
-        if (this.hand.playableCards.size() > 2 && this.hand.playableCards.size() <= 6) {
+        if (this.hand.getPlayableCards().size() > 2 && this.hand.getPlayableCards().size() <= 6) {
             if (nearStraight() || (nearFullHouse() ||  nearStraightFlush())) {
                 handWeight += 13;
             }
@@ -184,7 +184,7 @@ public class Bot {
         evaluator.categoriseAvailableHands();
         String key = this.evaluator.typeOfBestHand();
         if (WinningHands.valueOf(key).ordinal() < WinningHands.valueOf("THREEOFAKIND").ordinal()) {
-            this.evaluator.getHand().groupBySuit(this.hand.playableCards);
+            this.evaluator.getHand().groupBySuit(this.hand.getPlayableCards());
             for (int i = 0; i < this.evaluator.getHand().groupedBySuit.size(); i++){
                 String suitKey = Suit.values()[i].name();
                 if (this.evaluator.getHand().groupedBySuit.get(suitKey).size() == 4) {
@@ -203,7 +203,7 @@ public class Bot {
     }
 
     public boolean nearStraight() {
-        for (int n = 0; n <= this.hand.playableCards.size()-4; n++) {
+        for (int n = 0; n <= this.hand.getPlayableCards().size()-4; n++) {
             hand.sortHand();
             int counter = 1;
             for (int i = 1; i < this.hand.sortedHighToLow.size(); i++) {
@@ -220,7 +220,7 @@ public class Bot {
     }
 
     public boolean nearStraightFlush() {
-        this.hand.groupBySuit(this.hand.playableCards);
+        this.hand.groupBySuit(this.hand.getPlayableCards());
 
         for (int i = 0; i < this.hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
