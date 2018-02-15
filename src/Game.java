@@ -141,18 +141,18 @@ public class Game {
                     }
                 } else {
                     if (bot.status == "Check/Fold" || bot.status == "Call") {
-//                        winner methods
+                        endRound(bot, dealer, player);
                     } else if (bot.status == "Small Raise"){
                         smallChipRaise(bot, player);
-                        //winner methods
+                        endRound(bot, dealer, player);
                         showStack(bot, player);
                     } else if (bot.status == "Large Raise"){
                         smallChipRaise(bot, player);
-                        //winner methods
+                        endRound(bot, dealer, player);
                         showStack(bot, player);
                     } else if (bot.status == "All in"){
                         allIn(bot, player);
-                        //winner methods
+                        endRound(bot, dealer, player);
                         showStack(bot, player);
                     }
                 }
@@ -194,7 +194,7 @@ public class Game {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
                         showStack(bot, player);
-//                        winner methods
+                        endRound(bot, dealer, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -229,7 +229,7 @@ public class Game {
                         botStatus.setText(bot.status);
                         smallChipRaise(bot, player);
                         showStack(bot, player);
-//                        winner methods
+                        endRound(bot, dealer, player);
                     } else {
                         botFold(player, bot, dealer);
                     }
@@ -402,7 +402,19 @@ public class Game {
         turnsuit.setBackground(Color.white);
         gamestate = "river";
         botAnalyse(bot);
+    }
 
+    private void endRound(Bot bot, Dealer dealer, Player player){
+        Comparison compareWinner = new Comparison(bot, player);
+        if (compareWinner.compareHands() == "Bot 1 wins!"){
+            bot.chips += pot;
+        } else if (compareWinner.compareHands() == "Bot 2 wins!"){
+            player.chips += pot;
+        } else {
+            bot.chips += pot/2;
+            player.chips += pot/2;
+        }
+        reset(bot, dealer, player);
     }
 
     public void reset(Bot bot, Dealer dealer, Player player) {
@@ -441,5 +453,6 @@ public class Game {
         dealer.board = new ArrayList<Card>();
         player.hand = null;
         showStack(bot, player);
+        pot = 0;
     }
 }

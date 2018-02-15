@@ -65,7 +65,7 @@ public class Evaluator {
         for (int n = 0; n < 3; n++) {
             hand.sortHand();
             int counter = 1;
-            for (int i = 1; i < hand.sortedHighToLow.size(); i++) {
+            for (int i = 1; i < hand.sortedHighToLow.size() - 1; i++) {
                 if(hand.sortedHighToLow.get(n).rank.ordinal() - counter == hand.sortedHighToLow.get(i).rank.ordinal()) {
                     counter += 1;
                 }
