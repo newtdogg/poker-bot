@@ -350,10 +350,10 @@ public class Game {
         String key2rankBot = bot.hand.holdEm.get(1).rank.name();
         String key1suitBot = bot.hand.holdEm.get(0).suit.name();
         String key2suitBot = bot.hand.holdEm.get(1).suit.name();
-        String key1rankPlayer = player.hand.holdEm.get(0).rank.name();
-        String key2rankPlayer = player.hand.holdEm.get(1).rank.name();
-        String key1suitPlayer = player.hand.holdEm.get(0).suit.name();
-        String key2suitPlayer = player.hand.holdEm.get(1).suit.name();
+        String key1rankPlayer = player.getHand().holdEm.get(0).rank.name();
+        String key2rankPlayer = player.getHand().holdEm.get(1).rank.name();
+        String key1suitPlayer = player.getHand().holdEm.get(0).suit.name();
+        String key2suitPlayer = player.getHand().holdEm.get(1).suit.name();
         bot1rank.setText(dealer.rankSymbol.get(key1rankBot).toString());
         bot1suit.setText(dealer.suitSymbol.get(key1suitBot).toString());
         bot2rank.setText(dealer.rankSymbol.get(key2rankBot).toString());
@@ -457,7 +457,7 @@ public class Game {
         bot.handWeight = 0;
         dealer.deck = new Deck().createDeck();
         dealer.board = new ArrayList<Card>();
-        player.hand = null;
+        player.setHand(null);
         showStack(bot, player);
         pot = 0;
     }
