@@ -31,8 +31,8 @@ public class Evaluator {
     //////////////////////////////////////
 
     public Card highCard(){
-        Collections.sort(hand.playableCards, Card.CardRankComparator);
-        return hand.playableCards.get(0);
+        Collections.sort(hand.getPlayableCards(), Card.CardRankComparator);
+        return hand.getPlayableCards().get(0);
     }
 
     private boolean highCardHand(Hand hand){ ;
@@ -40,7 +40,7 @@ public class Evaluator {
     }
 
     public boolean pair(Hand hand){
-        hand.groupByRank(hand.playableCards);
+        hand.groupByRank(hand.getPlayableCards());
         for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
             if (hand.groupedByRank.get(key).size() == 2) {
@@ -51,7 +51,7 @@ public class Evaluator {
     }
 
     public boolean twoPair(Hand hand) {
-        hand.groupByRank(hand.playableCards);
+        hand.groupByRank(hand.getPlayableCards());
         int pairCount = 0;
         for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
@@ -63,7 +63,7 @@ public class Evaluator {
     }
 
     public boolean threeOfAKind(Hand hand){
-        hand.groupByRank(hand.playableCards);
+        hand.groupByRank(hand.getPlayableCards());
         for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
             if (hand.groupedByRank.get(key).size() == 3) {
@@ -115,7 +115,7 @@ public class Evaluator {
     }
 
     public boolean flush(Hand hand){
-        hand.groupBySuit(hand.playableCards);
+        hand.groupBySuit(hand.getPlayableCards());
 
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
@@ -127,7 +127,7 @@ public class Evaluator {
     }
 
     public boolean straightFlush(Hand hand){
-        hand.groupBySuit(hand.playableCards);
+        hand.groupBySuit(hand.getPlayableCards());
 
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
@@ -151,7 +151,7 @@ public class Evaluator {
     }
 
     public boolean royalFlush(Hand hand){
-        hand.groupBySuit(hand.playableCards);
+        hand.groupBySuit(hand.getPlayableCards());
         int counter = 0;
         for (int i = 0; i < hand.groupedBySuit.size(); i++){
             String key = Suit.values()[i].name();
@@ -169,7 +169,7 @@ public class Evaluator {
     }
 
     public boolean fullHouse(Hand hand) {
-        hand.groupByRank(hand.playableCards);
+        hand.groupByRank(hand.getPlayableCards());
         if (threeOfAKind(hand) && pair(hand)) {
             return true;
         }
@@ -177,7 +177,7 @@ public class Evaluator {
     }
 
     public boolean fourOfAKind(Hand hand){
-        hand.groupByRank(hand.playableCards);
+        hand.groupByRank(hand.getPlayableCards());
         for (int i = hand.groupedByRank.size()-1; i >= 0; --i) {
             String key = Rank.values()[i].name();
             if (hand.groupedByRank.get(key).size() == 4) {
@@ -248,81 +248,81 @@ public class Evaluator {
     }
 
     private void addPairToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.PAIR.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addTwoPairToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.TWOPAIR.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addThreeOfAKindToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.THREEOFAKIND.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addFullHouseToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.FULLHOUSE.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addStraightToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.STRAIGHT.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addFourOfAKindToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.FOUROFAKIND.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addFlushToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.FLUSH.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addStraightFlushToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.STRAIGHTFLUSH.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
     }
 
     private void addRoyalFlushToAllAvailableHands() {
-        int sizeOfPlayableCards = this.hand.playableCards.size();
+        int sizeOfPlayableCards = this.hand.getPlayableCards().size();
         for (int i = 0; i < sizeOfPlayableCards; i++) {
-            Card card = this.hand.playableCards.get(i);
+            Card card = this.hand.getPlayableCards().get(i);
             String typeOfHand = WinningHands.ROYALFLUSH.toString();
             allAvailableHands.get(typeOfHand).add(card);
         }
@@ -369,16 +369,16 @@ public class Evaluator {
     }
 
     private void clearBestFiveCards() {
-        if (this.hand.bestFiveCards.size() != 0){
-            this.hand.bestFiveCards.clear();
+        if (this.hand.getBestFiveCards().size() != 0){
+            this.hand.getBestFiveCards().clear();
         }
     }
 
     private void highCardShrink(Hand hand) {
         for (int j = 0; j < hand.sortedHighToLow.size(); j++) {
             Card card = hand.sortedHighToLow.get(j);
-            if (!hand.bestFiveCards.contains(card) && hand.bestFiveCards.size() < 5) {
-                hand.bestFiveCards.add(card);
+            if (!hand.getBestFiveCards().contains(card) && hand.getBestFiveCards().size() < 5) {
+                hand.getBestFiveCards().add(card);
             }
         }
     }
@@ -390,7 +390,7 @@ public class Evaluator {
             if (numberOfSameRank == 2) {
                 for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
+                    hand.getBestFiveCards().add(card);
                 }
             }
         }
@@ -405,7 +405,7 @@ public class Evaluator {
             if (numberOfSameRank == 3) {
                 for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
+                    hand.getBestFiveCards().add(card);
                 }
             }
         }
@@ -415,16 +415,16 @@ public class Evaluator {
     private void straightShrink(Hand hand) {
         for (int j = 0; j < 4; j++) {
             if (hand.sortedHighToLow.get(j).rank == Rank.values()[highestCardOrdinalForStraight]) {
-                hand.bestFiveCards.add(hand.sortedHighToLow.get(j));
+                hand.getBestFiveCards().add(hand.sortedHighToLow.get(j));
                 for (int i = 1; i < 7; i++) {
                     for (int n = 1; n < 5; n++) {
                         if (highestCardOrdinalForStraight - n == hand.sortedHighToLow.get(i).rank.ordinal()) {
-                            hand.bestFiveCards.add(hand.sortedHighToLow.get(i));
+                            hand.getBestFiveCards().add(hand.sortedHighToLow.get(i));
                         }
                     }
                 }
                 if (highestCardOrdinalForStraight == 3) {
-                    hand.bestFiveCards.add(hand.sortedHighToLow.get(0));
+                    hand.getBestFiveCards().add(hand.sortedHighToLow.get(0));
                 }
             }
         }
@@ -437,12 +437,12 @@ public class Evaluator {
             if (numberOfSameRank == 3) {
                 for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
+                    hand.getBestFiveCards().add(card);
                 }
             } else if (numberOfSameRank == 2) {
                 for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
+                    hand.getBestFiveCards().add(card);
                 }
             }
         }
@@ -455,7 +455,7 @@ public class Evaluator {
             if (numberOfSameRank == 4) {
                 for (int j = 0; j < numberOfSameRank; j++) {
                     Card card = hand.groupedByRank.get(key).get(j);
-                    hand.bestFiveCards.add(card);
+                    hand.getBestFiveCards().add(card);
                 }
             }
         }
@@ -468,7 +468,7 @@ public class Evaluator {
             if (hand.groupedBySuit.get(key).size() >= 5) {
                 for (int j = 0; j < 5; j++) {
                     Card card = hand.groupedBySuit.get(key).get(j);
-                    hand.bestFiveCards.add(card);
+                    hand.getBestFiveCards().add(card);
                 }
             }
         }

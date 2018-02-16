@@ -27,7 +27,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfHearts);
         cards.add(AceOfHearts);
         cards.add(KingOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(AceOfHearts, evaluator.highCard());
     }
 
@@ -36,7 +36,7 @@ public class EvaluatorTest extends DeckHelper {
         Hand firstHand = new Hand(KingOfDiamonds, FourOfHearts);
         evaluator.setHand(firstHand);
         evaluator.setHand(new Hand(JackOfHearts, FourOfSpades));
-        Assert.assertEquals(true , evaluator.getHand().playableCards.contains(JackOfHearts));
+        Assert.assertEquals(true , evaluator.getHand().getPlayableCards().contains(JackOfHearts));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(JackOfHearts);
         cards.add(SevenOfClubs);
         cards.add(NineOfClubs);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.pair(evaluator.getHand()));
 
     }
@@ -60,7 +60,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfClubs);
         cards.add(SevenOfHearts);
         cards.add(NineOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.threeOfAKind(evaluator.getHand()));
     }
 
@@ -72,7 +72,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfHearts);
         cards.add(SixOfDiamonds);
         cards.add(NineOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.fourOfAKind(evaluator.getHand()));
     }
 
@@ -84,7 +84,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfClubs);
         cards.add(SixOfDiamonds);
         cards.add(NineOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(false, evaluator.threeOfAKind(evaluator.getHand()));
     }
 
@@ -96,7 +96,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfClubs);
         cards.add(NineOfDiamonds);
         cards.add(NineOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.fullHouse(evaluator.getHand()));
     }
 
@@ -108,7 +108,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfClubs);
         cards.add(TwoOfDiamonds);
         cards.add(NineOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(false, evaluator.fullHouse(evaluator.getHand()));
     }
 
@@ -120,7 +120,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TwoOfClubs);
         cards.add(TwoOfDiamonds);
         cards.add(NineOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.twoPair(evaluator.getHand()));
     }
 
@@ -132,7 +132,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(JackOfHearts);
         cards.add(TwoOfHearts);
         cards.add(KingOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.flush(evaluator.getHand()));
     }
 
@@ -144,7 +144,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(QueenOfHearts);
         cards.add(JackOfHearts);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.royalFlush(evaluator.getHand()));
     }
 
@@ -156,7 +156,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(QueenOfHearts);
         cards.add(JackOfHearts);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.straightFlush(evaluator.getHand()));
     }
 
@@ -170,7 +170,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TenOfHearts);
         cards.add(EightOfHearts);
         cards.add(TwoOfClubs);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.straight(evaluator.getHand()));
     }
 
@@ -182,7 +182,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(ThreeOfSpades);
         cards.add(FourOfDiamonds);
         cards.add(FiveOfClubs);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         Assert.assertEquals(true, evaluator.aceLowStraight(evaluator.getHand()));
     }
 
@@ -196,7 +196,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(NineOfClubs);
         cards.add(KingOfDiamonds);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.PAIR.toString()).size());
     }
@@ -211,7 +211,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(NineOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
 
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.THREEOFAKIND.toString()).size());
@@ -228,7 +228,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(NineOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.FOUROFAKIND.toString()).size());
     }
@@ -243,7 +243,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(NineOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.TWOPAIR.toString()).size());
         Assert.assertEquals(0, evaluator.allAvailableHands.get(WinningHands.PAIR.toString()).size());
@@ -259,7 +259,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(KingOfHearts);
         cards.add(KingOfDiamonds);
         cards.add(FourOfSpades);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.FLUSH.toString()).size());
     }
@@ -274,7 +274,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TenOfHearts);
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.STRAIGHT.toString()).size());
     }
@@ -289,7 +289,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TenOfHearts);
         cards.add(TwoOfClubs);
         cards.add(FiveOfDiamonds);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.STRAIGHT.toString()).size());
         Assert.assertEquals(7, evaluator.allAvailableHands.get(WinningHands.FLUSH.toString()).size());
@@ -306,7 +306,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TenOfHearts);
         cards.add(JackOfHearts);
         cards.add(TwoOfClubs);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals("STRAIGHT", evaluator.typeOfBestHand());
     }
@@ -321,7 +321,7 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(NineOfClubs);
         cards.add(KingOfDiamonds);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         Assert.assertEquals("PAIR", evaluator.typeOfBestHand());
     }
@@ -334,10 +334,10 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(QueenOfHearts);
         cards.add(JackOfHearts);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
     }
 
     @Test
@@ -350,12 +350,12 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(QueenOfHearts);
         cards.add(FiveOfClubs);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(KingOfDiamonds));
-        Assert.assertEquals(false, evaluator.getHand().bestFiveCards.contains(TwoOfClubs));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(KingOfDiamonds));
+        Assert.assertEquals(false, evaluator.getHand().getBestFiveCards().contains(TwoOfClubs));
     }
 
     @Test
@@ -368,12 +368,12 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(QueenOfHearts);
         cards.add(FiveOfClubs);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(KingOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(KingOfHearts));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(KingOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(KingOfHearts));
     }
 
     @Test
@@ -386,14 +386,14 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TwoOfHearts);
         cards.add(FiveOfClubs);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfDiamonds));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(TwoOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(TwoOfHearts));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfDiamonds));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(TwoOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(TwoOfHearts));
     }
 
     @Test
@@ -406,13 +406,13 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(FiveOfHearts);
         cards.add(FiveOfClubs);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfDiamonds));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfHearts));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfDiamonds));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfHearts));
 
     }
 
@@ -426,15 +426,15 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(FiveOfHearts);
         cards.add(FiveOfClubs);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfDiamonds));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfHearts));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(KingOfDiamonds));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(KingOfHearts));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfDiamonds));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfHearts));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(KingOfDiamonds));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(KingOfHearts));
 
     }
 
@@ -448,15 +448,15 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(FiveOfHearts);
         cards.add(ThreeOfSpades);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfDiamonds));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfHearts));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfSpades));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(TenOfHearts));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfDiamonds));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfHearts));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfSpades));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(TenOfHearts));
 
     }
 
@@ -470,11 +470,11 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfClubs);
         cards.add(FiveOfClubs);
         cards.add(KingOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(TenOfHearts, evaluator.getHand().bestFiveCards.get(0));
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
+        Assert.assertEquals(TenOfHearts, evaluator.getHand().getBestFiveCards().get(0));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
     }
 
     @Test
@@ -487,11 +487,11 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TwoOfDiamonds);
         cards.add(FiveOfClubs);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(FiveOfClubs, evaluator.getHand().bestFiveCards.get(0));
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
+        Assert.assertEquals(FiveOfClubs, evaluator.getHand().getBestFiveCards().get(0));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
     }
 
     @Test
@@ -504,11 +504,11 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(TwoOfDiamonds);
         cards.add(FiveOfClubs);
         cards.add(FourOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(FiveOfClubs, evaluator.getHand().bestFiveCards.get(0));
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
+        Assert.assertEquals(FiveOfClubs, evaluator.getHand().getBestFiveCards().get(0));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
     }
 
     @Test
@@ -521,11 +521,11 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfHearts);
         cards.add(FiveOfClubs);
         cards.add(JackOfDiamonds);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(TenOfHearts, evaluator.getHand().bestFiveCards.get(0));
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
+        Assert.assertEquals(TenOfHearts, evaluator.getHand().getBestFiveCards().get(0));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
     }
 
     @Test
@@ -535,10 +535,10 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(SixOfHearts);
         cards.add(NineOfHearts);
         cards.add(AceOfSpades);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(false, evaluator.getHand().bestFiveCards.contains(TwoOfClubs));
+        Assert.assertEquals(false, evaluator.getHand().getBestFiveCards().contains(TwoOfClubs));
     }
 
     @Test
@@ -551,18 +551,18 @@ public class EvaluatorTest extends DeckHelper {
         cards.add(FiveOfHearts);
         cards.add(FiveOfClubs);
         cards.add(TenOfHearts);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfDiamonds));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfClubs));
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfHearts));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfDiamonds));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfClubs));
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfHearts));
         cards.add(FiveOfSpades);
-        evaluator.getHand().playableCards = cards;
+        evaluator.getHand().setPlayableCards(cards);
         evaluator.categoriseAvailableHands();
         evaluator.selectBestFiveCards();
-        Assert.assertEquals(5, evaluator.getHand().bestFiveCards.size());
-        Assert.assertEquals(true, evaluator.getHand().bestFiveCards.contains(FiveOfSpades));
+        Assert.assertEquals(5, evaluator.getHand().getBestFiveCards().size());
+        Assert.assertEquals(true, evaluator.getHand().getBestFiveCards().contains(FiveOfSpades));
     }
 }
