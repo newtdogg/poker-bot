@@ -63,4 +63,4 @@ Intellij - as the IDE
 
 ## Built by
 
-| [Kesha Kumshayev](https://github.com/kkumshayev) | [Joe Pike](https://github.com/joepike) | [Tom Allpress](https://github.com/tallpress) | [Ted Newton](https://github.com/newtdogg) |
+| [Kesha Kumshayev](https://github.com/ikumsh) | [Joe Pike](https://github.com/joepike) | [Tom Allpress](https://github.com/tallpress) | [Ted Newton](https://github.com/newtdogg) |
