@@ -354,6 +354,7 @@ public class Game {
     }
 
     private void displayFlop(Dealer dealer, Bot bot, Player player) {
+        dealer.dealFlop(bot, player);
         String key3rank = bot.getHand().getPlayableCards().get(2).rank.name();
         String key4rank = bot.getHand().getPlayableCards().get(3).rank.name();
         String key5rank = bot.getHand().getPlayableCards().get(4).rank.name();

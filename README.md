@@ -1,10 +1,21 @@
 # Big Brain
 
-Big brain is a game where you can play heads-up (one-on-one) Texas Hold’Em Poker vs. our AI. This project was developed in two weeks by four of us as a final project for Makers Academy.
+Big brain is a game where you can play heads-up (one-on-one) Texas Hold’Em Poker vs. our AI. This project was developed in two weeks by four of us as a final project for Makers Academy. 
 
 ## Getting Started
 
-THIS IS WHERE WE DESCRIBE HOW TO RUN THE PROGRAM
+First first clone this repo, and locate the file named `poker-bot.jar`
+
+Copy the full file path of the file, and paste it after the following command on the command line.  
+```aidl
+java -jar your/file/path/poker-bot/poker-bot.jar
+```
+
+This will start the game, which is best played in full screen. 
+
+If you don't know how to play Texas Hold'Em poker, take a look [here](https://uk.pokernews.com/poker-rules/texas-holdem.htm) to familiarise yourself with the rules before playing. 
+
+Lastly, good luck beating Big Brain!
 
 ## Testing
 
