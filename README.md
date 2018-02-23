@@ -1,5 +1,7 @@
 # Big Brain
 
+![logo](https://ibb.co/eDEqVx)
+
 Big brain is a game where you can play heads-up (one-on-one) Texas Hold’Em Poker vs. our AI. This project was developed in two weeks by four of us as a final project for Makers Academy. 
 
 ## Getting Started
@@ -39,6 +41,8 @@ We should of probably used Mockito from the start, and this is something all of 
 ## Our approach
 
 Visit the blog [here](https://pokerprogressioninjava.wordpress.com/) and read about the development of the project in full.
+
+Find some slides which we used for a presentation [here](http://slides.com/newtdogg/deck#/), a video demo is included. 
 
 **In summary**
 
