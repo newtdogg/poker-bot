@@ -1,6 +1,8 @@
 # Big Brain
 
-<div style="text-align:center"><img src ="http://i63.tinypic.com/29pf4nk.jpg" /></div>
+p align="center">
+  <img src="http://i63.tinypic.com/29pf4nk.jpg" alt="Big Brian Logo"/>
+</p>
 
 Big brain is a game where you can play heads-up (one-on-one) Texas Hold’Em Poker vs. our AI. This project was developed in two weeks by four of us as a final project for Makers Academy. 
 
