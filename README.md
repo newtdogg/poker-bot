@@ -4,6 +4,15 @@ Big brain is a game where you can play heads-up (one-on-one) Texas Hold’Em Pok
 
 ## Getting Started
 
+#### To play
+Go to releases on this GitHub repo, under Assets, download the jar file named `poker-bot.jar`.
+
+This will download an executable file, which runs the game. You may incounter security issues, which can easily be changed by allowing downloaded files to be ran. 
+
+#### Alternarte method
+
+**For UNIX**
+
 First first clone this repo, and locate the file named `poker-bot.jar`
 
 Copy the full file path of the file, and paste it after the following command on the command line.  
