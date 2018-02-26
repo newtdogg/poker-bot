@@ -34,8 +34,7 @@ Lastly, good luck beating Big Brain!
 
 We used JUnit to test, with Mockito to create mocks.
 
-DESCRIBE HOW TO RUN THE TESTS
-
+Intellij allows for you to run the tests within the editor.
 Using intellij’s inbuilt test coverage tool, we found out that our test coverage was very high. For example, for the most important classes, Bot.java and Evaluator.java, our test coverage is 100%.
 
 We should of probably used Mockito from the start, and this is something all of us have taken away from the two week project. We were late to implement it, and we have only used it in a few cases, however given more time we would definitely aim to implement mocking more.
